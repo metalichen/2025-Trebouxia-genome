@@ -1,0 +1,241 @@
+---
+title: "01_wet_lab"
+author: "Gulnara Tagridzhanova"
+date: "23/10/2024"
+output: 
+  html_document:
+    code_folding: hide
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(kableExtra)
+```
+
+**Rationale:** to get a reference genome of Trebouxia matching the existing data, I need to isolate photobiont from the thalli
+
+## 1. Isolation from thallus
+* 23/10/2024
+* Collected X.p. (sample GT0257) from the young oak tree closest to the JIC reception
+* Washed in tap water
+* Used a dissecting scope to extract algae-enriched pieces of the thallus from the cortex. * Homogenized between a glass slide and a cover slip and washed onto the plates with sterilezed water
+* Saved the specimen and also froze some material in -20C 
+* Incubated on bench for 1 week, then moved to the growth chamber
+* In the end, have three plates with Trebouxia:
+  * Plate 1: many many Trebouxia colonies, but a lot of fungal growth
+  * Plate 2 and 3: only few Trebouxia colonies, but much less contamination
+* On 6/12/2024 and 13/12/2024, replated colonies from these plates onto Trebouxia media + rifampicin + carbendazim (20 or 40 mg/mL)
+  * all but one replated from plate 1 had fungal contamination
+  * from plates 2 and 3 look okay
+* On 10/01/2025, selected 4 plates from the 6/12/2024 and 13/12/2024 plates (labelled #1-#4) and restreaked them again on Trebouxia media + rifampicin + carbendazim (20 mg/mL). One of the plates (#1) got contaminated in the process, but all the deriving plates were fine
+* On 20/01/2025, re-labelled all 'good' plates derived from GT0257 to keep better track. The new numbers are GTP0165-178
+
+## 2. Bulking up
+* On 20/01/2025, I made 10 more plates and 10 liquid cultures
+  * Plates: Trebouxia media + rif, azoxystrobin, tebucanazole, carbendazim (poured by Jasper)
+  * Liquid: Trebouxia media (100 mL) + rif (final concentration 50 ug/mL) + carbendazim (25 ug/mL)
+* Selected 5 plates to serve as sources. From each, made 2 plates and 2 liquid cultures:
+  * GTP0178 <- GTP0167 (labeled as from GT0257 3 by Jasper) <- GT0257
+  * GTP0183 <- GTP0170 (had a colony labelled as #2) <- GTP0165 (labeled as from GT0257 1 by Jasper) <- GT0257
+  * GTP0184 <- GTP0170 (had a colony labelled as #2) <- GTP0165 (labeled as from GT0257 1 by Jasper) <- GT0257
+  * GTP0190 <- GTP0173 (had a colony labelled as #4) <- GTP0165 (labeled as from GT0257 1 by Jasper) <- GT0257
+* The plates received numbers GTP0192-201. The liquid cultures were just labeled with a date and their source
+* Put both in the incubator downstairs
+* 10 days later, see good growth and no obvious contamination
+* On 06/02, subcultured again. Used two flasks: one from GTP0183, one from GTP0191. Split each between four new flasks with the same media as above (Trebouxia +  + rif (final concentration 50 ug/mL) + carbendazim (25 ug/mL)). One exception: for one flask from GTP0183 didn't add antibiotics to test for purity. Five days later, the no-antibiotic flask didn't seem to have contamination. Will also try plating!
+
+## 3. Id with PCR
+* 20-21/01/2025
+* From the same plates as were used for inoculating cultures above, took a small sample
+* Isolated DNA with Instagene matrix. Didn't follow some of my previous improvements though:
+  * mixed the matrix well, but not on a magnetic block, and didn't use 1mL tip to add it
+  * Used the same block for 56C and 99C incubation and therefore had to wait for the temperature to rise (while waiting the tubes were at room temperature)
+  * Extractions labeled as GTX0527-531
+* Did PCR on 21/01 (see `analysis_and_temp_files/02_thalli_isolation/2025.01.20_pcr.xslx`)
+* Saved sequencing results in `data/sanger_seq/40-1137197568.fasta`
+* **Results:**
+  * all worked well (except for the poisitive conrol that had a pretty bad sequence quality)
+* aligned the good portions of the sequences plus:
+  * Asterochloris as an outgroup (PQ160483)
+  * rbcL from the plastid genome from GTX0501 assembly. Picked the sequence from contig_257, as it had much higher coverage and therefore most likely belongs to the true photobiont
+```{r,eval=F}
+blastn -query data/sanger_seq/40-1137197568.fasta -subject ../02_long_read_assemblies/data/your-data_fg23028_2023-06-08_0827/FG23028_01.fasta -outfmt 6
+GTX0527-Premixed_C16	contig_242	86.906	779	93	8	29	803	119888	119115	0.0	867
+GTX0527-Premixed_C16	contig_257	86.504	778	98	7	29	803	182134	182907	0.0	850
+
+samtools faidx ../02_long_read_assemblies/data/your-data_fg23028_2023-06-08_0827/FG23028_01.fasta contig_257:182134-182907
+```
+    * saved as `analysis_and_temp_files/02_thalli_isolation/rbcl_pcr.fasta`
+* made a tree using IQ-TREE webserver, saved as `analysis_and_temp_files/02_thalli_isolation/rbcl_pcr.fasta.contree`
+* Renamed the tree
+```{r}
+library(ape)
+library(ggtree)
+tree<-read.tree("../analysis_and_temp_files/01_wet_lab/rbcl_pcr.fasta.contree")
+
+##rename
+rename<-data.frame("extraction"=c("GTX0527","GTX0528","GTX0529","GTX0530","GTX0531","PQ160483.1","contig_257_182134"),
+                "new"=c("GTP0178 (from GTP0167)",
+                       "GTP0183 (from GTP0165)",
+                       "GTP0184 (from GTP0165)",
+                       "GTP0190 (from GTP0165)",
+                       "SAG","PQ160483 Asterochloris",
+                       "Xanthoria_thallus"))
+rename
+```
+
+* GTP0178 is on a very long branch compared to others. The three samples that derived from the plate GTP0165 are very close and close to the sequence from a thallus
+```{r,fig.width=15,fig.height=7}
+rename2<-data.frame("old_names"=tree$tip.label,"extraction"=str_split_i(tree$tip.label, "-", 1)) %>% left_join(rename)
+tree$tip.label<-rename2[[3]][match(tree$tip.label, rename2[[1]])]
+tree <- root(tree, outgroup = "PQ160483 Asterochloris", resolve.root = TRUE)
+ggtree(tree,ladderize = TRUE,right = T,linewidth=0.2)+ geom_tiplab(size=3)
+```
+
+* Sequences from the three samples from GTP0165 are exactly identical
+```{r}
+library(bio3d)
+align <- read.fasta("../analysis_and_temp_files/01_wet_lab/rbcl_pcr.fasta")
+pid<-seqidentity(align)
+pid[3:6,4:6]
+```
+
+* Comparing our SAG sequence to the 'official' (EU123967, reverse complement): 99% identical
+* **Will continue with the cultures deriving from GTP0165 as they seem most consistent with the true photobiont**
+
+
+## 4. Prepare material for sending to SAG
+* 27/02/2025
+* Poured BMM to make slopes in skirted 50 mL falcons
+* Got one flask from GTP1083 from 06/02/2025
+* Centrifuged ~40 mL of the cultures at 4,200g for 4 min
+* Used sterile pasteur pipette to inoculate the slopes
+* Made 15 for GTP0183
+* Three GTP0183 slopes were sent to SAG
+
+## 5. Microscopy
+* 24/02/2025
+* Did microscopy from liquid culture of GTP0183
+* Used same settings as for:
+  * Argon 514 nm on 10.00 intensity (30% on the configuration)
+  * Chlorophyll: 100 gain, 675-750 nm
+
+## 6. Harvesting material for DNA and RNA extractions
+#### First
+* 14/02/2025
+* Used two flasks from each sample:
+  * for GTP0183: one from 20/01/2025 and one from 6/02/2025
+  * for SAG: one from 18/11/2924 and one from 20/01/2025
+* Split them between falcon tubes, span at 4,000rpm for 5 min and removed supernatant
+* In the end, put into 3 1.5mL tubes for GTP0183 and 4 tubes for SAG
+* Started freeze-drying for 3 days. After that, each tube contained ~80 mg of dry material
+* Under a microscope,  GTP0183 looked completely like Trebouxia and healthy. SAG looked a bit weird: brown with some transparent cells
+
+#### Second
+* 19/02/2025
+* for each, harvested flask from 6/02/2025
+* got three tubes from each. One of them was snap frozen and put in -80 for future use
+* In this flask, SAG looked just as green and healthy as GTP0183
+
+
+## 7. DNA isolation
+* All done with Nucleobond HMW kit
+* 19/02/2025
+* Did two reactions
+* GTP0183_old:
+  * Took again one tube from GTP0183 from 14/02/2025
+  * Snap frozen and pulverized with Geno/grinder at 1,300 rpm for 1 min
+  * Split each tube into two. Added 900 uL of H1 buffer + 100 uL of Protease K
+  * Incubated at 50C temperature for 30 min
+  * Spinned for 2 min at 11,000, and combined supernatants from initial tubes in 50 mL falcons. Topped up to 5 mL by adding 3 mL of H1
+  * Proceeded with the extraction according to the protocol
+* GTP0183_new:
+  * Took one tube GTP0183 from 19/02/2025
+  * These were not freeze-dried and contained ~150 mg wet mass each
+  * Snap frozen and pulverized with Geno/grinder at 1,300 rpm for 1 min
+  * Added 900 uL of H1 buffer + 200 uL of Protease K
+  * Incubated at 50C temperature for 30 min
+  * Spinned for 2 min at 11,000, transferred supernatants to 50 mL falcons. Topped up to 5 mL by adding 4 mL of H1 
+* Proceeded with the extraction according to the protocol until the DNA precipitation step. After mixing DNA elute with isopropanol, left the tubes in the coldroom overnight
+* Next morining, centrifuged the mixture for 30 min (instead of 10)
+* Left DNA to resuspend in HE buffer for ~1.5h
+* Got good results!
+```{r}
+df <- data.frame("Extraction ID" = c("GTX0536","GTX0538"),
+                 "Source" = c("GTP0183 harvested 14/02","GTP0183 harvested 19/02"),
+                 "Nanodrop concentration, ng/uL" = c(139,41),
+                 "A260/A230" = c(1.92,1.85),
+                 "A260/A230" = c(2,1.36))
+df %>% 
+   kable(format = "html", col.names = colnames(df)) %>%
+  kable_styling() %>%
+  kableExtra::scroll_box(width = "100%", height = "300px")
+```
+
+#### QC of GTX0536
+* 20-24/02/2025
+* Ran gel, got bands at >15 kbp, with some smear
+* Did qubit with HS reagents, got 128 ng/uL
+* Future Genomics requested >2 ug of DNA in >50 ng/uL
+  * will send 50 uL, which amounts to 6.4 ug
+* On 19/02, did PCR on both extractions using the rbcL primers
+  * GTX0536 got good sequences of Trebouxia. It's 98.93% identical to several sequences of T. decoloranse and 98.80% to at least one sequence of T. crenulata. The region seems to be very conserved, so will need to extract ITS from the genome sequence to make a tree with a better taxonomic resolution
+
+## 8. RNA extraction
+#### Initial extraction
+* 19/02/2025
+* Snap-froze one tube of GTP0183 harvested on 19/02
+* Freeze-dried for ~4 h
+* Extracted using RNEasy Plant Mini Kit, following instructions including the DNA digestion step. Used old kit and old DNAse (from November 2022). The DNAse was stored as aliquote in -20 in my PCR reagents box, which I basically never take out. It was likely left undisturbed since January 2023 (minus times when I cleaned my drawer). I therefore decided to trust it.
+* Split into two reactions
+* Results (each is ~30 uL) according to Nanodrop:
+```{r}
+df <- data.frame("Extraction ID" = c("GTX0532","GTX0533"),
+                 "Nanodrop concentration, ng/uL" = c(474,475))
+df %>% 
+   kable(format = "html", col.names = colnames(df)) %>%
+  kable_styling() %>%
+  kableExtra::scroll_box(width = "100%", height = "300px")
+```
+
+#### DNA digestion
+* Got worried about DNAse being too old
+* Ordered a new DNAse kit
+* Cleaned up GTX0532 and GTX0534 using the protocol from Appendix C RNeasy MinElute Cleanup Handbook and protocol for clean-up from the RNeasy Mini Kit
+* Dissolved the lyophilized DNase I in 550 uL of the RNase-free water (injected with syringe)
+* Mixed:
+  * 30 uL of RNA extraction
+  * 10 uL Buffer RDD
+  * 2.5 uL DNase I stock solution
+  * 57.5 uL of RNase-free H2O (to the total of 100 uL)
+* Incubated for 10 min at RT
+* Added 350 uL of buffer RLT + beta-mercaptoethanol. mixed
+* Added 250 uL of 100% EtOH, mixed
+* Put in pink column, span 15s at 12,000g, discarded flow-thru
+* Added 500 uL of RPE, span 15s at 12,000g, discarded flow-thru
+* Added 500 uL of RPE, span 2m at 12,000g, discarded flow-thru
+* Put in a new collection tube, span 1m at 12,000g
+* Put in a 1.5 tube, added 40 uL of RNAse-free H2O
+* Span 1m at 12,000g
+* Results looked good. Concentration dropped by 20-25%, but this was expected.
+
+#### Send to Novogen for sequencing
+* Used the DNA re-digested extractions 
+* Sent to Novogen on 26/02
+```{r}
+df <- data.frame("Extraction ID" = c("GTX0532"),
+                 "Strain" = c("GTP0183"),
+                 "Source" = c("Flask 06/02/2025"),
+                 "Nanodrop concentration, ng/uL" = c(380),
+                 "A260/A230" = c(2.21),
+                 "A260/A230" = c(1.83),
+                 "Volume sent, uL" = c(20),
+                 "DNA mass, ug" = c(380*20/1000),
+                 "Volume left, uL" = c(10))
+
+df %>% 
+   kable(format = "html", col.names = colnames(df)) %>%
+  kable_styling() %>%
+  kableExtra::scroll_box(width = "100%", height = "150px")
+```
