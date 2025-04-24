@@ -1,0 +1,21 @@
+#name	length
+OZ234906.1 Trebouxia sp. SL0000003 genome assembly, chromosome: 1	4988964
+OZ234907.1 Trebouxia sp. SL0000003 genome assembly, chromosome: 2	4575894
+OZ234908.1 Trebouxia sp. SL0000003 genome assembly, chromosome: 3	4030754
+OZ234925.1 Trebouxia sp. SL0000003 genome assembly, chromosome: 20	1927750
+OZ234924.1 Trebouxia sp. SL0000003 genome assembly, chromosome: 19	1969713
+OZ234923.1 Trebouxia sp. SL0000003 genome assembly, chromosome: 18	2217401
+OZ234922.1 Trebouxia sp. SL0000003 genome assembly, chromosome: 17	2422596
+OZ234921.1 Trebouxia sp. SL0000003 genome assembly, chromosome: 16	2695450
+OZ234920.1 Trebouxia sp. SL0000003 genome assembly, chromosome: 15	2640754
+OZ234919.1 Trebouxia sp. SL0000003 genome assembly, chromosome: 14	2842224
+OZ234918.1 Trebouxia sp. SL0000003 genome assembly, chromosome: 13	2733792
+OZ234917.1 Trebouxia sp. SL0000003 genome assembly, chromosome: 12	2908467
+OZ234916.1 Trebouxia sp. SL0000003 genome assembly, chromosome: 11	3059195
+OZ234915.1 Trebouxia sp. SL0000003 genome assembly, chromosome: 10	3140284
+OZ234914.1 Trebouxia sp. SL0000003 genome assembly, chromosome: 9	3288849
+OZ234913.1 Trebouxia sp. SL0000003 genome assembly, chromosome: 8	3320455
+OZ234912.1 Trebouxia sp. SL0000003 genome assembly, chromosome: 7	3564309
+OZ234911.1 Trebouxia sp. SL0000003 genome assembly, chromosome: 6	3664244
+OZ234910.1 Trebouxia sp. SL0000003 genome assembly, chromosome: 5	3768901
+OZ234909.1 Trebouxia sp. SL0000003 genome assembly, chromosome: 4	3945250

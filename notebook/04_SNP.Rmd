@@ -1,0 +1,292 @@
+---
+title: "04_SNP.md"
+author: "Gulnara Tagridzhanova"
+date: "31/03/2025"
+output: 
+  html_document:
+    code_folding: hide
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(kableExtra)
+```
+
+## 1. DNA data
+* Made a bam file aligning reads to the purified nuclear genome
+```{r,eval=F}
+source package c92263ec-95e5-43eb-a527-8f1496d56f1a 
+source package 222eac79-310f-4d4b-8e1c-0cece4150333
+
+minimap2 -t 20 -a analysis_and_temp_files/02_genome_annotation/GTX0536_nuclear_final_sort2.fasta data/your-data_fg25005_2025-03-20_1225/FG25005_05_PAO94355_20250305_dorado_7.4.13_sup_pass.fastq.gz | samtools sort -@8 -o analysis_and_temp_files/04_SNP/GTX0536_nuclear_final_sort2.bam
+
+samtools index analysis_and_temp_files/04_SNP/GTX0536_nuclear_final_sort2.bam
+```
+
+#### Varscan
+* Deduplicate with picard 2.21.2
+```{r,eval=F}
+source package ce4daee0-abd9-4cc6-8b13-5fe8ede3b149
+
+picard MarkDuplicates I=analysis_and_temp_files/04_SNP/GTX0536_nuclear_final_sort2.bam O=analysis_and_temp_files/04_SNP/GTX0536_nuclear_final_sort2.dedup.bam M=analysis_and_temp_files/04_SNP/GTX0536_nuclear_final_sort2.dedup.stats.txt ASSUME_SORT_ORDER=coordinate CREATE_INDEX=true TMP_DIR="temp"
+```
+* Pileup
+```{r,eval=F}
+source package 638df626-d658-40aa-80e5-14a275b7464b
+source package /tsl/software/testing/bin/varscan-2.3.9
+
+samtools mpileup -f analysis_and_temp_files/02_genome_annotation/GTX0536_nuclear_final_sort2.fasta analysis_and_temp_files/04_SNP/GTX0536_nuclear_final_sort2.dedup.bam | varscan mpileup2snp --p-value 0.1 --min-var-freq 0.005 | bgzip > analysis_and_temp_files/04_SNP/GTX0536_nuclear_final_sort2.vcf2.gz
+```
+* Output:
+  * 69091931 bases in pileup file
+  * 993146 variant positions (129249 SNP, 863897 indel)
+  * 242145 were failed by the strand-filter
+  * 74826 variant positions reported (74826 SNP, 0 indel)
+
+```{r,eval=F}
+zless analysis_and_temp_files/04_SNP/GTX0536_nuclear_final_sort2.vcf2.gz | grep -v ':-:-:-:-' | bgzip > analysis_and_temp_files/04_SNP/GTX0536_nuclear_final_sort2-miss1.vcf.gz
+```
+* Reformat the output from varscan (replace whitespaces with tabs)
+```{r,eval=F}
+source package 6dc9949e-7282-4b10-b6f4-7fed2a08821e
+
+/software/6dc9949e-7282-4b10-b6f4-7fed2a08821e/bin/python3 code/filter_vcf.py analysis_and_temp_files/04_SNP/GTX0536_nuclear_final_sort2-miss1.vcf.gz analysis_and_temp_files/02_genome_annotation/GTX0536_nuclear_final_sort2.fasta analysis_and_temp_files/04_SNP/GTX0536_nuclear_final_sort2-miss1.reformat.vcf 100000
+```
+
+* Remove SNPs from TEs.
+```{r,eval=F}
+source package b0ed0698-358b-4c9b-9d21-603ea8d6e478
+source package 638df626-d658-40aa-80e5-14a275b7464b
+
+bcftools view -h analysis_and_temp_files/04_SNP/GTX0536_nuclear_final_sort2-miss1.reformat.vcf > analysis_and_temp_files/04_SNP/GTX0536_nuclear_final_sort2-miss1.reformat.noTEs.vcf
+
+bedtools intersect -a analysis_and_temp_files/04_SNP/GTX0536_nuclear_final_sort2-miss1.reformat.vcf -b analysis_and_temp_files/02_genome_annotation/GTX0536_nuclear_final_sort2.fasta.out.gff -v >> analysis_and_temp_files/04_SNP/GTX0536_nuclear_final_sort2-miss1.reformat.noTEs.vcf
+```
+
+* Plotted coverage, which largely makes sence given the 200x coverage. Will only plot MAF for SNP with coverage between 150 and 300
+```{r}
+library(vcfR)
+vcf <- read.vcfR("../analysis_and_temp_files/04_SNP/GTX0536_nuclear_final_sort2-miss1.reformat.noTEs.vcf", verbose = FALSE)
+
+# Get the total coverage of the site
+coverage <- extract.gt(vcf, element="Cov", as.numeric = TRUE) %>% data.frame() %>% tibble::rownames_to_column("POS") %>% gather("sample", "cov", -POS)
+# Get depth of the first allele
+reads1 <- extract.gt(vcf, element="Reads1", as.numeric = TRUE) %>% data.frame() %>% tibble::rownames_to_column("POS") %>% gather("sample", "allele1", -POS)
+reads2 <- extract.gt(vcf, element="Reads2", as.numeric = TRUE) %>% data.frame() %>% tibble::rownames_to_column("POS") %>% gather("sample", "allele2", -POS)
+
+
+vcfdf <- cbind(coverage, allele1 = reads1$allele1, allele2 = reads2$allele2) %>% filter((allele1 + allele2) == cov)
+
+## Calculate the Minor Allele Frequency per site and remove homozygous sites
+vcfdf <- mutate(vcfdf, maf = pmin(allele1, allele2)/cov) %>% filter(maf > 0) %>%
+  mutate(vcfdf, major = pmax(allele1, allele2)/cov)
+
+ggplot(vcfdf %>% filter(cov < 1000), aes(x=sample, y=cov)) + 
+  geom_violin(fill="#C0C0C0", adjust=1.0, scale = "count", trim=TRUE) +
+  theme_bw() + ylab("Depth of coverage") +
+  theme(axis.title.x = element_blank())
+```
+
+* This looks very haploid
+```{r}
+vcfdf2<- vcfdf %>% filter(cov < 240, cov > 200, maf>0.02,major<0.98)
+ggplot(vcfdf2) + 
+   geom_histogram(aes(x = maf),fill = "darkgoldenrod3",binwidth=0.01) + ylab("Count") + 
+  geom_histogram(aes(x = major),fill = "#8c2720",binwidth=0.01)+
+   xlab("Minor allele frequency") + ylab("Frequency of sites") +
+  theme_light() +
+
+  theme(strip.text.x = element_text(size = 13),
+        axis.title=element_text(size=13)) + 
+  guides(fill=FALSE) # Remove legend
+```
+
+* Zooming into the plot, however, can see a peak aroung 40-60%. The peak looks broad, not sure if it's okay
+```{r}
+vcfdf2<- vcfdf %>% filter(cov < 240, cov > 200, maf>0.05,major<0.95)
+ggplot(vcfdf2) + 
+   geom_histogram(aes(x = maf),fill = "darkgoldenrod3",binwidth=0.01) + ylab("Count") + 
+  geom_histogram(aes(x = major),fill = "#8c2720",binwidth=0.01)+
+   xlab("Minor allele frequency") + ylab("Frequency of sites") +
+  theme_light() +
+
+  theme(strip.text.x = element_text(size = 13),
+        axis.title=element_text(size=13)) + 
+  guides(fill=FALSE) # Remove legend
+
+```
+
+* The peak 40-60% comes almost exclusively from one contig, and more specifically from a 7 kbp stretch GTX0536_10:112447-119090
+  * Looking more closely, these are two regions flanking a gene model: 112447-115459 (has 36-41% maf)	and 117766-119090 (39-50%)
+```{r,fig.width=6,fig.height=10}
+vcfdf$contig<-str_replace(vcfdf$POS,"GTX0536_","")
+vcfdf$contig<- sub("\\_.*", "", vcfdf$contig)
+vcfdf$position<- sub("GTX0536\\_[0-9]+\\_", "", vcfdf$POS) %>% as.numeric()
+  
+ggplot(vcfdf %>% filter(cov < 240, cov > 200, maf>0.05,major<0.95)) + 
+   geom_histogram(aes(x = maf),fill = "darkgoldenrod3",binwidth=0.01) + ylab("Count") + 
+  geom_histogram(aes(x = major),fill = "#8c2720",binwidth=0.01)+
+   xlab("Minor allele frequency") + ylab("Frequency of sites") +
+  theme_light() +
+  theme(strip.text.x = element_text(size = 13),
+        axis.title=element_text(size=13)) + 
+  guides(fill=FALSE) +# Remove legend 
+facet_wrap(~contig,ncol=3)
+```
+
+* Blasted these regions against the rest of the assembly
+```{r,eval=F}
+samtools faidx analysis_and_temp_files/02_genome_annotation/GTX0536_nuclear_final_sort2.fasta GTX0536_10:112447-115459 > analysis_and_temp_files/04_SNP/GTX0536_10_high_maf.fa
+
+samtools faidx analysis_and_temp_files/02_genome_annotation/GTX0536_nuclear_final_sort2.fasta GTX0536_10:117766-119090 >> analysis_and_temp_files/04_SNP/GTX0536_10_high_maf.fa
+
+blastn -query analysis_and_temp_files/04_SNP/GTX0536_10_high_maf.fa -subject analysis_and_temp_files/02_genome_annotation/GTX0536_nuclear_final_sort2.fasta -outfmt 6 -out analysis_and_temp_files/02_genome_annotation/GTX0536_nuclear_final_sort2.blast
+```
+
+* The stretches received 483 and 283 hits respectively, all hits were >80% identical and many covered >70% of the query. They also came from many different contigs. From this, I can conclude that these two regions are in fact repeats that somehow evaded annotation
+* Removed the SNPs from this region
+```{r}
+vcfdf2<- vcfdf %>% filter(cov < 240, cov > 200, maf>0.03,major<0.97) %>%
+  filter(contig!=10 | position<112447 | position>119090)
+ggplot(vcfdf2) + 
+   geom_histogram(aes(x = maf),fill = "darkgoldenrod3",binwidth=0.01) + ylab("Count") + 
+  geom_histogram(aes(x = major),fill = "#8c2720",binwidth=0.01)+
+   xlab("Minor allele frequency") + ylab("Frequency of sites") +
+  theme_light() +
+
+  theme(strip.text.x = element_text(size = 13),
+        axis.title=element_text(size=13)) + 
+  guides(fill=FALSE) # Remove legend
+
+ggsave("../results/maf.pdf",width=3,height=2)
+```
+
+#### nQuire
+* Compile
+```{r,eval=F}
+cd ../nQuire
+make submodules
+make
+```
+* Run
+```{r,eval=F}
+cd ../08_isolation_trebouxia
+../nQuire/nQuire create -b analysis_and_temp_files/04_SNP/clair_in/GTX0536_nuclear_final_sort.bam -o analysis_and_temp_files/04_SNP/GTX0536_nQuire
+
+../nQuire/nQuire view  analysis_and_temp_files/04_SNP/clair_in/GTX0536_nQuire.bin > analysis_and_temp_files/04_SNP/GTX0536_nQuire.txt
+```
+* Visualize
+```{r}
+nq <- read.delim2("../analysis_and_temp_files/04_SNP/GTX0536_nQuire.txt",header=F)
+colnames(nq)<-c("cov","allele1", "allele2")
+## Calculate the Minor Allele Frequency per site and remove homozygous sites
+nq <- mutate(nq, maf = pmin(allele1, allele2)/cov) %>% filter(maf > 0)
+
+ggplot(nq%>% filter(cov < 1000), aes(x="GTX0536", y=cov)) + 
+  geom_violin(fill="#C0C0C0", adjust=1.0, scale = "count", trim=TRUE) +
+  theme_bw() + ylab("Depth of coverage") +
+  theme(axis.title.x = element_blank())
+```
+
+* This program seem to have excluded positions with <0.14 MAF. Overall, however, it's also showing haploid pattern
+```{r}
+nq2<- nq %>% filter(cov < 300, cov > 150)
+ggplot(nq2, aes(x = maf, fill = sample)) + 
+   geom_histogram(fill = "darkgoldenrod3") + ylab("Count") +  ## Plot the raw counts
+   xlab("Minor allele frequency") + ylab("Frequency of sites") +
+  theme_light() +
+
+  theme(strip.text.x = element_text(size = 13),
+        axis.title=element_text(size=13)) + 
+  guides(fill=FALSE) # Remove legend
+
+```
+
+### 6.2 RNA data
+* Align RNA with STAR
+```{r,eval=F}
+mkdir analysis_and_temp_files/04_SNP/GTX0536_STAR_index -p
+
+source package /tgac/software/testing/bin/STAR-2.5.4b 
+source package /tgac/software/testing/bin/gcc-4.9.1 
+source package aeee87c4-1923-4732-aca2-f2aff23580cc
+
+STAR --runThreadN 10  --genomeSAindexNbases 6 \
+--runMode genomeGenerate \
+--genomeDir analysis_and_temp_files/04_SNP/GTX0536_STAR_index \
+--genomeFastaFiles analysis_and_temp_files/02_genome_annotation/GTX0536_nuclear_final_sort.fasta
+
+sbatch --mem=210G -c 20 --wrap="code/star_align.sh  \
+data/RNA_seq/X204SC25014007-Z01-F001/01.RawData/GTX0532/GTX0532_EKRN250006470-1A_22MTC7LT4_L8_1.fq.gz \
+data/RNA_seq/X204SC25014007-Z01-F001/01.RawData/GTX0532/GTX0532_EKRN250006470-1A_22MTC7LT4_L8_2.fq.gz \
+analysis_and_temp_files/04_SNP/GTX0536_STAR_index/touch 20 analysis_and_temp_files/04_SNP/GTX0536_GTX0532.bam"
+```
+
+* Sort the bam file
+```{r,eval=F}
+samtools index analysis_and_temp_files/04_SNP/GTX0536_GTX0532Aligned.sortedByCoord.out.bam
+```
+* Deduplicate with picard 2.21.2
+```{r,eval=F}
+source package ce4daee0-abd9-4cc6-8b13-5fe8ede3b149
+
+picard MarkDuplicates I=analysis_and_temp_files/04_SNP/GTX0536_GTX0532Aligned.sortedByCoord.out.bam O=analysis_and_temp_files/04_SNP/GTX0536_GTX0532Aligned.sortedByCoord.dedup.bam M=analysis_and_temp_files/04_SNP/GTX0536_GTX0532Aligned.sortedByCoord.dedup.stats.txt ASSUME_SORT_ORDER=coordinate CREATE_INDEX=true TMP_DIR="temp"
+```
+* Pileup
+```{r,eval=F}
+source package 638df626-d658-40aa-80e5-14a275b7464b
+source package /tsl/software/testing/bin/varscan-2.3.9
+
+samtools mpileup -f analysis_and_temp_files/02_genome_annotation/GTX0536_nuclear_final_sort.fasta analysis_and_temp_files/04_SNP/GTX0536_GTX0532Aligned.sortedByCoord.dedup.bam | varscan mpileup2snp --p-value 0.1 --min-var-freq 0.005 | bgzip > analysis_and_temp_files/04_SNP/GTX0536_GTX0532.vcf.gz
+```
+* Output:
+  * 67461432 bases in pileup file
+  * 18168 variant positions (16781 SNP, 1387 indel)
+  * 576 were failed by the strand-filter
+  * 16230 variant positions reported (16230 SNP, 0 indel)
+* Filtering out steps with missing data
+```{r,eval=F}
+zless analysis_and_temp_files/04_SNP/GTX0536_GTX0532.vcf.gz | grep -v ':-:-:-:-' | bgzip > analysis_and_temp_files/04_SNP/GTX0536_GTX0532-miss1.vcf.gz
+```
+* Reformat the output from varscan (replace whitespaces with tabs)
+```{r,eval=F}
+source package 6dc9949e-7282-4b10-b6f4-7fed2a08821e
+
+/software/6dc9949e-7282-4b10-b6f4-7fed2a08821e/bin/python3 code/filter_vcf.py analysis_and_temp_files/04_SNP/GTX0536_GTX0532-miss1.vcf.gz analysis_and_temp_files/02_genome_annotation/GTX0536_nuclear_final_sort.fasta analysis_and_temp_files/04_SNP/GTX0536_GTX0532-miss1.reformat.vcf 100000
+```
+* This looks haploid to me! However, it's not clear whether you can use RNA data to detect diploidy
+```{r}
+vcf <- read.vcfR("../analysis_and_temp_files/04_SNP/GTX0536_GTX0532-miss1.reformat.vcf", verbose = FALSE)
+
+# Get the total coverage of the site
+coverage <- extract.gt(vcf, element="Cov", as.numeric = TRUE) %>% data.frame() %>% tibble::rownames_to_column("POS") %>% gather("sample", "cov", -POS)
+# Get depth of the first allele
+reads1 <- extract.gt(vcf, element="Reads1", as.numeric = TRUE) %>% data.frame() %>% tibble::rownames_to_column("POS") %>% gather("sample", "allele1", -POS)
+reads2 <- extract.gt(vcf, element="Reads2", as.numeric = TRUE) %>% data.frame() %>% tibble::rownames_to_column("POS") %>% gather("sample", "allele2", -POS)
+
+
+vcfdf <- cbind(coverage, allele1 = reads1$allele1, allele2 = reads2$allele2)
+
+## Calculate the Minor Allele Frequency per site and remove homozygous sites
+vcfdf <- mutate(vcfdf, maf = pmin(allele1, allele2)/cov) %>% filter(maf > 0)
+
+ggplot(vcfdf %>% filter(maf>0.01), aes(x = maf, fill = sample)) + 
+  # geom_histogram(fill = "darkgoldenrod3") + ylab("Count") +  ## Plot the raw counts
+  geom_histogram(aes(y=(..count..)/tapply(..count..,..PANEL..,sum)[..PANEL..])) + 
+   xlab("Minor allele frequency") + ylab("Frequency of sites") +
+  theme_light() +
+  coord_cartesian(ylim=c(0, 0.25)) + # Remove the loooong values to improve clarity 
+  #scale_fill_manual(values = c("L.columbiana" = "#ecbdecff", 
+   #                            "L.lupina" = "#c7e1a8ff", 
+    #                           "L.lupina_culture" = "#c7e1a8ff",
+     #                          "L.rugosa" = "#f9d5bdff", 
+      #                         "L.vulpina" = "#b7d2fdff")) + 
+  theme(strip.text.x = element_text(size = 13),
+        axis.title=element_text(size=13)) + 
+  guides(fill=FALSE) # Remove legend
+
+```
+
+
+

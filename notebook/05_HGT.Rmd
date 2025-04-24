@@ -1,0 +1,352 @@
+---
+title: "05_HGT.md"
+author: "Gulnara Tagridzhanova"
+date: "14/04/2025"
+output: 
+  html_document:
+    code_folding: hide
+---
+
+## 1. Identify sequences in my genome annotations
+* Downloaded sequences fro the putative HGT genes. Unfortunately they only uploaded them as nuclotide fastas, and I cannot find a way to transcribe them without getting floded by stop codons:
+  * KF573967.1 Trebouxia decolorans clone contig_699 putative sulfite efflux pump/TDT transporter-like gene
+  * KF573968.1 Trebouxia decolorans clone contig_18734 putative nitrilase-like gene
+  * KF573969.1 Trebouxia decolorans clone contig_45971 putative oxidoreductase-like gene
+  
+#### GTX0536
+* Blasted them against transcripts, got hight quality matches for 2 out of 3
+```{r,eval =F}
+blastn -query analysis_and_temp_files/02_genome_annotation/hgt_genbank.fa -subject analysis_and_temp_files/02_genome_annotation/GTX0536_pred2/annotate_results/Trebouxia_sp._A48.mrna-transcripts.fa -evalue 1e-5 -outfmt 6
+
+KF573967.1      GTX0536PRED_006449-T1   84.825  1140    162     6       878     2008    1358    221     0.0     1136
+KF573969.1      GTX0536PRED_004195-T1   91.977  349     27      1       223     570     1085    737     1.36e-137       488
+```
+* Blasted them against purified assembly, got matches to the same proteins
+```{r,eval =F}
+blastn -query analysis_and_temp_files/02_genome_annotation/hgt_genbank.fa -subject analysis_and_temp_files/02_genome_annotation/GTX0536_pred2/annotate_results/Trebouxia_sp._A48.scaffolds.fa -evalue 1e-5 -outfmt 6
+
+KF573967.1      GTX0536_7       84.825  1140    162     6       878     2008    3865438 3864301 0.0     1136
+KF573967.1      GTX0536_2       81.174  409     68      7       3306    3707    2812042 2811636 8.64e-86        320
+KF573967.1      GTX0536_4       80.529  416     72      7       3305    3713    3708835 3709248 5.20e-83        311
+KF573967.1      GTX0536_9       80.336  417     73      7       3304    3713    3299882 3300296 6.72e-82        307
+KF573967.1      GTX0536_6       75.893  224     44      9       2469    2687    1661616 1661834 2.63e-21        106
+KF573967.1      GTX0536_19      76.536  179     29      10      3383    3552    1684267 1684441 3.43e-15        86.1
+KF573967.1      GTX0536_1       78.261  138     26      4       2520    2655    4223606 4223741 3.43e-15        86.1
+KF573969.1      GTX0536_5       91.713  362     29      1       223     583     482970  483331  4.36e-141       501
+
+```
+
+* Blasted them against whole assembly with the same result
+```{r,eval =F}
+blastn -query analysis_and_temp_files/02_genome_annotation/hgt_genbank.fa -subject analysis_and_temp_files/02_genome_annotation/GTX0536.fasta -evalue 1e-5 -outfmt 6
+
+blastn -query analysis_and_temp_files/02_genome_annotation/hgt_genbank.fa -subject analysis_and_temp_files/02_genome_annotation/GTX0536.fasta -evalue 1e-5 -outfmt 6
+KF573967.1      ptg000013l      84.825  1140    162     6       878     2008    3865438 3864301 0.0     1136
+KF573967.1      ptg000012l      81.174  409     68      7       3306    3707    2812042 2811636 9.58e-86        320
+KF573967.1      ptg000009l      80.529  416     72      7       3305    3713    3708835 3709248 5.76e-83        311
+KF573967.1      ptg000015l      80.336  417     73      7       3304    3713    3299882 3300296 7.46e-82        307
+KF573967.1      ptg000017l      75.893  224     44      9       2469    2687    1661616 1661834 2.92e-21        106
+KF573967.1      ptg000011l      76.536  179     29      10      3383    3552    1684267 1684441 3.80e-15        86.1
+KF573967.1      ptg000002l      78.261  138     26      4       2520    2655    4223606 4223741 3.80e-15        86.1
+KF573969.1      ptg000010l      91.713  362     29      1       223     583     482970  483331  4.84e-141       501
+```
+
+
+
+#### SL000003
+* Blasted agains mrna: nothing
+```{r,eval =F}
+blastn -query analysis_and_temp_files/02_genome_annotation/hgt_genbank.fa -subject analysis_and_temp_files/02_genome_annotation/SL0000003_pred/annotate_results/Trebouxia_SL0000003_SL0000003.mrna-transcripts.fa  -evalue 1e-3 -outfmt 6
+```
+* Blasted against scafflods, got sequences for KF573967.1
+```{r,eval =F}
+blastn -query analysis_and_temp_files/02_genome_annotation/hgt_genbank.fa -subject analysis_and_temp_files/02_genome_annotation/SL0000003_pred/annotate_results/Trebouxia_SL0000003_SL0000003.scaffolds.fa  -evalue 1e-3 -outfmt 6
+
+KF573967.1      scaffold_14     93.352  1444    91      5       803     2243    501038  499597  0.0     2130
+KF573967.1      scaffold_3      83.446  296     35      9       3383    3670    3033618 3033329 1.36e-68        263
+KF573967.1      scaffold_7      81.570  293     44      7       3388    3671    1684351 1684060 1.07e-59        233
+KF573967.1      scaffold_10     78.077  260     30      15      3304    3553    408525  408283  2.39e-31        139
+KF573967.1      scaffold_15     75.115  217     47      7       2474    2687    257738  257526  5.25e-18        95.3
+```
+
+* It appears this gene wasn't annotated. Blasted the protein from my assembly against SL0000003, isolated the match and translated it to get the protein sequence
+```{r,eval =F}
+samtools faidx analysis_and_temp_files/02_genome_annotation/GTX0536_pred2/annotate_results/Trebouxia_sp._A48.proteins.fa GTX0536PRED_006449-T1 >  analysis_and_temp_files/05_HGT/GTX0536PRED_006449.faa
+
+tblastn -query analysis_and_temp_files/05_HGT/GTX0536PRED_006449.faa -subject analysis_and_temp_files/02_genome_annotation/SL0000003_pred/annotate_results/Trebouxia_SL0000003_SL0000003.scaffolds.fa -outfmt 6
+GTX0536PRED_006449-T1   scaffold_14     79.949  389     77      1       1       389     499810  500973  0.0     599
+GTX0536PRED_006449-T1   scaffold_14     39.577  331     192     2       28      353     764443  763460  9.89e-52        187
+GTX0536PRED_006449-T1   scaffold_14     45.588  68      32      2       291     354     763656  763456  3.89e-08        56.6
+GTX0536PRED_006449-T1   scaffold_12     28.750  80      47      4       96      165     1819668 1819907 2.1     31.6
+GTX0536PRED_006449-T1   scaffold_20     37.931  29      18      0       28      56      141652  141566  5.4     30.4
+
+samtools faidx analysis_and_temp_files/02_genome_annotation/SL0000003_pred/annotate_results/Trebouxia_SL0000003_SL0000003.scaffolds.fa scaffold_14:499810-500973 > analysis_and_temp_files/05_HGT/SL0000003_GTX0536PRED_006449.fa
+```
+
+## 2. Blasted the protein sequences against NCBI
+* For both GTX0536PRED_006449-T1 and GTX0536PRED_004195-T1, blasted them against NCBI nt and nr, saves both results as csv. For nr, also saved as faa
+* For the same proteins, ran the search against nr excluding fungi -> saved csv and faa
+* For the same proteins, ran the search against nr including only Viridiplanta -> saved csv and faa
+
+## 3. Visualize scores
+* Pull together all hits and filter to include only hits with >75% query cover
+* Define a funciton to do this
+```{r}
+library(stringr)
+library(tidyverse)
+library(taxize)
+library(RColorBrewer)
+  
+analyze_blast  <- function(d){  
+  d <- d  %>%
+  mutate(ID = str_match(Accession, "gov\\/.*\\/(.*?)\\?report")[,2],
+         cover = as.numeric(str_replace(Query.Cover,"%",""))) %>%
+  filter(cover>75)
+  d$Per..ident<-as.numeric(d$Per..ident)
+
+#get taxid for each hit based on its accession ID
+get_taxid <- function(x){
+df <- data.frame("accession"=x,"taxid"=genbank2uid(id = x,key="86df5e42e9751ae03c5e114326c1740ef008")[[1]][1])
+return(df)}
+
+l<-lapply(d$ID,get_taxid)
+acc_taxid <- do.call(rbind,l)
+acc_taxid <- acc_taxid %>% filter(!is.na(taxid),taxid!="") %>% distinct()
+
+#get taxonomy for each taxid
+get_taxonomy<- function(x){
+  df <- classification(x,db="ncbi",key="86df5e42e9751ae03c5e114326c1740ef008")[[1]]
+  df <- df %>% filter(rank %in% c("kingdom","phylum","class","order","family","genus")) %>% select(-id) %>% mutate(taxid=x)
+  return(df)}
+l2<-lapply(unique(acc_taxid$taxid),get_taxonomy)
+taxonomy <- do.call(rbind,l2)
+taxonomy <- taxonomy %>% pivot_wider(names_from=rank,values_from=name)
+
+#combine
+d <- d %>% left_join(acc_taxid,by=c("ID"="accession")) %>%
+  left_join(taxonomy) %>% filter(!is.na(taxid))
+return(d)}
+```
+* Visualize both genes nr and nt separately
+```{r}
+nr_6449 <- rbind(read.csv2("../analysis_and_temp_files/05_HGT/GTX0536PRED_006449_nr.csv",sep=","),
+      read.csv2("../analysis_and_temp_files/05_HGT/GTX0536PRED_006449_nr_no_fungi.csv",sep=","),
+      read.csv2("../analysis_and_temp_files/05_HGT/GTX0536PRED_006449_nr_viridiplanta.csv",sep=",")) 
+
+nr_6449 <- analyze_blast(nr_6449)
+nr_6449$database <- "nr"
+nr_6449$gene <- "GTX0536PRED_006449"
+
+
+nt_6449 <- rbind(read.csv2("../analysis_and_temp_files/05_HGT/GTX0536PRED_006449_nt.csv",sep=","),
+      read.csv2("../analysis_and_temp_files/05_HGT/GTX0536PRED_006449_nt_no_fungi.csv",sep=","),
+      read.csv2("../analysis_and_temp_files/05_HGT/GTX0536PRED_006449_nt_viridiplanta.csv",sep=",")) 
+
+nt_6449 <- analyze_blast(nt_6449)
+nt_6449$database <- "nt"
+nt_6449$gene <- "GTX0536PRED_006449"
+
+
+nr_4195 <- rbind(read.csv2("../analysis_and_temp_files/05_HGT/GTX0536PRED_004195_nr.csv",sep=","),
+      read.csv2("../analysis_and_temp_files/05_HGT/GTX0536PRED_004195_nr_no_fungi.csv",sep=","),
+      read.csv2("../analysis_and_temp_files/05_HGT/GTX0536PRED_004195_nr_viridiplanta.csv",sep=",")) 
+
+nr_4195 <- analyze_blast(nr_4195)
+nr_4195$database <- "nr"
+nr_4195$gene <- "GTX0536PRED_004195"
+
+nt_4195 <- rbind(read.csv2("../analysis_and_temp_files/05_HGT/GTX0536PRED_004195_nt.csv",sep=","),
+      read.csv2("../analysis_and_temp_files/05_HGT/GTX0536PRED_004195_nt_no_fungi.csv",sep=","),
+      read.csv2("../analysis_and_temp_files/05_HGT/GTX0536PRED_004195_nt_viridiplanta.csv",sep=",")) 
+
+nt_4195 <- analyze_blast(nt_4195)
+nt_4195$database <- "nt"
+nt_4195$gene <- "GTX0536PRED_004195"
+
+all <- rbind(nt_4195,nr_4195,nt_6449,nr_6449)
+
+
+all <- all %>%
+  mutate(taxonomy = case_when(order=="Trebouxiales" ~ order,
+    class=="Trebouxiophyceae"& order!="Trebouxiales" ~ "other Trebouxiophyceae",
+       phylum == "Chlorophyta" & class!="Trebouxiophyceae" ~ "other Chlorophyta",
+      kingdom == "Fungi" ~ kingdom,
+     kingdom == "Viridiplantae" ~ "other Viridiplantae",
+     phylum == "Rhodophyta" ~ "other Viridiplantae",
+    kingdom == "Metazoa" ~ kingdom ,
+    class=="Filasterea" | phylum== "Heterolobosea" |  phylum=="Evosea" ~ "protists",
+     kingdom %in% c("Pseudomonadati","Thermotogati","Bacillati") |
+      class=="Deltaproteobacteria"~ "Bacteria"))
+
+all$taxonomy <- factor(all$taxonomy,levels=c("Trebouxiales","other Trebouxiophyceae","other Chlorophyta","other Viridiplantae","Fungi","Metazoa","protists","Bacteria"))
+
+
+ggplot(all,aes(color=taxonomy,x=taxonomy,y=Per..ident))+
+  geom_jitter(alpha=.5) +
+  scale_color_manual(values=c("Trebouxiales" = brewer.pal(8,"Dark2")[5], 
+  "other Chlorophyta" = brewer.pal(8,"Dark2")[6],
+  "other Viridiplantae" = brewer.pal(8,"Dark2")[1],
+  "Fungi" = brewer.pal(8,"Dark2")[2],
+  "Bacteria" = brewer.pal(8,"Dark2")[3],
+  "other Trebouxiophyceae" = brewer.pal(8,"Dark2")[7],
+  "Metazoa"=brewer.pal(8,"Dark2")[4],
+  "protists"=brewer.pal(8,"Dark2")[8]))+
+  facet_grid(database~gene,scales="free_y")+
+  theme_bw()+ylab("Percent identical")+
+  theme(axis.text.x = element_blank())
+ggsave("../results/hgt_blast.pdf",width=5,height=2.5)
+```
+
+
+## 4. Phylogeny
+* Opened the fasta files and wrote filtered versions that only include sequences with >75% query coever and for which we got taxonomy
+```{r}
+library(Biostrings)
+faa_6449 <- c(readAAStringSet("../analysis_and_temp_files/05_HGT/GTX0536PRED_006449_nr.faa"),
+      readAAStringSet("../analysis_and_temp_files/05_HGT/GTX0536PRED_006449_nr_no_fungi.faa"),
+      readAAStringSet("../analysis_and_temp_files/05_HGT/GTX0536PRED_006449_nr_viridiplanta.faa")) 
+names(faa_6449) <- sub("\\s.*", "",names(faa_6449))
+faa_6449_filtered <- faa_6449[names(faa_6449) %in% nr_6449$ID] %>% unique()
+
+faa_4195 <- c(readAAStringSet("../analysis_and_temp_files/05_HGT/GTX0536PRED_004195_nr.faa"),
+      readAAStringSet("../analysis_and_temp_files/05_HGT/GTX0536PRED_004195_nr_no_fungi.faa"),
+      readAAStringSet("../analysis_and_temp_files/05_HGT/GTX0536PRED_004195_nr_viridiplanta.faa")) 
+names(faa_4195) <- sub("\\s.*", "",names(faa_4195))
+faa_4195_filtered <- faa_4195[names(faa_4195) %in% nr_4195$ID] %>% unique()
+
+writeXStringSet(faa_4195_filtered,"../analysis_and_temp_files/05_HGT/GTX0536PRED_004195_genbank.faa")
+writeXStringSet(faa_6449_filtered,"../analysis_and_temp_files/05_HGT/GTX0536PRED_006449_genbank.faa")
+```
+* Save the tables for supplementary
+```{r}
+all_save<- all %>% select(gene,database,ID,Description,Scientific.Name,
+    Max.Score,E.value,Per..ident,cover,taxid,kingdom,phylum,class,order,family,   
+    genus,taxonomy ) %>% distinct()
+write.table(all_save, "../results/hgt_blast.txt",col.names = T, row.names = F, quote = F,sep="\t")
+```
+* Combine together genbank sequences with sequences from my two genomes
+```{r,eval =F}
+cat analysis_and_temp_files/05_HGT/GTX0536PRED_006449_genbank.faa analysis_and_temp_files/05_HGT/SL0000003_GTX0536PRED_006449.faa analysis_and_temp_files/05_HGT/GTX0536PRED_006449.faa > analysis_and_temp_files/05_HGT/GTX0536PRED_006449_all.faa
+
+samtools faidx analysis_and_temp_files/02_genome_annotation/GTX0536_pred2/annotate_results/Trebouxia_sp._A48.proteins.fa GTX0536PRED_004195-T1 >  analysis_and_temp_files/05_HGT/GTX0536PRED_004195_all.faa
+
+cat analysis_and_temp_files/05_HGT/GTX0536PRED_004195_genbank.faa >> analysis_and_temp_files/05_HGT/GTX0536PRED_004195_all.faa
+```
+* Align
+```{r,eval =F}
+source package /tgac/software/testing/bin/mafft-7.271
+source package /tsl/software/testing/bin/trimal-latest 
+source package /tgac/software/testing/bin/gcc-4.9.1 
+
+mafft --maxiterate 1000 --genafpair --thread 10  analysis_and_temp_files/05_HGT/GTX0536PRED_006449_all.faa >  analysis_and_temp_files/05_HGT/GTX0536PRED_006449_aligned.faa
+
+trimal -in analysis_and_temp_files/05_HGT/GTX0536PRED_006449_aligned.faa -out analysis_and_temp_files/05_HGT/GTX0536PRED_006449_aligned.phyl -gt 0.2 -phylip  -keepheader
+
+mafft --maxiterate 1000 --genafpair --thread 10  analysis_and_temp_files/05_HGT/GTX0536PRED_004195_all.faa >  analysis_and_temp_files/05_HGT/GTX0536PRED_004195_aligned.faa
+
+trimal -in analysis_and_temp_files/05_HGT/GTX0536PRED_004195_aligned.faa -out analysis_and_temp_files/05_HGT/GTX0536PRED_004195_aligned.phyl -gt 0.2 -phylip  -keepheader
+```
+* Tree with IQTree
+```{r,eval=F}
+source package /tgac/software/testing/bin/iqtree-2.2.2.2
+
+iqtree2 -s analysis_and_temp_files/05_HGT/GTX0536PRED_006449_aligned.phyl  -B 10000 -T AUTO --threads-max 20
+
+iqtree2 -s analysis_and_temp_files/05_HGT/GTX0536PRED_004195_aligned.phyl  -B 10000 -T AUTO --threads-max 20
+```
+* Rename
+```{r,message=FALSE,warning=FALSE}
+library(ape)
+library(ggtree)
+tree1<-read.tree("../analysis_and_temp_files/05_HGT/GTX0536PRED_006449_aligned.phyl.contree")
+
+nr_6449$name <- paste(nr_6449$ID,nr_6449$kingdom,nr_6449$phylum,
+                      nr_6449$class,nr_6449$order)
+
+tree1$tip.label<-nr_6449[[22]][match(tree1$tip.label, nr_6449[[10]])]
+ape::write.tree(tree1, file="../analysis_and_temp_files/05_HGT/GTX0536PRED_006449_aligned.phyl.renamed.contree")
+
+tree2<-read.tree("../analysis_and_temp_files/05_HGT/GTX0536PRED_004195_aligned.phyl.contree")
+
+nr_4195$name <- paste(nr_4195$ID,nr_4195$kingdom,nr_4195$phylum,
+                      nr_4195$class,nr_4195$order)
+
+tree2$tip.label<-nr_4195[[22]][match(tree2$tip.label, nr_4195[[10]])]
+ape::write.tree(tree2, file="../analysis_and_temp_files/05_HGT/GTX0536PRED_004195_aligned.phyl.renamed.contree")
+```
+## 5. Check neighboring genes
+* Upstream of GTX0536PRED_006449 is GTX0536PRED_006448
+* Upstream of GTX0536PRED_004195 is GTX0536PRED_004194
+* Blasted against nt and nr (all-inclusive)
+* Plotted the same way
+
+```{r}
+nr_6448 <- read.csv2("../analysis_and_temp_files/05_HGT/GTX0536PRED_006448_nr.csv",sep=",") 
+
+nr_6448 <- analyze_blast(nr_6448)
+nr_6448$database <- "nr"
+nr_6448$gene <- "GTX0536PRED_006448"
+
+
+nt_6448 <- read.csv2("../analysis_and_temp_files/05_HGT/GTX0536PRED_006448_nt.csv",sep=",") 
+
+nt_6448 <- analyze_blast(nt_6448)
+nt_6448$database <- "nt"
+nt_6448$gene <- "GTX0536PRED_006448"
+
+
+nr_4194 <- read.csv2("../analysis_and_temp_files/05_HGT/GTX0536PRED_004194_nr.csv",sep=",") 
+
+nr_4194 <- analyze_blast(nr_4194)
+nr_4194$database <- "nr"
+nr_4194$gene <- "GTX0536PRED_004194"
+
+nt_4194 <- read.csv2("../analysis_and_temp_files/05_HGT/GTX0536PRED_004194_nt.csv",sep=",") 
+
+nt_4194 <- analyze_blast(nt_4194)
+nt_4194$database <- "nt"
+nt_4194$gene <- "GTX0536PRED_004194"
+
+all2 <- rbind(nt_4194,nr_4194,nt_6448,nr_6448)
+
+
+all2 <- all2 %>%
+  mutate(taxonomy = case_when(order=="Trebouxiales" ~ order,
+    class=="Trebouxiophyceae"& order!="Trebouxiales" ~ "other Trebouxiophyceae",
+       phylum == "Chlorophyta" & class!="Trebouxiophyceae" ~ "other Chlorophyta",
+      kingdom == "Fungi" ~ kingdom,
+     kingdom == "Viridiplantae" ~ "other Viridiplantae",
+     phylum == "Rhodophyta" ~ "other Viridiplantae",
+    kingdom == "Metazoa" ~ kingdom ,
+    class=="Filasterea" | phylum %in% c("Heterolobosea" ,"Evosea", "Oomycota") ~ "protists",
+     kingdom %in% c("Pseudomonadati","Thermotogati","Bacillati") |
+      class=="Deltaproteobacteria"~ "Bacteria"))
+
+all2$taxonomy <- factor(all2$taxonomy,levels=c("Trebouxiales","other Trebouxiophyceae","other Chlorophyta","other Viridiplantae","Fungi","Metazoa","protists","Bacteria"))
+
+
+ggplot(all2 %>% filter(!is.na(taxonomy)),aes(color=taxonomy,x=taxonomy,y=Per..ident))+
+  geom_jitter(alpha=.5) +
+  scale_color_manual(values=c("Trebouxiales" = brewer.pal(8,"Dark2")[5], 
+  "other Chlorophyta" = brewer.pal(8,"Dark2")[6],
+  "other Viridiplantae" = brewer.pal(8,"Dark2")[1],
+  "Fungi" = brewer.pal(8,"Dark2")[2],
+  "Bacteria" = brewer.pal(8,"Dark2")[3],
+  "other Trebouxiophyceae" = brewer.pal(8,"Dark2")[7],
+  "protists"=brewer.pal(8,"Dark2")[8],
+  "Metazoa"=brewer.pal(8,"Dark2")[4]))+
+  facet_grid(database~gene,scales="free_y")+
+  theme_bw()+ylab("Percent identical")+
+  theme(axis.text.x = element_blank())
+ggsave("../results/neighbor_blast.pdf",width=5,height=2.5)
+```
+
+
+
+
+
+
+
+
+
+

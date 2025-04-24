@@ -1,0 +1,218 @@
+---
+title: "03_phylogeny.md"
+author: "Gulnara Tagridzhanova"
+date: "26/03/2025"
+output: 
+  html_document:
+    code_folding: hide
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+## 1. ITS based phylogeny
+
+### 1.1. Assemble dataset
+* Used sequences from [Muggia et al. 2020](https://www.sciencedirect.com/science/article/pii/S1055790320300932#s0075). They are listed in the table S1, which I saved as `analysis_and_temp_files/03_phylogeny/muggia.txt`
+* I manually subsampled them so that every OTU had maximum 5 sequences
+* Added Myrmecia (PQ154957.1) as an outgroup
+* Downloaded ITS sequences from the NCBI
+
+#### Identify ITS in the assemblies
+* Used AJ969550.1 as a query
+```{r,eval=F}
+source package /tsl/software/testing/bin/blast+-2.9.0  
+blastn \
+ -subject analysis_and_temp_files/02_genome_annotation/GTX0536_nuclear_final_sort.fasta \
+ -query analysis_and_temp_files/03_phylogeny/its_query.fasta \
+ -outfmt 6 \
+ -evalue 1e-25 \
+ -out analysis_and_temp_files/03_phylogeny/GTX0536_its.blast
+
+blastn \
+ -subject data/SL0000003.fasta \
+ -query analysis_and_temp_files/03_phylogeny/its_query.fasta \
+ -outfmt 6 \
+ -evalue 1e-25 \
+ -out analysis_and_temp_files/03_phylogeny/SL0000003_its.blast
+```
+* Extracted ITS from the contig GTX0536_15 (2399373-2400063) and, for SL0000003, from OZ234921.1:1387879-1387378
+```{r,eval=F}
+source package aeee87c4-1923-4732-aca2-f2aff23580cc
+
+samtools faidx analysis_and_temp_files/02_genome_annotation/GTX0536_nuclear_final_sort.fasta GTX0536_15:2399373-2400063 > analysis_and_temp_files/03_phylogeny/GTX0536_its.fa
+
+samtools faidx data/SL0000003.fasta OZ234921.1:1387378-1387879 -i > analysis_and_temp_files/03_phylogeny/SL0000003_its.fa
+```
+
+#### Reconstruct phylogeny
+* Concatenate and aligned everything. Trimmed the alignment to remove positions with >20% gaps
+```{r,eval=F}
+cat analysis_and_temp_files/03_phylogeny/SL0000003_its.fa analysis_and_temp_files/03_phylogeny/GTX0536_its.fa analysis_and_temp_files/03_phylogeny/its_ncbi.fasta > analysis_and_temp_files/03_phylogeny/its_all.fasta
+
+source package /tgac/software/testing/bin/mafft-7.271
+source package /tsl/software/testing/bin/trimal-1.2
+
+mafft --maxiterate 1000 --genafpair --thread 10  analysis_and_temp_files/03_phylogeny/its_all.fasta >  analysis_and_temp_files/03_phylogeny/its_all_aligned.fa
+
+trimal -in analysis_and_temp_files/03_phylogeny/its_all_aligned.fa -out analysis_and_temp_files/03_phylogeny/its_all_aligned.phyl -gt 0.2 -phylip 
+```
+* Tree with IQTree
+```{r,eval=F}
+source package /tgac/software/testing/bin/iqtree-2.2.2.2
+iqtree2 -s analysis_and_temp_files/03_phylogeny/its_all_aligned.phyl  -B 10000 -T AUTO --threads-max 10
+```
+
+#### Process the tree
+* Rename tree tips
+```{r,message=FALSE,warning=FALSE}
+library(ape)
+library(ggtree)
+tree<-read.tree("../analysis_and_temp_files/03_phylogeny/its_all_aligned.phyl.contree")
+
+itsdf<-read.delim2("../analysis_and_temp_files/03_phylogeny/its_table.txt")
+itsdf$old<-paste0(itsdf$ITS,".1")
+itsdf2<-data.frame("Specimen.Label"=c("SL0000003","GTX0536"),
+                   "OTU"=c("SL0000003","GTX0536"),
+                   "ITS"=c("OZ234921.1", "GTX0536_15"),
+                   "old"=c("OZ234921.1", "GTX0536_15"))
+itsdf<-rbind(itsdf,itsdf2)
+tree$tip.label<-itsdf[[1]][match(tree$tip.label, itsdf[[4]])]
+ape::write.tree(tree, file='../analysis_and_temp_files/03_phylogeny/its_all_aligned.phyl.renamed.contree')
+```
+* Since the tree has >300 tips, visualizing it in R is cumbersome. moved to iTOL instead
+
+## 2. Phylogenomics
+#### Assemble dataset
+* Got reference genomes. The list is in `analysis_and_temp_files/03_phylogeny/reference_genomes.csv`
+  * Used the same reference algal genomes which I previously got together as a part of my previous paper
+  * This included Chara as an outgroup
+  * Added the four Trebouxia MAGs isolated from Xanthoria metagenomes in the aforementioned paper
+```{r}
+library(kableExtra)
+t<-read.csv("../analysis_and_temp_files/03_phylogeny/reference_genomes.csv") 
+t %>%  kable(format = "html", col.names = colnames(t)) %>%
+  kable_styling() %>%
+  kableExtra::scroll_box(width = "100%", height = "300px")
+```
+
+* Copied everything in one folder
+```{r,eval=F}
+ mkdir analysis_and_temp_files/03_phylogeny/orthofinder_input
+cp ../01_Xanthoria_metagenomics/data/ref_genomes/* analysis_and_temp_files/03_phylogeny/orthofinder_input
+```
+
+* Added the proteome from our two Trebouxia genomes
+```{r,eval=F}
+cp analysis_and_temp_files/02_genome_annotation/SL0000003_pred/annotate_results/Trebouxia_SL0000003_SL0000003.proteins.fa analysis_and_temp_files/03_phylogeny/orthofinder_input/
+
+cp analysis_and_temp_files/02_genome_annotation/GTX0536_pred2/update_results/Trebouxia_sp._A48.proteins.fa analysis_and_temp_files/03_phylogeny/orthofinder_input/
+```
+
+#### Orthofinder
+```{r,eval=F}
+source package fc91613f-1095-4f67-b5aa-b86d702b36da
+/software/fc91613f-1095-4f67-b5aa-b86d702b36da/bin/orthofinder  -f analysis_and_temp_files/03_phylogeny/orthofinder_input/
+```
+```
+OrthoFinder assigned 288049 genes (90.3% of total) to 19612 orthogroups. Fifty percent of all genes were in orthogroups with 24 or more genes (G50 was 24) and were contained in the largest 4094 orthogroups (O50 was 4094). There were 333 orthogroups with all species present and 37 of these consisted entirely of single-copy genes.
+
+333 trees had all species present and will be used by STAG to infer the species tree
+```
+#### Visualize
+```{r,fig.height=5,fig.width=8,message=FALSE,warning=FALSE}
+library(ape)
+library(ggtree)
+tree<-read.tree("../analysis_and_temp_files/03_phylogeny/orthofinder_input/SpeciesTree_rooted_node_labels.txt")
+plot(tree)
+```
+
+## 3. Orthogroups
+```{r,message=FALSE,warning=FALSE}
+library(UpSetR)
+ortho<-read.delim2("../analysis_and_temp_files/03_phylogeny/orthofinder_input/Orthogroups.GeneCount.tsv")
+
+#rename relevant
+colnames(ortho)[colnames(ortho)=="Trebouxia_SL0000003_SL0000003.proteins" ] <- "Trebouxia sp. SL0000003"
+colnames(ortho)[colnames(ortho)=="Trebouxia_sp._A48.proteins" ] <- "Trebouxia sp. A48"
+colnames(ortho)[colnames(ortho)=="Trebouxia_C0010" ] <- "Trebouxia sp. C0010"
+colnames(ortho)[colnames(ortho)=="Trebouxia_C0004" ] <- "Trebouxia sp. C0004"
+colnames(ortho)[colnames(ortho)=="Trebouxia_C0005" ] <- "Trebouxia sp. C0005"
+colnames(ortho)[colnames(ortho)=="Trebouxia_C0006" ] <- "Trebouxia sp. C0006"
+colnames(ortho)[colnames(ortho)=="Trebouxia_C0009" ] <- "Trebouxia sp. C0009"
+colnames(ortho)[colnames(ortho)=="TrebA12_1_GeneCatalog_proteins_20200804.aa" ] <- "Trebouxia sp. A1-2"
+
+##plot
+selected_species <- colnames(ortho)[c(21,20,18,19,17,16,15,14)] 
+ortho[ortho > 0] <- 1
+
+pdf(file="../results/upset.pdf", onefile=FALSE)
+upset(ortho, nsets = ncol(ortho), sets = rev(selected_species), keep.order = T, order.by = "freq",nintersects=20)
+dev.off()
+
+ggsave("../results/upset.pdf", height = 3 * 5.5, width = 4.5 * 5)
+
+
+
+pdf("../results/upset.pdf", onefile=FALSE,height=3,width=8)
+upset(ortho, nsets = ncol(ortho), sets = rev(selected_species), keep.order = T, order.by = "freq",nintersects=20,mb.ratio=c(0.5,0.5))
+dev.off()
+
+upset(ortho, nsets = ncol(ortho), sets = rev(selected_species), keep.order = T, order.by = "freq",nintersects=20,mb.ratio=c(0.5,0.5))
+```
+
+* How many orthogroups shared between our genome and SL0000003
+```{r,message=FALSE,warning=FALSE}
+ortho %>% mutate(xantho = 
+      case_when(`Trebouxia sp. SL0000003`==1 & `Trebouxia sp. A48`==1 ~ "both",
+               `Trebouxia sp. SL0000003`==1 & `Trebouxia sp. A48`==0 ~ "SL",
+               `Trebouxia sp. SL0000003`==0 & `Trebouxia sp. A48`==1 ~ "A48",
+               `Trebouxia sp. SL0000003`==0 & `Trebouxia sp. A48`==0 ~ "neither")) %>%
+  group_by(xantho) %>% dplyr::summarize(n=n())
+```
+
+
+* What genes and gene functions are in the OGs that are unique to our genome and to our genome + SL000003 compared to other genomes
+```{r}
+ortho_genes<-read.delim2("../analysis_and_temp_files/03_phylogeny/orthofinder_input/Orthogroups.tsv")
+ann <- read.delim2("../analysis_and_temp_files/02_genome_annotation/GTX0536_pred2/Trebouxia_sp._A48.annotations.reduced.txt")
+
+only_our <- ortho_genes %>% select(Orthogroup,TrebA12_1_GeneCatalog_proteins_20200804.aa,Trebouxia_C0004,
+   Trebouxia_C0005,Trebouxia_C0006,Trebouxia_C0009,Trebouxia_C0010,
+   Trebouxia_SL0000003_SL0000003.proteins, Trebouxia_sp._A48.proteins) %>%
+  filter(Trebouxia_sp._A48.proteins!="",
+         TrebA12_1_GeneCatalog_proteins_20200804.aa=="",
+         Trebouxia_C0004=="",Trebouxia_C0005=="",
+         Trebouxia_C0006=="",Trebouxia_C0009=="",
+         Trebouxia_C0010=="",Trebouxia_SL0000003_SL0000003.proteins=="") %>%
+  select(Orthogroup,Trebouxia_sp._A48.proteins) %>%
+  separate_rows(Trebouxia_sp._A48.proteins,sep=", ") %>%
+  mutate(Trebouxia_sp._A48.proteins = str_replace(Trebouxia_sp._A48.proteins,"FUN","GTX0536PRED")) %>%
+  left_join(ann,by=c("Trebouxia_sp._A48.proteins"="TranscriptID"))
+
+only_two <- ortho_genes %>% select(Orthogroup,TrebA12_1_GeneCatalog_proteins_20200804.aa,Trebouxia_C0004,
+   Trebouxia_C0005,Trebouxia_C0006,Trebouxia_C0009,Trebouxia_C0010,
+   Trebouxia_SL0000003_SL0000003.proteins, Trebouxia_sp._A48.proteins) %>%
+  filter(Trebouxia_sp._A48.proteins!="",
+         TrebA12_1_GeneCatalog_proteins_20200804.aa=="",
+         Trebouxia_C0004=="",Trebouxia_C0005=="",
+         Trebouxia_C0006=="",Trebouxia_C0009=="",
+         Trebouxia_C0010=="",Trebouxia_SL0000003_SL0000003.proteins!="") %>%
+  select(Orthogroup,Trebouxia_sp._A48.proteins) %>%
+  separate_rows(Trebouxia_sp._A48.proteins,sep=", ") %>%
+  mutate(Trebouxia_sp._A48.proteins = str_replace(Trebouxia_sp._A48.proteins,"FUN","GTX0536PRED")) %>%
+  left_join(ann,by=c("Trebouxia_sp._A48.proteins"="TranscriptID"))
+
+
+write.table(only_two, "../results/OG_only_two_genomes.txt",col.names = T, row.names = F, quote = F,sep="\t")
+write.table(only_our, "../results/OG_only_our_genome.txt",col.names = T, row.names = F, quote = F,sep="\t")
+```
+
+
+
+
+
+
+

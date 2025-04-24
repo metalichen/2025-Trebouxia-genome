@@ -1,0 +1,39 @@
+[04/14/25 10:23:25]: /venv/bin/funannotate compare -i analysis_and_temp_files/05_genome_annotation/GTX0536_pred2/ analysis_and_temp_files/05_genome_annotation/SL0000003_pred/ -o funannotate_compare --cpus 20 -d /opt/databases
+
+[04/14/25 10:23:25]: OS: Debian GNU/Linux 10, 32 cores, ~ 394 GB RAM. Python: 3.8.12
+[04/14/25 10:23:25]: Running 1.8.15
+[04/14/25 10:23:26]: find_enrichment.py version=NA path=/venv/bin/find_enrichment.py
+[04/14/25 10:23:26]: mafft version=v7.520 (2023/Mar/22) path=/venv/bin/mafft
+[04/14/25 10:23:26]: trimal version=trimAl v1.4.rev15 build[2013-12-17] path=/venv/bin/trimal
+[04/14/25 10:23:26]: proteinortho version=6.0.16 path=/venv/bin/proteinortho
+[04/14/25 10:23:26]: iqtree version=NA path=/venv/bin/iqtree
+[04/14/25 10:23:26]: Input files/folders: ['analysis_and_temp_files/05_genome_annotation/GTX0536_pred2/', 'analysis_and_temp_files/05_genome_annotation/SL0000003_pred/']
+
+[04/14/25 10:23:26]: Now parsing 2 genomes
+[04/14/25 10:23:31]: working on Trebouxia sp. A48
+[04/14/25 10:23:53]: working on Trebouxia SL0000003
+[04/14/25 10:24:06]: No secondary metabolite annotations found
+[04/14/25 10:24:06]: Summarizing PFAM domain results
+[04/14/25 10:24:08]: Summarizing InterProScan results
+[04/14/25 10:24:09]: Loading InterPro descriptions
+[04/14/25 10:24:09]: Summarizing MEROPS protease results
+[04/14/25 10:24:10]: found 18/94 MEROPS familes with stdev >= 1.000000
+[04/14/25 10:24:11]: Summarizing CAZyme results
+[04/14/25 10:24:11]: found 22/93 CAZy familes with stdev >= 1.000000
+[04/14/25 10:24:11]: No COG annotations found
+[04/14/25 10:24:12]: SignalP raw data:
+[{}, {}]
+[04/14/25 10:24:12]: No SignalP annotations found
+[04/14/25 10:24:12]: [{}, {}]
+
+[04/14/25 10:24:12]: Summarizing fungal transcription factors
+[04/14/25 10:24:13]: Running GO enrichment for each genome
+[04/14/25 11:35:57]: Running orthologous clustering tool, ProteinOrtho.  This may take awhile...
+[04/14/25 11:35:58]: There are 16594 entries in the proteinortho output
+[04/14/25 11:35:58]: There seem to be 1297 single copy orthologs
+[04/14/25 11:35:58]: There are a total of 7674 orthologs groups
+[04/14/25 11:36:00]: Compiling all annotations for each genome
+[04/14/25 11:36:01]: GO terms not found in go.obo: GO:0008022,GO:0097573,GO:0044262,GO:0046855,GO:0070122,GO:0006165,GO:0006471,GO:0015299,GO:0140603,GO:0043486,GO:0097056,GO:0005779,GO:0055072,GO:0018024,GO:0030176,GO:0050072,GO:0005639,GO:0070940,GO:0004652,GO:0010252,GO:0030173,GO:0000737,GO:0048478,GO:0031307
+[04/14/25 11:36:10]: Skipping RAxML phylogeny as at least 4 taxa are required
+[04/14/25 11:36:10]: Compressing results to output file: funannotate_compare.tar.gz
+[04/14/25 11:37:08]: Funannotate compare completed successfully!

@@ -1,0 +1,35 @@
+#Please note (due to the simulation of a circular input sequence by GeSeq)
+#tRNA predictions outside the range of the submitted sequence might be displayed.
+#For details please refer to our Documentation.
+#
+Sequence   		tRNA  	Bounds	tRNA	Anti	Intron Bounds	Inf	      
+Name       	tRNA #	Begin 	End   	Type	Codon	Begin	End	Score	Note
+--------   	------	----- 	------	----	-----	-----	----	------	------
+ptg000001c 	1	27838 	27918 	Leu	CAA	0	0	54.0	
+ptg000001c 	2	45199 	45272 	Met	CAT	0	0	65.2	
+ptg000001c 	3	54975 	55047 	Val	TAC	0	0	62.0	
+ptg000001c 	4	114440	114360	Leu	TAA	0	0	59.5	
+ptg000001c 	5	114282	114210	Trp	CCA	0	0	57.4	
+ptg000001c 	6	108893	108821	Ala	TGC	0	0	67.1	
+ptg000001c 	7	108042	107955	Ser	GCT	0	0	69.3	
+ptg000001c 	8	107716	107643	Arg	TCT	0	0	59.4	
+ptg000001c 	9	102110	102039	Gly	GCC	0	0	64.4	
+ptg000001c 	10	101965	101892	Arg	ACG	0	0	54.5	
+ptg000001c 	11	101648	101576	Thr	TGT	0	0	71.5	
+ptg000001c 	12	97716 	97645 	Glu	TTC	0	0	60.3	
+ptg000001c 	13	96612 	96540 	His	GTG	0	0	60.0	
+ptg000001c 	14	95667 	95597 	Gly	TCC	0	0	62.9	
+ptg000001c 	15	90699 	90618 	Leu	TAG	0	0	48.5	
+ptg000001c 	16	85934 	85862 	Met	CAT	0	0	71.7	
+ptg000001c 	17	69312 	69239 	Met	CAT	0	0	57.8	
+ptg000001c 	18	46905 	46832 	Asp	GTC	0	0	72.8	
+ptg000001c 	19	46780 	46709 	Cys	GCA	0	0	55.6	
+ptg000001c 	20	46126 	46055 	Asn	GTT	0	0	66.5	
+ptg000001c 	21	44866 	44793 	Ile	GAT	0	0	71.5	
+ptg000001c 	22	38147 	38076 	Gln	TTG	0	0	67.6	
+ptg000001c 	23	23062 	22976 	Ser	TGA	0	0	61.9	
+ptg000001c 	24	18561 	18489 	Lys	TTT	0	0	71.5	
+ptg000001c 	25	15418 	15345 	Phe	GAA	0	0	69.6	
+ptg000001c 	26	14299 	14217 	Tyr	GTA	0	0	64.6	
+ptg000001c 	27	4956  	4876  	Leu	TAA	0	0	59.5	
+ptg000001c 	28	4798  	4726  	Trp	CCA	0	0	57.4	

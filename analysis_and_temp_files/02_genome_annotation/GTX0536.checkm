@@ -1,0 +1,21 @@
+[2025-03-26 17:43:13] INFO: CheckM v1.2.0
+[2025-03-26 17:43:13] INFO: checkm lineage_wf analysis_and_temp_files/04_genome_annotation/GTX0536.fasta.metabat-bins20-20250326_171321 analysis_and_temp_files/04_genome_annotation/GTX0536_checkm -x fa --tab_table
+[2025-03-26 17:43:13] INFO: CheckM data: /opt/anaconda_checkm/checkm_data
+[2025-03-26 17:43:13] INFO: [CheckM - tree] Placing bins in reference genome tree.
+[2025-03-26 17:43:19] INFO: Identifying marker genes in 23 bins with 1 threads:
+[2025-03-26 17:53:19] INFO: Saving HMM info to file.
+[2025-03-26 17:53:19] INFO: Calculating genome statistics for 23 bins with 1 threads:
+[2025-03-26 17:53:21] INFO: Extracting marker genes to align.
+[2025-03-26 17:53:21] INFO: Parsing HMM hits to marker genes:
+[2025-03-26 17:53:22] INFO: Extracting 43 HMMs with 1 threads:
+[2025-03-26 17:53:23] INFO: Aligning 43 marker genes with 1 threads:
+[2025-03-26 17:53:27] INFO: Reading marker alignment files.
+[2025-03-26 17:53:27] INFO: Concatenating alignments.
+[2025-03-26 17:53:27] INFO: Placing 23 bins into the genome tree with pplacer (be patient).
+[2025-03-26 17:55:11] INFO: { Current stage: 0:11:57.902 || Total: 0:11:57.902 }
+[2025-03-26 17:55:11] INFO: [CheckM - lineage_set] Inferring lineage-specific marker sets.
+[2025-03-26 17:55:11] INFO: Reading HMM info from file.
+[2025-03-26 17:55:11] INFO: Parsing HMM hits to marker genes:
+[2025-03-26 17:55:12] INFO: Determining marker sets for each genome bin.
+
+Unexpected error: <class 'FileNotFoundError'>

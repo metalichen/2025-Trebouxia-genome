@@ -1,0 +1,230 @@
+find_enrichment.py --obo /opt/databases/go.obo --pval 0.001 --alpha 0.001 --method fdr --outfile funannotate_compare/go_enrichment/Trebouxia_SL0000003.go.enrichment.txt funannotate_compare/go_terms/Trebouxia_SL0000003.txt funannotate_compare/go_terms/population.txt funannotate_compare/go_terms/associations.txt
+Generate p-value distribution for FDR based on resampling (this might take a while)
+Sample 0 / 500: p-value 0.0035397778519445666
+Sample 10 / 500: p-value 0.001089000315060655
+Sample 20 / 500: p-value 0.00278148279601965
+Sample 30 / 500: p-value 0.002951490970828904
+Sample 40 / 500: p-value 0.0009381977559228725
+Sample 50 / 500: p-value 0.00805318349492956
+Sample 60 / 500: p-value 0.0006914290948108078
+Sample 70 / 500: p-value 0.0005236362891257323
+Sample 80 / 500: p-value 0.004899324155306164
+Sample 90 / 500: p-value 0.003711074066965493
+Sample 100 / 500: p-value 0.00635709473589588
+Sample 110 / 500: p-value 0.002560508213031917
+Sample 120 / 500: p-value 0.0025763180493219326
+Sample 130 / 500: p-value 0.001169099932530965
+Sample 140 / 500: p-value 0.0019796365244143343
+Sample 150 / 500: p-value 0.009685931300303137
+Sample 160 / 500: p-value 0.008885567062973904
+Sample 170 / 500: p-value 0.0008652202657307808
+Sample 180 / 500: p-value 0.008347221942371528
+Sample 190 / 500: p-value 0.0004392556157852887
+Sample 200 / 500: p-value 0.002063072922676662
+Sample 210 / 500: p-value 0.0010138821534793252
+Sample 220 / 500: p-value 0.001991197840605649
+Sample 230 / 500: p-value 0.0044704298308747385
+Sample 240 / 500: p-value 0.0066452041007353975
+Sample 250 / 500: p-value 0.002063072922676662
+Sample 260 / 500: p-value 0.002057220393903708
+Sample 270 / 500: p-value 0.0004392556157852887
+Sample 280 / 500: p-value 0.00044172874618950034
+Sample 290 / 500: p-value 0.0025682224416124838
+Sample 300 / 500: p-value 0.0008801744442532532
+Sample 310 / 500: p-value 0.0006411265384311223
+Sample 320 / 500: p-value 0.007598813573228894
+Sample 330 / 500: p-value 0.0045457489459791636
+Sample 340 / 500: p-value 0.02224191759821772
+Sample 350 / 500: p-value 0.003213916454185868
+Sample 360 / 500: p-value 0.004511120530026909
+Sample 370 / 500: p-value 0.0014499995160588783
+Sample 380 / 500: p-value 0.018510726707360547
+Sample 390 / 500: p-value 0.0004392556157852887
+Sample 400 / 500: p-value 0.0009520006894338703
+Sample 410 / 500: p-value 0.002063072922676662
+Sample 420 / 500: p-value 9.187159495429231e-05
+Sample 430 / 500: p-value 0.003516496312889026
+Sample 440 / 500: p-value 0.009685931300303137
+Sample 450 / 500: p-value 0.006632866310590798
+Sample 460 / 500: p-value 0.004645872779200452
+Sample 470 / 500: p-value 0.002063072922676662
+Sample 480 / 500: p-value 0.00805318349492956
+Sample 490 / 500: p-value 0.00030430609096742723
+Generate p-value distribution for FDR based on resampling (this might take a while)
+Sample 0 / 500: p-value 0.002557389754594323
+Sample 10 / 500: p-value 0.008056971175666887
+Sample 20 / 500: p-value 0.023575650104474204
+Sample 30 / 500: p-value 0.0029306851441638646
+Sample 40 / 500: p-value 0.004407296202651741
+Sample 50 / 500: p-value 0.014229746072528192
+Sample 60 / 500: p-value 0.014229746072528192
+Sample 70 / 500: p-value 0.0454566921459224
+Sample 80 / 500: p-value 0.009685931300303137
+Sample 90 / 500: p-value 0.012262755961805719
+Sample 100 / 500: p-value 0.020984126524793114
+Sample 110 / 500: p-value 0.009547023557770323
+Sample 120 / 500: p-value 0.0032194071580431407
+Sample 130 / 500: p-value 0.020984126524793114
+Sample 140 / 500: p-value 0.010106168538214565
+Sample 150 / 500: p-value 0.020984126524793114
+Sample 160 / 500: p-value 0.028067743064803273
+Sample 170 / 500: p-value 0.00502942953422519
+Sample 180 / 500: p-value 0.002560508213031917
+Sample 190 / 500: p-value 0.0010138821534793252
+Sample 200 / 500: p-value 0.01427539397465801
+Sample 210 / 500: p-value 0.003898144512387337
+Sample 220 / 500: p-value 0.009685931300303137
+Sample 230 / 500: p-value 0.008571248565979822
+Sample 240 / 500: p-value 0.020984126524793114
+Sample 250 / 500: p-value 0.025060447854888618
+Sample 260 / 500: p-value 0.0073604587063497064
+Sample 270 / 500: p-value 0.008347221942371528
+Sample 280 / 500: p-value 0.009635619696997772
+Sample 290 / 500: p-value 0.007598813573228894
+Sample 300 / 500: p-value 0.02396173455876684
+Sample 310 / 500: p-value 0.014729921437519698
+Sample 320 / 500: p-value 0.003537337384472708
+Sample 330 / 500: p-value 0.0044704298308747385
+Sample 340 / 500: p-value 0.009635619696997772
+Sample 350 / 500: p-value 0.009685931300303137
+Sample 360 / 500: p-value 0.001991197840605649
+Sample 370 / 500: p-value 0.0008801744442532532
+Sample 380 / 500: p-value 0.006231943280121237
+Sample 390 / 500: p-value 0.00805318349492956
+Sample 400 / 500: p-value 0.020984126524793114
+Sample 410 / 500: p-value 0.0015011890742825744
+Sample 420 / 500: p-value 0.0008950221950077468
+Sample 430 / 500: p-value 0.009132367515900491
+Sample 440 / 500: p-value 0.002063072922676662
+Sample 450 / 500: p-value 0.014729921437519698
+Sample 460 / 500: p-value 0.013339078172372
+Sample 470 / 500: p-value 0.0021628553951663705
+Sample 480 / 500: p-value 0.0044704298308747385
+Sample 490 / 500: p-value 0.002560508213031917
+Generate p-value distribution for FDR based on resampling (this might take a while)
+Sample 0 / 500: p-value 8.203270052907785e-05
+Sample 10 / 500: p-value 0.0016434395292494776
+Sample 20 / 500: p-value 0.0015228661361511965
+Sample 30 / 500: p-value 0.0044704298308747385
+Sample 40 / 500: p-value 0.001628851689893993
+Sample 50 / 500: p-value 0.0017051150923197448
+Sample 60 / 500: p-value 0.004095417197068466
+Sample 70 / 500: p-value 0.00042506731208395975
+Sample 80 / 500: p-value 0.0005225291403529733
+Sample 90 / 500: p-value 0.010506380613109365
+Sample 100 / 500: p-value 0.006174540373962514
+Sample 110 / 500: p-value 0.0024721259934756628
+Sample 120 / 500: p-value 0.001845700711888163
+Sample 130 / 500: p-value 0.001860501507979922
+Sample 140 / 500: p-value 0.003898144512387337
+Sample 150 / 500: p-value 0.00568638603778581
+Sample 160 / 500: p-value 0.0014112239856683584
+Sample 170 / 500: p-value 0.0020332818056255707
+Sample 180 / 500: p-value 0.0029306851441638646
+Sample 190 / 500: p-value 0.011034540211351505
+Sample 200 / 500: p-value 0.0036839406327614215
+Sample 210 / 500: p-value 4.312227283837112e-05
+Sample 220 / 500: p-value 0.003516496312889026
+Sample 230 / 500: p-value 0.0044704298308747385
+Sample 240 / 500: p-value 0.006239248636298654
+Sample 250 / 500: p-value 0.00025077218216726913
+Sample 260 / 500: p-value 0.004842154650587744
+Sample 270 / 500: p-value 0.006854263552254322
+Sample 280 / 500: p-value 0.0023520645572562837
+Sample 290 / 500: p-value 0.005716020862398399
+Sample 300 / 500: p-value 0.00926280224839732
+Sample 310 / 500: p-value 0.004047178100453797
+Sample 320 / 500: p-value 0.0009999150627141348
+Sample 330 / 500: p-value 0.009132367515900491
+Sample 340 / 500: p-value 0.0011132590886416241
+Sample 350 / 500: p-value 0.0045457489459791636
+Sample 360 / 500: p-value 0.00805318349492956
+Sample 370 / 500: p-value 0.00635709473589588
+Sample 380 / 500: p-value 0.00014980914771616405
+Sample 390 / 500: p-value 0.0016016678931201908
+Sample 400 / 500: p-value 0.003898144512387337
+Sample 410 / 500: p-value 0.0015011890742825744
+Sample 420 / 500: p-value 0.0013576637806490075
+Sample 430 / 500: p-value 0.009685931300303137
+Sample 440 / 500: p-value 0.0014397329825838888
+Sample 450 / 500: p-value 0.0004392556157852887
+Sample 460 / 500: p-value 0.0005259819729511589
+Sample 470 / 500: p-value 0.0008083142087930185
+Sample 480 / 500: p-value 0.006910951022685248
+Sample 490 / 500: p-value 0.014729921437519698
+/opt/databases/go.obo: fmt(1.2) rel(2023-04-01) 46,575 Terms
+**WARNING: GO:0000737 NOT FOUND IN DAG
+**WARNING: GO:0004652 NOT FOUND IN DAG
+**WARNING: GO:0005639 NOT FOUND IN DAG
+**WARNING: GO:0005779 NOT FOUND IN DAG
+**WARNING: GO:0006165 NOT FOUND IN DAG
+**WARNING: GO:0006471 NOT FOUND IN DAG
+**WARNING: GO:0008022 NOT FOUND IN DAG
+**WARNING: GO:0010252 NOT FOUND IN DAG
+**WARNING: GO:0015299 NOT FOUND IN DAG
+**WARNING: GO:0018024 NOT FOUND IN DAG
+**WARNING: GO:0030173 NOT FOUND IN DAG
+**WARNING: GO:0030176 NOT FOUND IN DAG
+**WARNING: GO:0031307 NOT FOUND IN DAG
+**WARNING: GO:0043486 NOT FOUND IN DAG
+**WARNING: GO:0044262 NOT FOUND IN DAG
+**WARNING: GO:0046855 NOT FOUND IN DAG
+**WARNING: GO:0048478 NOT FOUND IN DAG
+**WARNING: GO:0050072 NOT FOUND IN DAG
+**WARNING: GO:0055072 NOT FOUND IN DAG
+**WARNING: GO:0070122 NOT FOUND IN DAG
+**WARNING: GO:0070940 NOT FOUND IN DAG
+**WARNING: GO:0097056 NOT FOUND IN DAG
+**WARNING: GO:0097573 NOT FOUND IN DAG
+**WARNING: GO:0140603 NOT FOUND IN DAG
+HMS:0:00:00.152873  29,703 annotations READ: funannotate_compare/go_terms/associations.txt 
+Study: 5496 vs. Population 11901
+
+
+Load BP Ontology Enrichment Analysis ...
+Propagating term counts up: is_a
+ 57%  6,823 of 11,901 population items found in association
+
+Load CC Ontology Enrichment Analysis ...
+Propagating term counts up: is_a
+ 25%  2,935 of 11,901 population items found in association
+
+Load MF Ontology Enrichment Analysis ...
+Propagating term counts up: is_a
+ 87% 10,308 of 11,901 population items found in association
+
+Runing BP Ontology Analysis: current study set of 5496 IDs.
+ 58%  3,185 of  5,496 study items found in association
+100%  5,496 of  5,496 study items found in population(11901)
+Calculating 2,030 uncorrected p-values using fisher_scipy_stats
+   2,030 terms are associated with  6,823 of 11,901 population items
+   1,915 terms are associated with  3,185 of  5,496 study items
+  METHOD fdr:
+       0 GO terms found significant (< 0.001=alpha) (  0 enriched +   0 purified): local fdr
+       0 study items associated with significant GO IDs (enriched)
+       0 study items associated with significant GO IDs (purified)
+
+Runing CC Ontology Analysis: current study set of 5496 IDs.
+ 25%  1,355 of  5,496 study items found in association
+100%  5,496 of  5,496 study items found in population(11901)
+Calculating 425 uncorrected p-values using fisher_scipy_stats
+     425 terms are associated with  2,935 of 11,901 population items
+     389 terms are associated with  1,355 of  5,496 study items
+  METHOD fdr:
+       0 GO terms found significant (< 0.001=alpha) (  0 enriched +   0 purified): local fdr
+       0 study items associated with significant GO IDs (enriched)
+       0 study items associated with significant GO IDs (purified)
+
+Runing MF Ontology Analysis: current study set of 5496 IDs.
+ 87%  4,767 of  5,496 study items found in association
+100%  5,496 of  5,496 study items found in population(11901)
+Calculating 1,456 uncorrected p-values using fisher_scipy_stats
+   1,456 terms are associated with 10,308 of 11,901 population items
+   1,358 terms are associated with  4,767 of  5,496 study items
+  METHOD fdr:
+       0 GO terms found significant (< 0.001=alpha) (  0 enriched +   0 purified): local fdr
+       0 study items associated with significant GO IDs (enriched)
+       0 study items associated with significant GO IDs (purified)
+      0 of 3,911 results have uncorrected P-values <= 0.001=pval
+
+**WARNING: NOT WRITING funannotate_compare/go_enrichment/Trebouxia_SL0000003.go.enrichment.txt; NO ENRICHMENT RESULTS

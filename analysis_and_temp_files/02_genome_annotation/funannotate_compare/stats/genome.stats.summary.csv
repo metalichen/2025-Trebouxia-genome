@@ -1,0 +1,15 @@
+,Trebouxia sp. A48,Trebouxia SL0000003
+isolate,,
+locus_tag,GTX0536PRED,SL003
+Assembly Size,"69,092,103 bp","63,705,246 bp"
+Largest Scaffold,"6,612,134 bp","4,988,964 bp"
+Average Scaffold,"3,454,605 bp","3,185,262 bp"
+Num Scaffolds,20,20
+Scaffold N50,"3,706,235 bp","3,320,455 bp"
+Percent GC,49.68%,50.24%
+Num Genes,"12,820","10,061"
+Num Proteins,"14,492","9,928"
+Num tRNA,69,133
+Unique Proteins,"14,379","9,889"
+Prots atleast 1 ortholog,"7,745","7,703"
+Single-copy orthologs,"7,603","7,603"

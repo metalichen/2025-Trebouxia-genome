@@ -1,0 +1,12 @@
+Description,Scientific Name,Max Score,Total Score,Query Cover,E value,Per. ident,Acc. Len,Accession  
+"Trebouxia decolorans clone contig_699 putative sulfite efflux pump/TDT transporter-like gene, partial sequence",Trebouxia decolorans,609,609,100%,0.0,78.66,4048,"=HYPERLINK(""https://www.ncbi.nlm.nih.gov/nucleotide/KF573967.1?report=genbank&log$=nucltop&blast_rank=1&RID=ZV4C6TED016"",""KF573967.1"")"
+"Trebouxia sp. SL0000003 genome assembly, chromosome: 13",Trebouxia sp. SL0000003,599,843,100%,0.0,77.12,2733792,"=HYPERLINK(""https://www.ncbi.nlm.nih.gov/nucleotide/OZ234918.1?report=genbank&log$=nucltop&blast_rank=2&RID=ZV4C6TED016"",""OZ234918.1"")"
+Coccomyxa subellipsoidea C-169 C4-dicarboxylate transporter/malic acid transport protein partial mRNA,Coccomyxa subellipsoidea C-169,215,215,90%,4e-62,35.39,1505,"=HYPERLINK(""https://www.ncbi.nlm.nih.gov/nucleotide/XM_005647481.1?report=genbank&log$=nucltop&blast_rank=3&RID=ZV4C6TED016"",""XM_005647481.1"")"
+"Chlorella variabilis hypothetical protein (CHLNCDRAFT_35385) mRNA, complete cds",Chlorella variabilis,194,194,91%,1e-53,35.11,1669,"=HYPERLINK(""https://www.ncbi.nlm.nih.gov/nucleotide/XM_005847480.1?report=genbank&log$=nucltop&blast_rank=4&RID=ZV4C6TED016"",""XM_005847480.1"")"
+Monoraphidium neglectum hypothetical protein mRNA,Monoraphidium neglectum,92.8,92.8,63%,9e-18,27.55,1086,"=HYPERLINK(""https://www.ncbi.nlm.nih.gov/nucleotide/XM_014042614.1?report=genbank&log$=nucltop&blast_rank=5&RID=ZV4C6TED016"",""XM_014042614.1"")"
+
+
+
+		
+
+

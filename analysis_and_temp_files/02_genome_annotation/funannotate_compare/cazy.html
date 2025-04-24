@@ -1,0 +1,744 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="funannotate comparative genomics output" content="">
+    <meta name="Jonathan Palmer" content="">
+    <title>Funannotate</title>
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="css/starter-template.css" rel="stylesheet">
+    <script src="js/ie-emulation-modes-warning.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/t/bs/dt-1.10.11/datatables.min.css"/>
+    <script type="text/javascript" src="https://cdn.datatables.net/t/bs/dt-1.10.11/datatables.min.js"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+          </button>
+          <a class="navbar-brand" href="index.html">Funannotate</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="stats.html">Stats</a></li>
+            <li><a href="phylogeny.html">Phylogeny</a></li>
+            <li><a href="orthologs.html">Orthologs</a></li>
+            <li><a href="interpro.html">InterPro</a></li>
+            <li><a href="pfam.html">PFAM</a></li>
+            <li><a href="merops.html">Merops</a></li>
+            <li><a href="cazy.html">CAZymes</a></li>
+            <li><a href="cogs.html">COGs</a></li>
+            <li><a href="signalp.html">SignalP</a></li>
+            <li><a href="tf.html">TFs</a></li>
+            <li><a href="secmet.html">SecMet</a></li>
+            <li><a href="go.html">GO</a></li>
+            <li><a href="citation.html">Cite</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="starter-template">
+        <h2 class="sub-header">CAZyme Families per Genome Results</h2>
+        <div class='row'>
+        <div class="col-sm-7"><a href='cazy/CAZy.graph.pdf'><img src="cazy/CAZy.graph.pdf" height="350" /></a></div>
+        <div class="col-sm-5"><a href='cazy/CAZy.heatmap.pdf'><img src="cazy/CAZy.heatmap.pdf" height="600" /></a></div>
+        </div>
+        <div class="table-responsive">
+<table border="1" class="dataframe table table-hover">
+  <thead>
+    <tr style="text-align: right;">
+      <th>species</th>
+      <th>CAZy</th>
+      <th>T. sp. A48</th>
+      <th>T. SL0000003</th>
+      <th>stdev</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GT20.html">GT20</a></td>
+      <td>3</td>
+      <td>2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GH1.html">GH1</a></td>
+      <td>7</td>
+      <td>4</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GH5.html">GH5</a></td>
+      <td>18</td>
+      <td>14</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GH20.html">GH20</a></td>
+      <td>2</td>
+      <td>2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/CE16.html">CE16</a></td>
+      <td>4</td>
+      <td>2</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GT31.html">GT31</a></td>
+      <td>9</td>
+      <td>7</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GT2_Glycos_transf.html">GT2_Glycos_transf</a></td>
+      <td>5</td>
+      <td>4</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GH30.html">GH30</a></td>
+      <td>5</td>
+      <td>2</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GT96.html">GT96</a></td>
+      <td>3</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GT71.html">GT71</a></td>
+      <td>7</td>
+      <td>6</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GT61.html">GT61</a></td>
+      <td>6</td>
+      <td>4</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GT1.html">GT1</a></td>
+      <td>2</td>
+      <td>4</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GT95.html">GT95</a></td>
+      <td>3</td>
+      <td>2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GT32.html">GT32</a></td>
+      <td>6</td>
+      <td>3</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GH31.html">GH31</a></td>
+      <td>2</td>
+      <td>2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GH32.html">GH32</a></td>
+      <td>4</td>
+      <td>3</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GH2.html">GH2</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GT35.html">GT35</a></td>
+      <td>2</td>
+      <td>2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GT4.html">GT4</a></td>
+      <td>12</td>
+      <td>7</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GT30.html">GT30</a></td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GT57.html">GT57</a></td>
+      <td>2</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GH13.html">GH13</a></td>
+      <td>11</td>
+      <td>9</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GH27.html">GH27</a></td>
+      <td>2</td>
+      <td>2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GT22.html">GT22</a></td>
+      <td>4</td>
+      <td>2</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GT5.html">GT5</a></td>
+      <td>4</td>
+      <td>4</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/CBM50.html">CBM50</a></td>
+      <td>4</td>
+      <td>0</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GT92.html">GT92</a></td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GT77.html">GT77</a></td>
+      <td>4</td>
+      <td>3</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/CBM45.html">CBM45</a></td>
+      <td>2</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/CE1.html">CE1</a></td>
+      <td>2</td>
+      <td>2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GH14.html">GH14</a></td>
+      <td>3</td>
+      <td>2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/CE2.html">CE2</a></td>
+      <td>2</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GH8.html">GH8</a></td>
+      <td>5</td>
+      <td>1</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GT66.html">GT66</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GT2_Glyco_tranf_2.html">GT2_Glyco_tranf_2</a></td>
+      <td>7</td>
+      <td>6</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GT23.html">GT23</a></td>
+      <td>2</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GT17.html">GT17</a></td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GT15.html">GT15</a></td>
+      <td>2</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GT90.html">GT90</a></td>
+      <td>10</td>
+      <td>6</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GT33.html">GT33</a></td>
+      <td>2</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GT47.html">GT47</a></td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GH135.html">GH135</a></td>
+      <td>3</td>
+      <td>3</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GH43.html">GH43</a></td>
+      <td>3</td>
+      <td>2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GH47.html">GH47</a></td>
+      <td>7</td>
+      <td>3</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/CE14.html">CE14</a></td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GT75.html">GT75</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GH128.html">GH128</a></td>
+      <td>4</td>
+      <td>3</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GT2_Glyco_trans_2.html">GT2_Glyco_trans_2</a></td>
+      <td>2</td>
+      <td>3</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GH9.html">GH9</a></td>
+      <td>6</td>
+      <td>5</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/CE17.html">CE17</a></td>
+      <td>3</td>
+      <td>3</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GT60.html">GT60</a></td>
+      <td>2</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GH51.html">GH51</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/CE4.html">CE4</a></td>
+      <td>2</td>
+      <td>3</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GH3.html">GH3</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/CBM20.html">CBM20</a></td>
+      <td>3</td>
+      <td>2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GT24.html">GT24</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/CBM1.html">CBM1</a></td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GT105.html">GT105</a></td>
+      <td>2</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/AA3.html">AA3</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GT13.html">GT13</a></td>
+      <td>4</td>
+      <td>2</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/AA4.html">AA4</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GT58.html">GT58</a></td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/AA2.html">AA2</a></td>
+      <td>4</td>
+      <td>5</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GT69.html">GT69</a></td>
+      <td>4</td>
+      <td>1</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GT14.html">GT14</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GH19.html">GH19</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GT8.html">GT8</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/AA6.html">AA6</a></td>
+      <td>2</td>
+      <td>2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GT7.html">GT7</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GH18.html">GH18</a></td>
+      <td>2</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GT28.html">GT28</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GH38.html">GH38</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GH85.html">GH85</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GT62.html">GT62</a></td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GH109.html">GH109</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GT49.html">GT49</a></td>
+      <td>3</td>
+      <td>2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/CBM53.html">CBM53</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GT59.html">GT59</a></td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GH77.html">GH77</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GT64.html">GT64</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/AA5.html">AA5</a></td>
+      <td>2</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GH117.html">GH117</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GT50.html">GT50</a></td>
+      <td>2</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GH63.html">GH63</a></td>
+      <td>2</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GH46.html">GH46</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/PL29.html">PL29</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GT21.html">GT21</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GH35.html">GH35</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GT34.html">GT34</a></td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GH37.html">GH37</a></td>
+      <td>2</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/AA7.html">AA7</a></td>
+      <td>0</td>
+      <td>3</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/GT114.html">GT114</a></td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th></th>
+      <td><a target="_blank" href="http://www.cazy.org/CBM47.html">CBM47</a></td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+          </div>
+      </div>
+
+    </div><!-- /.container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')</script>
+    <script src="js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="js/ie10-viewport-bug-workaround.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#table').DataTable({
+                "paging": false
+            });
+        });
+    </script>
+  </body>
+</html>
+

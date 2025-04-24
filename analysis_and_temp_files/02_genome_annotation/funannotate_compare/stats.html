@@ -1,0 +1,150 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="funannotate comparative genomics output" content="">
+    <meta name="Jonathan Palmer" content="">
+    <title>Funannotate</title>
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="css/starter-template.css" rel="stylesheet">
+    <script src="js/ie-emulation-modes-warning.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/t/bs/dt-1.10.11/datatables.min.css"/>
+    <script type="text/javascript" src="https://cdn.datatables.net/t/bs/dt-1.10.11/datatables.min.js"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+          </button>
+          <a class="navbar-brand" href="index.html">Funannotate</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="stats.html">Stats</a></li>
+            <li><a href="phylogeny.html">Phylogeny</a></li>
+            <li><a href="orthologs.html">Orthologs</a></li>
+            <li><a href="interpro.html">InterPro</a></li>
+            <li><a href="pfam.html">PFAM</a></li>
+            <li><a href="merops.html">Merops</a></li>
+            <li><a href="cazy.html">CAZymes</a></li>
+            <li><a href="cogs.html">COGs</a></li>
+            <li><a href="signalp.html">SignalP</a></li>
+            <li><a href="tf.html">TFs</a></li>
+            <li><a href="secmet.html">SecMet</a></li>
+            <li><a href="go.html">GO</a></li>
+            <li><a href="citation.html">Cite</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="starter-template">
+        <h2 class="sub-header">Genome Summary Stats</h2>
+          <div class="table-responsive">
+<table border="1" class="dataframe table table-condensed">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>isolate</th>
+      <th>locus_tag</th>
+      <th>Assembly Size</th>
+      <th>Largest Scaffold</th>
+      <th>Average Scaffold</th>
+      <th>Num Scaffolds</th>
+      <th>Scaffold N50</th>
+      <th>Percent GC</th>
+      <th>Num Genes</th>
+      <th>Num Proteins</th>
+      <th>Num tRNA</th>
+      <th>Unique Proteins</th>
+      <th>Prots atleast 1 ortholog</th>
+      <th>Single-copy orthologs</th>
+    </tr>
+    <tr>
+      <th>species</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Trebouxia sp. A48</th>
+      <td>None</td>
+      <td>GTX0536PRED</td>
+      <td>69,092,103 bp</td>
+      <td>6,612,134 bp</td>
+      <td>3,454,605 bp</td>
+      <td>20</td>
+      <td>3,706,235 bp</td>
+      <td>49.68%</td>
+      <td>12,820</td>
+      <td>14,492</td>
+      <td>69</td>
+      <td>14,379</td>
+      <td>7,745</td>
+      <td>7,603</td>
+    </tr>
+    <tr>
+      <th>Trebouxia SL0000003</th>
+      <td>None</td>
+      <td>SL003</td>
+      <td>63,705,246 bp</td>
+      <td>4,988,964 bp</td>
+      <td>3,185,262 bp</td>
+      <td>20</td>
+      <td>3,320,455 bp</td>
+      <td>50.24%</td>
+      <td>10,061</td>
+      <td>9,928</td>
+      <td>133</td>
+      <td>9,889</td>
+      <td>7,703</td>
+      <td>7,603</td>
+    </tr>
+  </tbody>
+</table>
+          </div>
+      </div>
+
+    </div><!-- /.container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')</script>
+    <script src="js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="js/ie10-viewport-bug-workaround.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#table').DataTable({
+                "paging": false
+            });
+        });
+    </script>
+  </body>
+</html>
+

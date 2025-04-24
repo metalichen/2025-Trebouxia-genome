@@ -1,0 +1,447 @@
+# k used for kNN is: 14
+GTX0536PRED_000007-T1 chlo 4, cyto 3, extr 2, E.R. 2, cyto_plas 2
+GTX0536PRED_000018-T1 chlo 13
+GTX0536PRED_000029-T1 chlo 10, mito 2, nucl 1, pero 1, cyto_mito 1, mito_plas 1
+GTX0536PRED_000096-T1 extr 12, vacu 1, golg 1
+GTX0536PRED_000121-T1 chlo 14
+GTX0536PRED_000181-T1 cyto 10, chlo 1, nucl 1, E.R. 1, pero 1
+GTX0536PRED_000181-T2 cyto 9, E.R. 2, chlo 1, nucl 1, pero 1, E.R._vacu 1, E.R._plas 1
+GTX0536PRED_000196-T1 chlo 7, E.R. 3, mito 1, plas 1, vacu 1, golg 1, golg_plas 1, mito_plas 1
+GTX0536PRED_000199-T1 chlo 8, mito 3, E.R. 2
+GTX0536PRED_000200-T1 vacu 6, golg 4, extr 2, plas 1, E.R. 1, E.R._plas 1
+GTX0536PRED_000213-T2 extr 11, vacu 2
+GTX0536PRED_000216-T1 chlo 6.5, chlo_mito 6, mito 4.5, cyto 2
+GTX0536PRED_000293-T1 chlo 11, vacu 2
+GTX0536PRED_000354-T1 chlo 4, plas 3, extr 3, E.R. 2, mito_plas 2, cyto_plas 2
+GTX0536PRED_000410-T1 E.R. 4, vacu 3, E.R._plas 3, nucl 2, mito 2, plas 2, nucl_plas 2, mito_plas 2, cyto_E.R. 2
+GTX0536PRED_000420-T1 extr 11, vacu 2
+GTX0536PRED_000432-T1 extr 13
+GTX0536PRED_000434-T1 chlo 5, mito 5, chlo_mito 5
+GTX0536PRED_000434-T2 mito 6, nucl 4, chlo_mito 4
+GTX0536PRED_000485-T1 chlo 10, mito 2, nucl 1, cyto 1, cyto_nucl 1, cyto_mito 1, mito_plas 1
+GTX0536PRED_000574-T2 mito 6, nucl 5, cyto 2
+GTX0536PRED_000589-T1 chlo 7, extr 4, vacu 3
+GTX0536PRED_000599-T1 chlo 12, mito 1, extr 1
+GTX0536PRED_000686-T1 chlo 10, extr 3
+GTX0536PRED_000745-T1 extr 8, vacu 3, golg 2
+GTX0536PRED_000777-T1 chlo 6, extr 3, nucl 2, mito 1, vacu 1, E.R. 1, cyto_nucl 1, cysk_nucl 1, nucl_plas 1, E.R._vacu 1
+GTX0536PRED_000805-T1 chlo 7, extr 3, cyto 2, nucl 1, E.R. 1, cyto_pero 1, cyto_plas 1
+GTX0536PRED_000821-T1 chlo 10, mito 2, extr 1, E.R. 1, cyto_mito 1, mito_plas 1
+GTX0536PRED_000842-T1 vacu 6, extr 5, mito 1, E.R. 1, golg 1
+GTX0536PRED_000843-T1 extr 9, mito 1, plas 1, vacu 1, E.R. 1, golg 1, golg_plas 1, E.R._vacu 1, E.R._plas 1, mito_plas 1
+GTX0536PRED_000887-T1 cyto 7, vacu 3, nucl 2, chlo 1, plas 1, cysk_nucl 1
+GTX0536PRED_000888-T1 chlo 11, nucl 1, cyto 1, extr 1, cyto_nucl 1
+GTX0536PRED_000902-T1 extr 11, vacu 2
+GTX0536PRED_000907-T1 chlo 8, mito 3, extr 2
+GTX0536PRED_000960-T2 chlo 13
+GTX0536PRED_000960-T3 chlo 13
+GTX0536PRED_000999-T1 extr 9, vacu 5
+GTX0536PRED_001000-T1 extr 6, chlo 2, vacu 2, golg 2, nucl 1, mito 1, golg_plas 1, E.R._vacu 1
+GTX0536PRED_001012-T1 vacu 5, extr 4, golg 3, chlo 1, nucl 1
+GTX0536PRED_001018-T1 chlo 5, vacu 4, chlo_mito 4
+GTX0536PRED_001119-T2 vacu 7, chlo 2, extr 2, golg 2
+GTX0536PRED_001135-T1 chlo 13
+GTX0536PRED_001172-T1 extr 10, vacu 3
+GTX0536PRED_001172-T2 extr 10, vacu 2, chlo 1, nucl 1, E.R._vacu 1
+GTX0536PRED_001189-T1 E.R. 5, vacu 4, extr 3, chlo 2
+GTX0536PRED_001204-T1 chlo 14
+GTX0536PRED_001317-T1 extr 6, chlo 4, vacu 4
+GTX0536PRED_001348-T1 extr 7, mito 3, plas 2.5, E.R._plas 2.5
+GTX0536PRED_001360-T1 chlo 9, extr 4
+GTX0536PRED_001371-T1 vacu 7, E.R. 3, nucl 1, cyto 1, extr 1, golg 1, cyto_nucl 1
+GTX0536PRED_001459-T1 chlo 11, nucl 2
+GTX0536PRED_001459-T2 chlo 11, nucl 1, extr 1, vacu 1
+GTX0536PRED_001636-T1 chlo 8, extr 2, vacu 2, mito 1, golg 1, E.R._vacu 1
+GTX0536PRED_001671-T1 E.R. 5.5, E.R._plas 4.5, plas 2.5, mito 2, chlo 1, nucl 1, cyto 1, pero 1, cyto_nucl 1, cyto_mito 1, cyto_pero 1
+GTX0536PRED_001671-T2 E.R. 5.5, E.R._plas 4, mito 3, cyto 2, chlo_mito 2
+GTX0536PRED_001672-T1 chlo 5, vacu 3, mito 2, E.R. 2, cyto 1, golg 1, cyto_mito 1, E.R._plas 1, mito_plas 1
+GTX0536PRED_001673-T1 nucl_plas 4.33333, chlo 4, nucl 4, plas 2.5, E.R._plas 2.16667, mito 2
+GTX0536PRED_001674-T1 extr 5, chlo 4, vacu 2, golg 2, chlo_mito 2
+GTX0536PRED_001707-T2 vacu 10, plas 1, extr 1, E.R. 1, golg 1, golg_plas 1, E.R._plas 1
+GTX0536PRED_001707-T3 vacu 9, extr 2, plas 1, E.R. 1, golg 1, golg_plas 1, E.R._plas 1
+GTX0536PRED_001725-T1 chlo 10, nucl 2, mito 1, extr 1, cyto_nucl 1, cysk_nucl 1, nucl_plas 1
+GTX0536PRED_001725-T2 chlo 8, nucl 2.5, mito 2, cyto_nucl 2
+GTX0536PRED_001776-T1 E.R. 5, plas 3, E.R._vacu 3, chlo 2, mito 2, chlo_mito 2
+GTX0536PRED_001824-T1 vacu 7, chlo 6
+GTX0536PRED_001916-T1 chlo 6, extr 6, mito 2
+GTX0536PRED_001970-T1 vacu 7, chlo 2, E.R. 2, nucl 1, mito 1, golg 1, E.R._plas 1, cyto_E.R. 1
+GTX0536PRED_002051-T1 chlo 7, vacu 3, extr 2, E.R._vacu 2
+GTX0536PRED_002081-T1 chlo 7, extr 3, E.R. 2, nucl 1, plas 1, nucl_plas 1, E.R._vacu 1, cyto_E.R. 1
+GTX0536PRED_002088-T1 extr 6, mito 3, chlo 2, cyto 1, vacu 1, E.R. 1, E.R._vacu 1, cyto_E.R. 1
+GTX0536PRED_002106-T2 extr 10, chlo 1, cyto 1, mito 1, E.R. 1, chlo_mito 1, cyto_E.R. 1
+GTX0536PRED_002157-T1 chlo 13
+GTX0536PRED_002214-T1 chlo 9, extr 2, vacu 2
+GTX0536PRED_002215-T1 chlo 13
+GTX0536PRED_002215-T2 chlo 13
+GTX0536PRED_002320-T1 E.R. 3.5, extr 3, pero 3, E.R._plas 3, mito 2, plas 1.5, cyto_pero 1.5
+GTX0536PRED_002339-T1 mito 7, chlo 2, nucl 2, cyto 2, cyto_nucl 2
+GTX0536PRED_002339-T2 mito 9, nucl 2, cyto 2, cyto_nucl 2
+GTX0536PRED_002339-T3 mito 6.5, cyto_mito 4, chlo 3, cyto 2, nucl 1, plas 1, nucl_plas 1, cyto_pero 1, cyto_E.R. 1
+GTX0536PRED_002342-T1 chlo 4, plas 2.5, extr 2, vacu 2, chlo_mito 2, E.R._plas 2
+GTX0536PRED_002357-T1 chlo 6, cyto 2, mito 2, E.R. 1.5, cyto_nucl 1.5, E.R._plas 1.5
+GTX0536PRED_002358-T1 vacu 11, extr 2
+GTX0536PRED_002390-T1 chlo 10, mito 2, extr 1, E.R. 1, cyto_mito 1, mito_plas 1
+GTX0536PRED_002391-T1 chlo 13
+GTX0536PRED_002392-T1 chlo 12, mito 1, extr 1
+GTX0536PRED_002392-T2 chlo 12, mito 1, extr 1
+GTX0536PRED_002417-T1 chlo 11, plas 1, extr 1, E.R. 1, E.R._plas 1
+GTX0536PRED_002439-T1 vacu 5, extr 4, E.R._vacu 4
+GTX0536PRED_002630-T1 chlo 13
+GTX0536PRED_002653-T1 chlo 8, extr 4, nucl 1, mito 1
+GTX0536PRED_002664-T1 chlo 6, cyto 2.5, cyto_nucl 2.5, E.R. 2, pero 2
+GTX0536PRED_002676-T1 chlo 4, extr 4, vacu 4, nucl 1, golg 1
+GTX0536PRED_002706-T1 extr 10, vacu 2, chlo 1, mito 1, chlo_mito 1, E.R._vacu 1
+GTX0536PRED_002749-T1 vacu 5, chlo 4, extr 4
+GTX0536PRED_002809-T1 extr 12, vacu 2
+GTX0536PRED_002824-T1 extr 7, vacu 5, chlo 2
+GTX0536PRED_002891-T1 chlo 10, nucl 2, extr 1, vacu 1, cyto_nucl 1, cysk_nucl 1, nucl_plas 1
+GTX0536PRED_002941-T1 chlo 12, cyto 1, mito 1
+GTX0536PRED_002941-T3 chlo 10, mito 1, plas 1, extr 1, vacu 1, mito_plas 1
+GTX0536PRED_002956-T1 chlo 5, extr 3, vacu 3, golg 2
+GTX0536PRED_002969-T1 chlo 4, cyto 3, pero 3, cyto_pero 3
+GTX0536PRED_002994-T1 plas 7, extr 3, chlo 2, vacu 1, E.R. 1, chlo_mito 1, E.R._vacu 1
+GTX0536PRED_003020-T1 chlo 6, extr 4, nucl 3
+GTX0536PRED_003020-T2 chlo 5, extr 5, nucl 3, chlo_mito 3
+GTX0536PRED_003066-T1 nucl 5, cyto 4, mito 4
+GTX0536PRED_003069-T1 extr 6, chlo 3, vacu 2, chlo_mito 2
+GTX0536PRED_003076-T1 extr 9, chlo 2, vacu 2
+GTX0536PRED_003079-T1 chlo 5, nucl 3, extr 2, cyto_nucl 2, cysk_nucl 2, nucl_plas 2
+GTX0536PRED_003079-T2 chlo 5, nucl 5, plas 2, extr 1, vacu 1, golg_plas 1, cysk_plas 1, E.R._plas 1, mito_plas 1, cyto_plas 1
+GTX0536PRED_003102-T1 E.R. 8, chlo 2, vacu 2, cyto 1.5, cyto_nucl 1.5
+GTX0536PRED_003103-T1 chlo 3, cyto 3, nucl 2, mito 2, cyto_E.R. 2, cyto_plas 2
+GTX0536PRED_003132-T1 chlo 9, nucl 1, mito 1, extr 1, vacu 1, golg 1
+GTX0536PRED_003153-T1 chlo 7, mito 4, cyto 1, E.R. 1, pero 1, cyto_pero 1, cyto_E.R. 1
+GTX0536PRED_003176-T1 chlo 4, vacu 3, extr 2, E.R._vacu 2, nucl 1, mito 1, plas 1, E.R. 1, golg 1, nucl_plas 1, golg_plas 1, E.R._plas 1, mito_plas 1
+GTX0536PRED_003233-T1 chlo 11, E.R._vacu 2, vacu 1.5, E.R. 1.5
+GTX0536PRED_003279-T1 vacu 4, extr 3, E.R._vacu 3, chlo 2, nucl 2, E.R. 2
+GTX0536PRED_003279-T2 extr 4, vacu 4, nucl 2, E.R. 2, chlo 1, golg 1, cyto_nucl 1, cysk_nucl 1, nucl_plas 1, E.R._plas 1, cyto_E.R. 1
+GTX0536PRED_003279-T3 vacu 4, extr 3, E.R. 3, nucl 2, chlo 1, golg 1, cyto_nucl 1, cysk_nucl 1, nucl_plas 1
+GTX0536PRED_003280-T1 vacu 9, golg 2, nucl 1, plas 1, E.R. 1, nucl_plas 1, E.R._plas 1
+GTX0536PRED_003298-T1 chlo 13
+GTX0536PRED_003313-T1 chlo 5, vacu 5, extr 4
+GTX0536PRED_003365-T1 chlo 7, extr 3, vacu 2, nucl 1, golg 1, E.R._vacu 1
+GTX0536PRED_003366-T1 chlo 7, vacu 2, nucl 1, cyto 1, mito 1, plas 1, extr 1, cyto_nucl 1, nucl_plas 1, E.R._vacu 1, mito_plas 1, cyto_plas 1
+GTX0536PRED_003374-T1 chlo 13
+GTX0536PRED_003427-T1 extr 11, vacu 2
+GTX0536PRED_003488-T1 extr 4, mito 3, vacu 2, chlo_mito 2, chlo 1, nucl 1, cyto 1, golg 1, cyto_nucl 1, E.R._plas 1
+GTX0536PRED_003495-T1 extr 11, cyto 1, vacu 1, E.R. 1, E.R._vacu 1, cyto_E.R. 1
+GTX0536PRED_003503-T1 chlo 10, extr 4
+GTX0536PRED_003519-T1 chlo 5, extr 3, vacu 3, chlo_mito 3
+GTX0536PRED_003535-T1 chlo 9, nucl 2, extr 2
+GTX0536PRED_003701-T1 nucl 4, E.R._plas 3.33333, E.R. 3, plas 2.5, cysk_nucl 2.5, cyto_E.R. 2.33333
+GTX0536PRED_003731-T1 chlo 11, cyto 1, mito 1, extr 1
+GTX0536PRED_003733-T1 chlo 14
+GTX0536PRED_003765-T1 plas 5, extr 3, vacu 3, golg_plas 3, mito_plas 3, cyto_plas 3
+GTX0536PRED_003788-T1 chlo 6, plas 3, extr 3, chlo_mito 3
+GTX0536PRED_003802-T1 extr 8, chlo 4, nucl 1, mito 1
+GTX0536PRED_003844-T1 chlo 10, nucl 2, cyto 1, mito 1, cysk_nucl 1, nucl_plas 1
+GTX0536PRED_003845-T1 chlo 5, nucl 3, chlo_mito 3, vacu 2, nucl_plas 2
+GTX0536PRED_003893-T1 chlo 11, vacu 2
+GTX0536PRED_003900-T1 chlo 11, extr 2
+GTX0536PRED_003900-T2 chlo 9, extr 3, nucl 1, mito 1
+GTX0536PRED_003903-T1 vacu 4, chlo 3, extr 3, golg 2, nucl 1, E.R. 1, golg_plas 1
+GTX0536PRED_003918-T1 chlo 12, cyto 1, mito 1
+GTX0536PRED_003929-T1 extr 5, vacu 4, cyto 2, E.R._vacu 2
+GTX0536PRED_003929-T2 extr 5, vacu 4, cyto 2, E.R._vacu 2
+GTX0536PRED_003931-T1 mito 11, chlo 2
+GTX0536PRED_003932-T1 extr 10, chlo 1, nucl 1, cyto 1, vacu 1, cyto_nucl 1
+GTX0536PRED_003991-T1 vacu 7, extr 3, E.R. 2, chlo 1, golg 1, E.R._plas 1, cyto_E.R. 1
+GTX0536PRED_004001-T1 chlo 8, extr 4, nucl 1, mito 1
+GTX0536PRED_004003-T1 chlo 7, extr 3, vacu 3
+GTX0536PRED_004014-T1 E.R. 5.5, E.R._plas 3.5, chlo 2, nucl 2, mito 2, extr 2, chlo_mito 2
+GTX0536PRED_004017-T1 E.R. 6, cyto 4, chlo 1, nucl 1, plas 1, extr 1, nucl_plas 1
+GTX0536PRED_004032-T1 chlo 7, E.R. 2, cyto 1, mito 1, plas 1, extr 1, vacu 1, mito_plas 1, cyto_plas 1
+GTX0536PRED_004040-T1 chlo 11, mito 1, plas 1, extr 1, mito_plas 1
+GTX0536PRED_004050-T1 nucl 8, cyto 4, cysk_nucl 4, nucl_plas 4
+GTX0536PRED_004064-T1 chlo 5.5, nucl 5, chlo_mito 4, mito 1.5, cyto 1, vacu 1
+GTX0536PRED_004065-T1 vacu 4, cyto 3, plas 2, cyto_nucl 2, cyto_E.R. 2
+GTX0536PRED_004070-T1 chlo 10, nucl 2, extr 1, E.R. 1, cyto_nucl 1, cysk_nucl 1, nucl_plas 1
+GTX0536PRED_004071-T2 chlo 9, mito 3, nucl 1, E.R. 1
+GTX0536PRED_004091-T1 plas 7, vacu 3, extr 2, E.R. 2
+GTX0536PRED_004092-T1 extr 10, chlo 3
+GTX0536PRED_004110-T1 extr 11, chlo 1, mito 1, vacu 1, chlo_mito 1
+GTX0536PRED_004146-T1 vacu 6, extr 3, E.R. 3, nucl 1, mito 1
+GTX0536PRED_004170-T1 chlo 11, E.R. 2
+GTX0536PRED_004183-T1 chlo 7, extr 4, chlo_mito 4
+GTX0536PRED_004193-T1 mito 7, chlo 4, mito_plas 4
+GTX0536PRED_004194-T1 chlo 13
+GTX0536PRED_004199-T1 extr 9, chlo 3, nucl 1, mito 1
+GTX0536PRED_004328-T1 chlo 4, vacu 4, E.R. 1.5, E.R._plas 1.5, nucl 1, cyto 1, mito 1, golg 1, cyto_nucl 1
+GTX0536PRED_004387-T1 chlo 5, cyto 3, mito 3, plas 2, cyto_nucl 2
+GTX0536PRED_004485-T1 chlo 4, extr 4, E.R. 3, cyto 2
+GTX0536PRED_004544-T1 vacu 8, extr 2, nucl 1, mito 1, plas 1, E.R. 1, nucl_plas 1, E.R._plas 1, mito_plas 1
+GTX0536PRED_004598-T1 chlo 6, nucl 3, cyto 2, cysk_nucl 2, nucl_plas 2
+GTX0536PRED_004688-T1 chlo 10, vacu 2, nucl 1, extr 1, E.R._vacu 1
+GTX0536PRED_004739-T1 chlo 7, extr 3, nucl 2, mito 1, E.R. 1, cyto_nucl 1, cysk_nucl 1, nucl_plas 1
+GTX0536PRED_004773-T1 chlo 13
+GTX0536PRED_004794-T1 chlo 5, vacu 4, golg 2, nucl 1, mito 1, E.R. 1, golg_plas 1
+GTX0536PRED_004834-T1 extr 5, chlo 3, E.R. 2.5, E.R._plas 2.5, plas 1.5, mito 1, pero 1
+GTX0536PRED_004840-T1 extr 9, golg 2, plas 1, vacu 1, E.R. 1, E.R._vacu 1, E.R._plas 1
+GTX0536PRED_004886-T1 vacu 4, chlo 3, E.R._vacu 3, mito 2, E.R. 2
+GTX0536PRED_004890-T1 chlo 7, mito 4, extr 2, cyto_mito 2, mito_plas 2
+GTX0536PRED_004936-T1 chlo 12, mito 2
+GTX0536PRED_004963-T1 vacu 8, golg 2, cyto 1, plas 1, extr 1, E.R. 1, E.R._plas 1, cyto_E.R. 1, cyto_plas 1
+GTX0536PRED_004964-T1 mito 4, chlo 3, vacu 2, cyto_mito 2, nucl 1, cyto 1, plas 1, extr 1, E.R. 1, cyto_nucl 1, nucl_plas 1, E.R._plas 1, cyto_E.R. 1, cyto_plas 1
+GTX0536PRED_004966-T1 mito 7, plas 2, E.R. 2, E.R._plas 2
+GTX0536PRED_004980-T1 plas 7, vacu 3, E.R. 2, golg 2
+GTX0536PRED_004982-T1 extr 5, vacu 4, chlo 2, mito 1, plas 1, E.R. 1, E.R._plas 1, mito_plas 1
+GTX0536PRED_004998-T1 chlo 8, extr 4, chlo_mito 4
+GTX0536PRED_005003-T1 chlo 11, nucl 2
+GTX0536PRED_005039-T1 chlo 11, nucl 1, cyto 1, mito 1, cyto_nucl 1
+GTX0536PRED_005178-T1 chlo 4, vacu 4, nucl 2, plas 2, chlo_mito 2, nucl_plas 2
+GTX0536PRED_005205-T1 E.R. 4, E.R._plas 3.83333, cyto_E.R. 3.83333, nucl 3, cyto 2.5, plas 2.5
+GTX0536PRED_005318-T1 chlo 5, mito 4, nucl 3, cyto 1, plas 1, cyto_plas 1
+GTX0536PRED_005346-T1 nucl 3, E.R._plas 3, plas 2.5, E.R. 2.5, mito 2, vacu 2, cyto_nucl 2
+GTX0536PRED_005362-T1 extr 5, chlo 4, mito 3, E.R. 2
+GTX0536PRED_005369-T1 chlo 9, nucl 1, cyto 1, mito 1, plas 1, golg 1, cyto_nucl 1, nucl_plas 1, golg_plas 1, mito_plas 1, cyto_plas 1
+GTX0536PRED_005382-T1 chlo 4, vacu 3, extr 2, golg 2, cyto_nucl 2, chlo_mito 2
+GTX0536PRED_005400-T1 mito 7, chlo 4, mito_plas 4
+GTX0536PRED_005402-T1 chlo 5, extr 4, nucl 3, vacu 2
+GTX0536PRED_005446-T1 chlo 11, vacu 2
+GTX0536PRED_005450-T1 extr 6, cyto 5, chlo 2
+GTX0536PRED_005489-T1 chlo 11, mito 1, extr 1, vacu 1
+GTX0536PRED_005490-T1 extr 9, chlo 3, cyto 1, E.R. 1, cyto_E.R. 1
+GTX0536PRED_005504-T1 chlo 6, vacu 3, chlo_mito 3, nucl 2
+GTX0536PRED_005537-T1 chlo 8, extr 4, chlo_mito 4
+GTX0536PRED_005538-T1 chlo 7, extr 5, nucl 2
+GTX0536PRED_005543-T1 extr 6, cyto 4, chlo 1, nucl 1, mito 1, E.R. 1, chlo_mito 1
+GTX0536PRED_005553-T1 chlo 13
+GTX0536PRED_005580-T1 chlo 11, mito 3
+GTX0536PRED_005581-T1 extr 7, chlo 3, nucl 3
+GTX0536PRED_005599-T1 chlo 9, extr 3, cyto 1, mito 1
+GTX0536PRED_005625-T1 chlo 6, extr 4, plas 1.5, E.R._plas 1.5, mito 1, vacu 1
+GTX0536PRED_005641-T1 mito 8, chlo 2, cyto 1, extr 1, E.R. 1, golg 1, cyto_E.R. 1
+GTX0536PRED_005683-T1 extr 5, E.R. 3.5, E.R._plas 3, mito 2, plas 1.5, chlo_mito 1.5
+GTX0536PRED_005718-T1 chlo 10, extr 3
+GTX0536PRED_005735-T1 chlo 7, vacu 4, extr 3
+GTX0536PRED_005741-T1 chlo 6, extr 3, mito 2, nucl 1, cyto 1, vacu 1, cyto_nucl 1, cyto_mito 1, mito_plas 1
+GTX0536PRED_005759-T1 extr 8, vacu 4, chlo 2, E.R._vacu 2
+GTX0536PRED_005773-T1 extr 8, vacu 2, E.R. 2, golg 2, E.R._vacu 2
+GTX0536PRED_005779-T1 chlo 4, mito 3, vacu 2, mito_plas 2, nucl 1, cyto 1, plas 1, extr 1, E.R. 1, cyto_nucl 1, nucl_plas 1, E.R._plas 1, cyto_E.R. 1, cyto_plas 1
+GTX0536PRED_005863-T1 chlo 5, cyto 4, nucl 3, vacu 1, cysk 1
+GTX0536PRED_006053-T1 chlo 9, cyto 3, nucl 1, plas 1, nucl_plas 1
+GTX0536PRED_006124-T1 vacu 7, chlo 3, golg 2, nucl 1, extr 1, golg_plas 1
+GTX0536PRED_006220-T1 chlo 5, extr 5, pero 2, mito 1, vacu 1, cyto_pero 1
+GTX0536PRED_006247-T1 chlo 10, mito 3
+GTX0536PRED_006252-T1 chlo 12, mito 2
+GTX0536PRED_006258-T1 extr 6, cyto 4, chlo 2, nucl 2, cyto_pero 2, cyto_E.R. 2, cyto_plas 2
+GTX0536PRED_006268-T1 extr 10, chlo 1, mito 1, vacu 1, E.R. 1, chlo_mito 1, E.R._vacu 1
+GTX0536PRED_006270-T1 vacu 4, chlo 3, extr 2, golg 2, chlo_mito 2
+GTX0536PRED_006315-T1 chlo 6, nucl 4, extr 2, cyto_nucl 2, cysk_nucl 2, nucl_plas 2
+GTX0536PRED_006327-T1 chlo 9, cyto 1, mito 1, plas 1, extr 1, E.R. 1, E.R._plas 1, mito_plas 1, cyto_E.R. 1, cyto_plas 1
+GTX0536PRED_006337-T1 plas 6.5, golg_plas 5.5, golg 3.5, vacu 3
+GTX0536PRED_006369-T1 extr 7, chlo 5, cyto 1, mito 1
+GTX0536PRED_006373-T1 extr 9, mito 2, chlo 1, nucl 1, E.R. 1, cyto_mito 1, mito_plas 1
+GTX0536PRED_006378-T1 extr 7, chlo 3, mito 3, chlo_mito 3
+GTX0536PRED_006379-T1 extr 7, chlo 3, mito 3, chlo_mito 3
+GTX0536PRED_006490-T1 vacu 9, extr 4
+GTX0536PRED_006590-T1 extr 8, chlo 3, vacu 3
+GTX0536PRED_006600-T1 chlo 8, extr 3, golg 2
+GTX0536PRED_006626-T1 chlo 13
+GTX0536PRED_006643-T1 vacu 5, extr 4, golg 3, chlo 1, nucl 1
+GTX0536PRED_006708-T1 vacu 6, E.R. 6, E.R._vacu 6
+GTX0536PRED_006729-T1 extr 8, vacu 2, E.R. 2, E.R._vacu 2
+GTX0536PRED_006777-T1 chlo 5, extr 4, nucl 3, cyto 1, E.R. 1, cyto_E.R. 1
+GTX0536PRED_006972-T1 golg_plas 4, plas 3.5, golg 3.5, chlo 3, extr 3
+GTX0536PRED_006980-T1 chlo 12, extr 1, E.R. 1
+GTX0536PRED_007067-T1 vacu 4, extr 3, chlo 2, golg 2, nucl 1, mito 1, E.R. 1, golg_plas 1
+GTX0536PRED_007080-T1 extr 10, E.R. 1.5, E.R._plas 1.5, mito 1, vacu 1
+GTX0536PRED_007091-T1 extr 7, chlo 3, vacu 2, chlo_mito 2
+GTX0536PRED_007126-T1 extr 8, chlo 4, nucl 1, mito 1
+GTX0536PRED_007126-T2 extr 12, mito 1, E.R. 1
+GTX0536PRED_007126-T3 extr 6, chlo 4, nucl 1, cyto 1, mito 1, E.R. 1, cyto_nucl 1, cyto_E.R. 1
+GTX0536PRED_007196-T1 mito 5, chlo 4, E.R. 2, nucl 1, extr 1, pero 1, E.R._vacu 1, E.R._plas 1, cyto_E.R. 1
+GTX0536PRED_007237-T1 chlo 5, mito 4, extr 3, cyto 2, cyto_mito 2, mito_plas 2
+GTX0536PRED_007239-T1 chlo 5, vacu 5, mito 2, extr 2
+GTX0536PRED_007324-T1 chlo 5, vacu 4, extr 2, nucl 1, mito 1, E.R. 1
+GTX0536PRED_007366-T1 chlo 12, extr 2
+GTX0536PRED_007463-T1 chlo 9, extr 4
+GTX0536PRED_007525-T1 chlo 6, extr 5, vacu 2
+GTX0536PRED_007526-T1 cyto 11, chlo 1, vacu 1, cysk_nucl 1
+GTX0536PRED_007534-T1 extr 4, chlo 3, vacu 3, mito 2, nucl 1, golg 1, cyto_mito 1, mito_plas 1
+GTX0536PRED_007540-T1 chlo 3, vacu 3, mito 2, extr 2, golg 2, E.R._vacu 2
+GTX0536PRED_007566-T1 vacu 5, chlo 3, extr 3, golg 2
+GTX0536PRED_007597-T1 vacu 10, chlo 2, nucl 1, golg 1, chlo_mito 1
+GTX0536PRED_007638-T1 extr 6, vacu 2, golg 2, chlo 1, nucl 1, plas 1, E.R. 1, nucl_plas 1, E.R._plas 1
+GTX0536PRED_007644-T1 chlo 12, extr 2
+GTX0536PRED_007644-T2 chlo 12, extr 2
+GTX0536PRED_007649-T1 chlo 13
+GTX0536PRED_007767-T1 extr 5, vacu 4, chlo 3, nucl 1, E.R. 1
+GTX0536PRED_007813-T1 chlo 5, extr 4, vacu 2, golg 2
+GTX0536PRED_007975-T1 chlo 6, vacu 4, extr 2, E.R._vacu 2
+GTX0536PRED_007984-T1 vacu 7, extr 3, mito 2, chlo 1, E.R. 1, cyto_mito 1, mito_plas 1
+GTX0536PRED_007985-T1 extr 7, vacu 4, chlo 1, nucl 1, golg 1
+GTX0536PRED_008037-T1 chlo 7, nucl 4, extr 1, vacu 1, E.R. 1, E.R._vacu 1
+GTX0536PRED_008053-T1 chlo 12, nucl 1, mito 1
+GTX0536PRED_008057-T1 chlo 11, extr 2
+GTX0536PRED_008114-T1 chlo 4, vacu 4, extr 2, golg 2, chlo_mito 2
+GTX0536PRED_008132-T1 nucl 6, chlo 5, mito 1, plas 1, extr 1, mito_plas 1
+GTX0536PRED_008193-T1 chlo 13
+GTX0536PRED_008285-T1 extr 9, E.R. 2, golg 2
+GTX0536PRED_008300-T1 cyto 8, chlo 2, nucl 2, mito 1, extr 1, cysk_nucl 1, nucl_plas 1
+GTX0536PRED_008345-T1 chlo 7, mito 3, plas 1, extr 1, vacu 1, E.R. 1, E.R._vacu 1, E.R._plas 1
+GTX0536PRED_008386-T1 chlo 7, nucl 2, extr 2, cyto 1, vacu 1, E.R. 1, cysk_nucl 1, nucl_plas 1, E.R._vacu 1, cyto_E.R. 1
+GTX0536PRED_008402-T1 extr 7, chlo 3, E.R. 2, nucl 1, cyto 1, cyto_nucl 1, E.R._vacu 1, E.R._plas 1
+GTX0536PRED_008576-T1 vacu 7, extr 5, chlo 2
+GTX0536PRED_008608-T1 chlo 7, extr 4, cyto 1.5, cyto_nucl 1.5
+GTX0536PRED_008627-T1 chlo 4, extr 4, cyto 2, E.R. 2, cyto_E.R. 2
+GTX0536PRED_008627-T2 chlo 6, extr 5, cyto 1, mito 1, vacu 1
+GTX0536PRED_008757-T1 chlo 8, mito 3, extr 2, mito_plas 2
+GTX0536PRED_008762-T1 extr 7, chlo 6
+GTX0536PRED_008768-T1 vacu 7, extr 4, E.R._vacu 4
+GTX0536PRED_008819-T1 plas 6, chlo 2, E.R. 2, golg 2, nucl 1, mito 1, E.R._vacu 1, cyto_E.R. 1
+GTX0536PRED_008819-T2 plas 6, chlo 2, E.R. 2, golg 2, nucl 1, mito 1, E.R._vacu 1, cyto_E.R. 1
+GTX0536PRED_008896-T1 chlo 6, nucl 2, extr 2, E.R. 2, mito 1, vacu 1, cyto_nucl 1, cysk_nucl 1, nucl_plas 1, E.R._plas 1, cyto_E.R. 1
+GTX0536PRED_008918-T1 chlo 5, vacu 3, mito 2, extr 2, nucl 1, golg 1, cyto_mito 1, mito_plas 1
+GTX0536PRED_008925-T1 extr 9, chlo 3, vacu 1, golg 1
+GTX0536PRED_008927-T1 chlo 8, cyto_nucl 2, nucl 1.5, cyto 1.5, mito 1, plas 1, cysk 1, cysk_plas 1, mito_plas 1
+GTX0536PRED_008963-T1 cyto 4, chlo 2, plas 2, vacu 2, pero 2, nucl 1, E.R. 1, chlo_mito 1, golg_plas 1, cysk_plas 1, mito_plas 1
+GTX0536PRED_008968-T1 chlo 10, extr 2, plas 1, E.R. 1, E.R._plas 1
+GTX0536PRED_008969-T1 chlo 7, extr 4, nucl 1, cyto 1, plas 1, cyto_nucl 1, nucl_plas 1, cyto_plas 1
+GTX0536PRED_009043-T1 chlo 14
+GTX0536PRED_009089-T1 chlo 5, vacu 4, mito 2, E.R._vacu 2
+GTX0536PRED_009131-T1 chlo 7, vacu 3, mito 2, E.R._vacu 2
+GTX0536PRED_009179-T1 E.R. 3.5, mito 3, extr 3, E.R._plas 3, nucl 2, plas 1.5, chlo_mito 1.5, cyto_mito 1.5
+GTX0536PRED_009216-T1 extr 6, chlo 2, cyto 2, E.R. 2, cyto_E.R. 2
+GTX0536PRED_009222-T1 extr 12, mito 1, vacu 1
+GTX0536PRED_009224-T1 extr 6, vacu 4, chlo 1, cyto 1, mito 1, E.R. 1, chlo_mito 1, cyto_E.R. 1
+GTX0536PRED_009237-T1 chlo 9, extr 4
+GTX0536PRED_009264-T1 chlo 10, vacu 3
+GTX0536PRED_009302-T1 chlo 11, extr 1, vacu 1, E.R. 1, E.R._vacu 1
+GTX0536PRED_009364-T1 mito 5, nucl 4, chlo_mito 4
+GTX0536PRED_009396-T1 chlo 4, extr 2, vacu 2, E.R. 2, pero 2, E.R._vacu 2
+GTX0536PRED_009430-T1 chlo 12, extr 1, vacu 1
+GTX0536PRED_009482-T1 extr 5, chlo 4, cyto 2, mito 1, E.R. 1, pero 1, cyto_nucl 1, cyto_plas 1
+GTX0536PRED_009482-T2 nucl 5, cyto 5, cyto_nucl 5
+GTX0536PRED_009501-T1 chlo 4, vacu 3, E.R. 3, E.R._vacu 3
+GTX0536PRED_009518-T1 vacu 8, extr 3, chlo 1, E.R. 1, golg 1
+GTX0536PRED_009543-T1 extr 6, E.R. 3.5, E.R._plas 3, mito 2, plas 1.5, chlo_mito 1.5
+GTX0536PRED_009569-T1 chlo 7, nucl 3, cyto 1, plas 1, E.R. 1, pero 1, cyto_pero 1, E.R._plas 1, cyto_E.R. 1, cyto_plas 1
+GTX0536PRED_009593-T1 chlo 10, extr 2, mito 1, E.R. 1
+GTX0536PRED_009595-T1 chlo 5, vacu 4, extr 2, golg 2, E.R._vacu 2
+GTX0536PRED_009632-T1 extr 3, vacu 3, E.R. 3, E.R._vacu 3, cyto 2
+GTX0536PRED_009639-T1 chlo 14
+GTX0536PRED_009686-T1 chlo 7, extr 3, nucl 1, plas 1, vacu 1, E.R. 1, nucl_plas 1, E.R._vacu 1, E.R._plas 1
+GTX0536PRED_009707-T1 chlo 7, extr 5, vacu 2
+GTX0536PRED_009761-T1 chlo 11, vacu 2
+GTX0536PRED_009839-T1 extr 9, nucl 3, chlo 2
+GTX0536PRED_009866-T1 chlo 8, extr 4, mito 1, E.R. 1
+GTX0536PRED_009902-T1 chlo 5, vacu 4, extr 2, golg 2
+GTX0536PRED_009987-T1 chlo 12, nucl 1, E.R. 1
+GTX0536PRED_009989-T1 chlo 13
+GTX0536PRED_010011-T1 chlo 9, extr 4
+GTX0536PRED_010059-T1 plas 4.5, golg_plas 4.5, extr 4, golg 3.5, vacu 2
+GTX0536PRED_010063-T1 chlo 13
+GTX0536PRED_010073-T1 extr 6, vacu 6, chlo 1, mito 1, chlo_mito 1
+GTX0536PRED_010086-T1 chlo 9, extr 3, nucl 1, E.R. 1
+GTX0536PRED_010108-T1 extr 6, chlo 2, E.R._plas 2, plas 1.5, E.R. 1.5, chlo_mito 1.5
+GTX0536PRED_010115-T1 vacu 4, chlo 3, E.R._vacu 3, plas 2, E.R. 2, E.R._plas 2
+GTX0536PRED_010126-T1 chlo 8, extr 3, nucl 1, vacu 1, E.R. 1, E.R._vacu 1
+GTX0536PRED_010131-T1 chlo 7, extr 2, vacu 2, nucl 1, E.R. 1, golg 1
+GTX0536PRED_010142-T1 vacu 8, chlo 3, nucl 1, E.R. 1, golg 1
+GTX0536PRED_010182-T1 nucl 7, chlo 6
+GTX0536PRED_010190-T1 chlo 7, mito 4, nucl_plas 2.5, plas 2, cyto_mito 2
+GTX0536PRED_010240-T1 vacu 5, chlo 3, E.R._vacu 3, golg 2, chlo_mito 2
+GTX0536PRED_010397-T1 chlo 6, vacu 5, E.R. 2
+GTX0536PRED_010417-T1 chlo 9, extr 2, nucl 1, cyto 1, mito 1, cyto_nucl 1
+GTX0536PRED_010477-T1 cyto 6, nucl 5, chlo 2
+GTX0536PRED_010485-T1 chlo 13
+GTX0536PRED_010504-T1 vacu 5, nucl 2, cyto 2, plas 2, cyto_nucl 2, nucl_plas 2, cyto_plas 2
+GTX0536PRED_010549-T1 extr 8, cyto 3, chlo 1, vacu 1, E.R. 1, E.R._vacu 1
+GTX0536PRED_010552-T1 chlo 8, extr 2, vacu 2, nucl 1, golg 1, E.R._vacu 1
+GTX0536PRED_010587-T1 extr 6, chlo 4, mito 2, E.R. 2
+GTX0536PRED_010618-T1 extr 9, chlo 2, nucl 1, cyto 1, mito 1, cyto_nucl 1
+GTX0536PRED_010628-T1 chlo 7, cyto 3, nucl 2, mito 2
+GTX0536PRED_010628-T3 E.R. 3.5, E.R._plas 3.5, plas 2.5, chlo 2, cyto 2, nucl 1, mito 1, vacu 1, golg 1, cyto_pero 1
+GTX0536PRED_010629-T1 chlo 7, extr 3, vacu 3
+GTX0536PRED_010646-T1 chlo 12, cyto 1, mito 1
+GTX0536PRED_010650-T1 extr 4, chlo 3, mito 3, chlo_mito 3
+GTX0536PRED_010651-T1 extr 8, chlo 5
+GTX0536PRED_010655-T1 chlo 5, nucl 3.5, chlo_mito 3.5, nucl_plas 3, mito 2
+GTX0536PRED_010673-T1 E.R. 5.5, E.R._plas 4, chlo 2, nucl 2, plas 1.5, cyto_nucl 1.5, chlo_mito 1.5
+GTX0536PRED_010687-T1 chlo 3, E.R._plas 3, plas 2.5, E.R. 2.5, vacu 2, chlo_mito 2, nucl 1, cyto 1, mito 1, golg 1, cyto_nucl 1
+GTX0536PRED_010698-T1 chlo 7, extr 4, vacu 2
+GTX0536PRED_010703-T2 extr 7, mito 2, vacu 2, chlo 1, cyto 1, E.R. 1, cyto_mito 1, mito_plas 1, cyto_E.R. 1
+GTX0536PRED_010834-T1 chlo 7, extr 4, vacu 3
+GTX0536PRED_010845-T1 vacu 6, extr 3, E.R._vacu 3, chlo 2, golg 2
+GTX0536PRED_010894-T1 extr 10, vacu 2, chlo 1, E.R. 1
+GTX0536PRED_011007-T1 chlo 12, nucl 1, extr 1
+GTX0536PRED_011025-T1 E.R. 7, vacu 4, extr 2
+GTX0536PRED_011078-T1 vacu 6, chlo 5, nucl 1, plas 1, golg 1, nucl_plas 1, golg_plas 1
+GTX0536PRED_011091-T1 extr 5, E.R. 3, vacu 2, E.R._plas 2, chlo 1, plas 1, pero 1, golg 1, golg_plas 1
+GTX0536PRED_011092-T1 extr 10, chlo 1, plas 1, vacu 1, E.R. 1, E.R._vacu 1, E.R._plas 1
+GTX0536PRED_011116-T1 extr 5, E.R. 3, vacu 2, E.R._plas 2, chlo 1, nucl 1, plas 1, golg 1, nucl_plas 1, golg_plas 1
+GTX0536PRED_011127-T1 chlo 4, extr 3, vacu 3, nucl 1, mito 1, pero 1, golg 1
+GTX0536PRED_011136-T1 chlo 6, extr 3, nucl 2.5, cyto_nucl 2, mito 1, plas 1, mito_plas 1
+GTX0536PRED_011173-T1 vacu 6, extr 4, golg 3, E.R._vacu 3
+GTX0536PRED_011201-T1 chlo 14
+GTX0536PRED_011220-T1 chlo 4, extr 3, nucl 2, cyto 2, cyto_nucl 2
+GTX0536PRED_011253-T1 chlo 8, nucl 4, chlo_mito 4
+GTX0536PRED_011263-T1 extr 8, chlo 5
+GTX0536PRED_011283-T1 vacu 6, chlo 3, E.R._vacu 3, extr 2, golg 2
+GTX0536PRED_011306-T1 mito 4, chlo 3, vacu 3, nucl 2, cyto_mito 2
+GTX0536PRED_011307-T2 mito 9.5, chlo_mito 6.5, chlo 2.5
+GTX0536PRED_011307-T3 chlo 7, nucl 3, mito 2.5, cyto_mito 2
+GTX0536PRED_011327-T1 plas 9, mito 2, E.R. 2
+GTX0536PRED_011347-T1 extr 8, chlo 5
+GTX0536PRED_011366-T2 chlo 10, nucl 2, mito 1, vacu 1, cyto_nucl 1, cysk_nucl 1, nucl_plas 1
+GTX0536PRED_011474-T1 extr 5, vacu 4, chlo 2, cyto 1, mito 1, E.R. 1, cyto_E.R. 1
+GTX0536PRED_011558-T1 extr 10, chlo 2, mito 1, vacu 1
+GTX0536PRED_011561-T1 chlo 8, extr 3, nucl 1, vacu 1, golg 1
+GTX0536PRED_011562-T1 chlo 12, nucl 1, extr 1
+GTX0536PRED_011566-T1 extr 8, mito 2, chlo 1, cyto 1, vacu 1, E.R. 1, cyto_mito 1, E.R._vacu 1, mito_plas 1, cyto_E.R. 1
+GTX0536PRED_011570-T2 chlo 6, extr 4, vacu 4
+GTX0536PRED_011603-T2 chlo 6, vacu 3, extr 2, nucl 1, mito 1, golg 1
+GTX0536PRED_011607-T1 chlo 5, extr 5, nucl 2, pero 2
+GTX0536PRED_011655-T1 extr 10, vacu 2, chlo 1, mito 1, chlo_mito 1, E.R._vacu 1
+GTX0536PRED_011656-T1 extr 11, vacu 2
+GTX0536PRED_011748-T1 chlo 5, plas 2.5, chlo_mito 2.5, cyto 2, extr 2, vacu 2, E.R._plas 2
+GTX0536PRED_011760-T1 extr 11, cyto 1, mito 1, vacu 1
+GTX0536PRED_011762-T1 extr 8, chlo 3, nucl 2, chlo_mito 2
+GTX0536PRED_011767-T1 extr 7, chlo 4, vacu 3
+GTX0536PRED_011783-T1 extr 10, chlo 1, plas 1, vacu 1, E.R. 1, E.R._vacu 1, E.R._plas 1
+GTX0536PRED_011811-T1 chlo 4, cyto 4, nucl 3, extr 2, chlo_mito 2, cyto_E.R. 2, cyto_plas 2
+GTX0536PRED_011817-T1 vacu 6, chlo 2, extr 2, nucl 1, mito 1, E.R. 1, golg 1
+GTX0536PRED_011818-T1 vacu 8, extr 3, chlo 1, nucl 1, E.R. 1
+GTX0536PRED_011838-T1 mito 4, chlo 3, E.R. 3, vacu 2, cyto_mito 2, E.R._plas 2, cyto_E.R. 2
+GTX0536PRED_011883-T1 extr 8, chlo 4, cyto 2, chlo_mito 2
+GTX0536PRED_011891-T1 chlo 4, pero 4, E.R. 1.5, E.R._plas 1.5, nucl 1, extr 1, vacu 1, golg 1
+GTX0536PRED_011894-T1 chlo 7, pero 3, nucl 2, extr 1, E.R. 1, cyto_nucl 1, cysk_nucl 1, nucl_plas 1
+GTX0536PRED_011899-T1 mito 6, vacu 5, chlo 1, cyto 1, plas 1, cyto_plas 1
+GTX0536PRED_011931-T1 mito 7, nucl 3, chlo 2, cyto 2
+GTX0536PRED_011946-T1 chlo 9, mito 2, nucl 1, extr 1, E.R. 1, cyto_mito 1, mito_plas 1
+GTX0536PRED_011957-T1 chlo 11, nucl 1, plas 1, E.R. 1, nucl_plas 1, E.R._plas 1
+GTX0536PRED_011967-T1 chlo 9, vacu 3, nucl 1, E.R. 1
+GTX0536PRED_011976-T1 chlo 14
+GTX0536PRED_012001-T1 chlo 13
+GTX0536PRED_012038-T1 chlo 7, mito 3, nucl 2, extr 1, E.R. 1, cyto_nucl 1, cysk_nucl 1, nucl_plas 1
+GTX0536PRED_012064-T1 chlo 6, E.R. 3, chlo_mito 3, vacu 2, E.R._plas 2
+GTX0536PRED_012089-T1 chlo 6, mito 3, extr 3, vacu 2
+GTX0536PRED_012100-T1 chlo 9, extr 2, nucl 1, mito 1, golg 1
+GTX0536PRED_012116-T1 vacu 4, chlo 3, E.R._vacu 3, extr 2, E.R. 2, chlo_mito 2
+GTX0536PRED_012121-T1 extr 7, chlo 5, nucl 1, E.R. 1
+GTX0536PRED_012130-T1 chlo 10, E.R. 2, mito 1, extr 1, E.R._vacu 1, E.R._plas 1, cyto_E.R. 1
+GTX0536PRED_012140-T1 mito 11, chlo 2
+GTX0536PRED_012147-T1 extr 7, chlo 2, plas 2, vacu 2
+GTX0536PRED_012211-T1 chlo 4, mito 3, extr 3, nucl 2, E.R. 2
+GTX0536PRED_012212-T1 extr 11, chlo 1, mito 1, chlo_mito 1, E.R._plas 1
+GTX0536PRED_012238-T1 vacu 7, nucl 3, plas 2, extr 1, E.R. 1, golg_plas 1, cysk_plas 1, mito_plas 1, cyto_plas 1
+GTX0536PRED_012302-T1 chlo 8, vacu 2, cyto 1, mito 1, extr 1, E.R. 1, cyto_E.R. 1
+GTX0536PRED_012322-T1 chlo 5, vacu 4, extr 3, chlo_mito 3
+GTX0536PRED_012372-T1 chlo 4, E.R. 3.5, E.R._plas 3.5, plas 2.5, chlo_mito 2.5
+GTX0536PRED_012385-T1 chlo 11, plas 1, extr 1, E.R. 1, E.R._plas 1
+GTX0536PRED_012407-T1 vacu 7, extr 6
+GTX0536PRED_012413-T1 extr 9, vacu 2, E.R. 2, E.R._vacu 2
+GTX0536PRED_012425-T1 vacu 6, chlo 4, extr 3
+GTX0536PRED_012436-T1 extr 7, mito 2, vacu 2, chlo 1, cyto 1, E.R. 1, cyto_mito 1, mito_plas 1, cyto_E.R. 1
+GTX0536PRED_012459-T1 extr 13
+GTX0536PRED_012577-T1 chlo 11, nucl 2
+GTX0536PRED_012611-T1 extr 6, vacu 3, cyto 2, E.R. 2, cyto_E.R. 2
+GTX0536PRED_012764-T1 extr 6, nucl 3, vacu 2, cyto_nucl 2
+GTX0536PRED_012767-T1 chlo 7, E.R. 4, chlo_mito 4
+GTX0536PRED_012781-T1 chlo 14
+GTX0536PRED_012781-T2 chlo 14
+GTX0536PRED_012782-T1 chlo 10, golg 2, mito 1, E.R. 1, golg_plas 1
+GTX0536PRED_012784-T1 chlo 14
+GTX0536PRED_012788-T1 chlo 5, extr 3, cyto 2, nucl 1.5, cysk_nucl 1.5, cyto_E.R. 1.5
+GTX0536PRED_012862-T1 chlo 10, nucl 1, vacu 1, pero 1, golg 1

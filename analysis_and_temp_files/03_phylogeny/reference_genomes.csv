@@ -1,0 +1,26 @@
+﻿ID,Species,Trebouxia OTU,Trebouxia clade,Taxonomy,Source,Protein annotation,Reference
+Chabra1,Chara braunii,,,Charophyta,JGI,JGI,Nishiyama et al. Cell. 2018
+Astpho2,Asterochloris glomerata,,,Chlorophyta; Trebouxiophyceaea; Trebouxiales,JGI,JGI,"Armaleo et al. BMC Genomics, 2019"
+Chloso1228,Chlorella sorokiana,,,Chlorophyta; Trebouxiophyceaea; Chlorellales,JGI,JGI,"Hovde et al. Algal Research, 2018"
+Chlorella_NC64A,Chlorella variabilis,,,Chlorophyta; Trebouxiophyceaea; Chlorellales,JGI,JGI,Blanc et al. Plant Cell. 2010
+Auxeprot1,Auxenochlorella protothecoides,,,Chlorophyta; Trebouxiophyceaea; Chlorellales,JGI,JGI,Gao et al. BMC Genomics. 2014
+Botrbrau1,Botryococcus braunii,,,Chlorophyta; Trebouxiophyceaea; Elliptochloris clade,JGI,JGI,Browne et al. Genome Announc. 2017
+Coccomyxa,Coccomyxa subellipsoidea,,,Chlorophyta; Trebouxiophyceaea; Elliptochloris clade,JGI,JGI,Blanc et al. Genome Biol. 2012
+Chleu1,Chlamydomonas eustigma,,,Chlorophyta; Chlorophyceae; Chlamydomonadales,JGI,JGI,Hirooka et al. PNAS 2017
+Ulvmu1,Ulva mutabilis,,,Chlorophyta; Ulvophyceae; Ulvales,JGI,JGI,De Clerck et al. Curr. Biol. 2018
+Volca2,Volvox carteri,,,Chlorophyta; Chlorophyceae; Chlamydomonadales,JGI,JGI,Prochnik et al. Scinece. 2010
+Batpra1,Bathycoccus prasinos,,,Chlorophyta; Mamiellophyceae; Mamiellales,JGI,JGI,Moreau et al. Genome Biol. 2012
+TrebA12,Trebouxia A1-2,A02,A,Chlorophyta; Trebouxiophyceaea; Trebouxiales,JGI,JGI,"Greshake Tzovaras et al. GBE, 2020"
+trebgel,Trebouxia gelatinosa,I05,I,Chlorophyta; Trebouxiophyceaea; Trebouxiales,NCBI,"Tagirdzhanova et al. Curr Biol, 2025",O'Neill et al. Mar Drugs. 2020
+trebus,Trebouxia sp. TZW2008,Unknown,C,Chlorophyta; Trebouxiophyceaea; Trebouxiales,NCBI,"Tagirdzhanova et al. Curr Biol, 2025","Kono et al. BMC Genomics, 2020"
+GTX0468.bin.53.proteins,Trebouxia sp. ,Unknown,A,Chlorophyta; Trebouxiophyceaea; Trebouxiales,NCBI,NCBI,"Tagirdzhanova et al. Curr Biol, 2025"
+GTX0493.bin.23.proteins,Trebouxia sp. ,Unknown,A,Chlorophyta; Trebouxiophyceaea; Trebouxiales,NCBI,NCBI,"Tagirdzhanova et al. Curr Biol, 2025"
+GTX0465.bin.1.proteins,Trebouxia sp. ,Unknown,A,Chlorophyta; Trebouxiophyceaea; Trebouxiales,NCBI,NCBI,"Tagirdzhanova et al. Curr Biol, 2025"
+coassembly.bin.195.proteins,Trebouxia sp. ,Unknown,A,Chlorophyta; Trebouxiophyceaea; Trebouxiales,NCBI,NCBI,"Tagirdzhanova et al. Curr Biol, 2025"
+Trebouxia_C0004,Trebouxia sp. C0004,S09,S,Chlorophyta; Trebouxiophyceaea; Trebouxiales,NCBI,NCBI,"Poquita-Du et al. Genome Biol Evol, 2024"
+Trebouxia_C0005,Trebouxia sp. C0005,S19,S,Chlorophyta; Trebouxiophyceaea; Trebouxiales,NCBI,NCBI,"Poquita-Du et al. Genome Biol Evol, 2024"
+Trebouxia_C0006,Trebouxia sp. C0006,S12,S,Chlorophyta; Trebouxiophyceaea; Trebouxiales,NCBI,NCBI,"Poquita-Du et al. Genome Biol Evol, 2024"
+Trebouxia_C0009,Trebouxia sp. C0009,A10,A,Chlorophyta; Trebouxiophyceaea; Trebouxiales,NCBI,NCBI,"Poquita-Du et al. Genome Biol Evol, 2024"
+Trebouxia_C0010,Trebouxia sp. C0010,A04,A,Chlorophyta; Trebouxiophyceaea; Trebouxiales,NCBI,NCBI,"Poquita-Du et al. Genome Biol Evol, 2024"
+Trebouxia_SL00009,Trebouxia sp. SL00009,A40,A,Chlorophyta; Trebouxiophyceaea; Trebouxiales,NCBI,This paper,This paper
+Trebouxia_sp.A48,Trebouxia sp. A48,A48,A,Chlorophyta; Trebouxiophyceaea; Trebouxiales,This paper,This paper,This paper
