@@ -263,7 +263,7 @@ tree1<-read.tree("../analysis_and_temp_files/05_HGT/GTX0536PRED_006449_aligned.p
 nr_6449$name <- paste(nr_6449$ID,nr_6449$kingdom,nr_6449$phylum,
                       nr_6449$class,nr_6449$order)
 
-tree1$tip.label<-nr_6449[[22]][match(tree1$tip.label, nr_6449[[10]])]
+tree1$tip.label<-nr_6449[[20]][match(tree1$tip.label, nr_6449[[10]])]
 ape::write.tree(tree1, file="../analysis_and_temp_files/05_HGT/GTX0536PRED_006449_aligned.phyl.renamed.contree")
 
 tree2<-read.tree("../analysis_and_temp_files/05_HGT/GTX0536PRED_004195_aligned.phyl.contree")
@@ -271,7 +271,7 @@ tree2<-read.tree("../analysis_and_temp_files/05_HGT/GTX0536PRED_004195_aligned.p
 nr_4195$name <- paste(nr_4195$ID,nr_4195$kingdom,nr_4195$phylum,
                       nr_4195$class,nr_4195$order)
 
-tree2$tip.label<-nr_4195[[22]][match(tree2$tip.label, nr_4195[[10]])]
+tree2$tip.label<-nr_4195[[20]][match(tree2$tip.label, nr_4195[[10]])]
 ape::write.tree(tree2, file="../analysis_and_temp_files/05_HGT/GTX0536PRED_004195_aligned.phyl.renamed.contree")
 ```
 ## 5. Check neighboring genes
