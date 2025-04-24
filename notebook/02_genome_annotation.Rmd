@@ -1,5 +1,5 @@
 ---
-title: "05_genome_annotation.md"
+title: "02_genome_annotation.md"
 author: "Gulnara Tagridzhanova"
 date: "26/03/2025"
 output: 
@@ -19,7 +19,7 @@ library(kableExtra)
 * Will do binning to identify contigs that might be external
 * First, use minimap to align the reads onto the assembly
 ```{r,eval=F}
-mkdir analysis_and_temp_files/05_genome_annotation
+mkdir analysis_and_temp_files/02_genome_annotation
 
 source package c92263ec-95e5-43eb-a527-8f1496d56f1a 
 source package 222eac79-310f-4d4b-8e1c-0cece4150333
@@ -27,7 +27,7 @@ source package 222eac79-310f-4d4b-8e1c-0cece4150333
 minimap2 -t 20 -a data/your-data_fg25005_2025-03-20_1225/FG25005_01_GTX0536.fasta data/your-data_fg25005_2025-03-20_1225/FG25005_05_PAO94355_20250305_dorado_7.4.13_sup_pass.fastq.gz | samtools sort -@8 -o analysis_and_temp_files/04_genome_annotation/GTX0536.bam
 
 samtools index analysis_and_temp_files/04_genome_annotation/GTX0536.bam
-samtools faidx analysis_and_temp_files/05_genome_annotation/GTX0536.fasta
+samtools faidx analysis_and_temp_files/02_genome_annotation/GTX0536.fasta
 ```
 * Use metaBAT, which produced 23 bins
 ```{r,eval=F}
@@ -50,12 +50,12 @@ stats.sh in=analysis_and_temp_files/04_genome_annotation/GTX0536.fasta gc=analys
 ```
 * Visualize binning result. One contig (ptg000005c) had a super high coverage at 2246x, which is probably an organelle genome. The rest are split into two groups at ~36% GC and 50%
 ```{r}
-gc<-read.delim2("../analysis_and_temp_files/05_genome_annotation/GTX0536.gc",header=T)
+gc<-read.delim2("../analysis_and_temp_files/02_genome_annotation/GTX0536.gc",header=T)
 colnames(gc)[1]<-"contig"
 gc$GC<-as.numeric(gc$GC)
-cov<-read.delim2("../analysis_and_temp_files/05_genome_annotation/GTX0536.fasta.depth.txt")
+cov<-read.delim2("../analysis_and_temp_files/02_genome_annotation/GTX0536.fasta.depth.txt")
 colnames(cov)[1]<-"contig"
-bins<-read.delim2("../analysis_and_temp_files/05_genome_annotation/GTX0536.cov")
+bins<-read.delim2("../analysis_and_temp_files/02_genome_annotation/GTX0536.cov")
 colnames(bins)[1]<-"contig"
 
 df<-left_join(gc,cov) %>% left_join(bins)
@@ -100,7 +100,7 @@ blastn \
 library(taxize)
 
 #get taxid for each hit based on its accession ID
-blast_results<-read.delim2("../analysis_and_temp_files/05_genome_annotation/GTX0536.blast.out",header=F)
+blast_results<-read.delim2("../analysis_and_temp_files/02_genome_annotation/GTX0536.blast.out",header=F)
 
 get_taxid <- function(x){
   list <- genbank2uid(id = x, key="86df5e42e9751ae03c5e114326c1740ef008")
@@ -129,7 +129,7 @@ colnames(blast) <- c("contig","accession")
 blast2 <- acc_taxid %>% left_join(taxonomy) %>% left_join(blast)  %>% distinct()
 
 #save the table so that I don't need to re-run the ncbi step
-write.table(blast2, "../analysis_and_temp_files/05_genome_annotation/GTX0536.blast.taxonomy.txt",col.names = T, row.names = F, quote = F,sep="\t")
+write.table(blast2, "../analysis_and_temp_files/02_genome_annotation/GTX0536.blast.taxonomy.txt",col.names = T, row.names = F, quote = F,sep="\t")
 ```
 * This confirms that the sequences in the cluster with bin 7 and bin 9 are the nuclear genome
   * Plastid genome is ptg000005c
@@ -139,7 +139,7 @@ write.table(blast2, "../analysis_and_temp_files/05_genome_annotation/GTX0536.bla
 library(gridExtra)
 library(ggforce)
 
-blast<-read.delim2("../analysis_and_temp_files/05_genome_annotation/GTX0536.blast.taxonomy.txt",header=T)
+blast<-read.delim2("../analysis_and_temp_files/02_genome_annotation/GTX0536.blast.taxonomy.txt",header=T)
 
 blast<- blast %>% mutate(label=case_when(
   is.na(domain) ~ "Virus",
@@ -171,7 +171,7 @@ minimap2 -x asm20 -t 10 --secondary=no data/SL0000003.fasta analysis_and_temp_fi
 * Alignment overall looks reasonable (here showing only stretches >20kbp with quality >40)
 ```{r,fig.width=8,fig.height=8}
 library(pafr)
-paf<-read_paf("../analysis_and_temp_files/05_genome_annotation/GTX0536_SL0000003.paf")
+paf<-read_paf("../analysis_and_temp_files/02_genome_annotation/GTX0536_SL0000003.paf")
 paf_filtered <-subset(paf, alen > 20000 & mapq > 40)
 paf_filtered <-paf_filtered  %>% distinct()
 align<-paf_filtered %>% group_by(qname,tname) %>% summarize(total_alen = sum(alen)) %>% 
@@ -192,7 +192,7 @@ align %>% kable(format = "html", col.names = colnames(align)) %>%
   kableExtra::scroll_box(width = "100%", height = "400px")
 ```
 * Let's picture syntheny for all partners
-```{r,fig.width=8,fig.height=15}
+```{r,fig.width=8,fig.height=25}
 ptg000001l<-plot_synteny(paf_filtered, q_chrom="ptg000001l", t_chrom="OZ234914.1", centre=F)
 ptg000002l<-plot_synteny(paf_filtered, q_chrom="ptg000002l", t_chrom="OZ234913.1", centre=F)
 ptg000002l_2<-plot_synteny(paf_filtered, q_chrom="ptg000002l", t_chrom="OZ234917.1", centre=F)
@@ -224,11 +224,11 @@ ptg0000023l/ptg0000065l
 ```
 
 * Will nonetheless include contig 23 
-* Saved the 20 contigs as `analysis_and_temp_files/05_genome_annotation/GTX0536_nuclear.fasta`
+* Saved the 20 contigs as `analysis_and_temp_files/02_genome_annotation/GTX0536_nuclear.fasta`
 ```{r,eval=F}
-write.table(align$qname[1:19], "../analysis_and_temp_files/05_genome_annotation/GTX0536_nuclear.txt",col.names = F, row.names = F, quote = F,sep="\t")
+write.table(align$qname[1:19], "../analysis_and_temp_files/02_genome_annotation/GTX0536_nuclear.txt",col.names = F, row.names = F, quote = F,sep="\t")
 source package 1041444f-cd25-4107-a5c7-5e86cb1728fe
-seqkit grep -i -f analysis_and_temp_files/05_genome_annotation/GTX0536_nuclear.txt analysis_and_temp_files/05_genome_annotation/GTX0536.fasta  > analysis_and_temp_files/05_genome_annotation/GTX0536_nuclear.fasta 
+seqkit grep -i -f analysis_and_temp_files/02_genome_annotation/GTX0536_nuclear.txt analysis_and_temp_files/02_genome_annotation/GTX0536.fasta  > analysis_and_temp_files/02_genome_annotation/GTX0536_nuclear.fasta 
 ```
 
 
@@ -239,19 +239,19 @@ seqkit grep -i -f analysis_and_temp_files/05_genome_annotation/GTX0536_nuclear.t
   * 5 have on one end
   * 2 had none
 ```{r,eval=F}
-python code/detect_telomers.py analysis_and_temp_files/05_genome_annotation/GTX0536_nuclear.fasta -m "CCCTAAA" > analysis_and_temp_files/05_genome_annotation/GTX0536_telomere_detection.txt
+python code/detect_telomers.py analysis_and_temp_files/02_genome_annotation/GTX0536_nuclear.fasta -m "CCCTAAA" > analysis_and_temp_files/02_genome_annotation/GTX0536_telomere_detection.txt
 ```
 
 * Used SEQtk and got GC% for non-overlapping windows of 1000 bp
 ```{r,eval=F}
 source package 46a62eca-4f8f-45aa-8cc2-d4efc99dd9c6
-seqkit sliding  analysis_and_temp_files/05_genome_annotation/GTX0536_nuclear.fasta -s 1000 -W 1000  | seqkit fx2tab -n -g > analysis_and_temp_files/05_genome_annotation/GTX0536_nuclear.fasta_GC_sliding.txt
+seqkit sliding  analysis_and_temp_files/02_genome_annotation/GTX0536_nuclear.fasta -s 1000 -W 1000  | seqkit fx2tab -n -g > analysis_and_temp_files/02_genome_annotation/GTX0536_nuclear.fasta_GC_sliding.txt
 ```
 * Everything looks fine, except for the low GC% portion of ptg000019l. That's the same part of the contig that had hits to plastid genomes, and the same that wasn't aligned to a contig in the ASG genome. Could this be an misassembly?
 ```{r}
 library(stringr)
 library(viridis)
-gc<-read.delim2("../analysis_and_temp_files/05_genome_annotation/GTX0536_nuclear.fasta_GC_sliding.txt",header=F)[,c(1,2)]
+gc<-read.delim2("../analysis_and_temp_files/02_genome_annotation/GTX0536_nuclear.fasta_GC_sliding.txt",header=F)[,c(1,2)]
 colnames(gc)<-c("window","gc_content")
 ##get contig name and start of the window
 gc$contig<-sub("_sliding.*", "", gc$window)  
@@ -260,7 +260,7 @@ gc$window_start<-sub("-.*", "", gc$window) %>% as.numeric()
 gc$gc_content<-gc$gc_content %>% as.numeric()
 
 ##add data for telomere annotation
-tel<-read.delim2("../analysis_and_temp_files/05_genome_annotation/GTX0536_telomere_detection.txt",header=F)[,c(1,2)]
+tel<-read.delim2("../analysis_and_temp_files/02_genome_annotation/GTX0536_telomere_detection.txt",header=F)[,c(1,2)]
 colnames(tel)<-c("contig","position")
 tel_start_contig_list<-tel[tel$position=="forward",1] #list all contigs that have telomer at the contig start (corresponds to 'forward')
 tel_end_contig_list<-tel[tel$position=="reverse",1] #list all contigs that have telomer at the contig start (corresponds to 'forward')
@@ -290,19 +290,19 @@ ggplot(gc)+
 * Looked at the bam file around the ptg000019l:2410001-2420000 window, where the shift from ~50% GC to ~35% happens
   * Found a clean break at 2,410,725 bp. Clearly, the end portion of the contig comes from the cloroplast, which also explains why the average coverage of this contig was higher than the rest of the nuclear genome. Will remove the chloroplast mathcing portion
 ```{r, out.width = '80%'}
-knitr::include_graphics("../analysis_and_temp_files/05_genome_annotation/checking_for_misassemblies/ptg000019l.png")
+knitr::include_graphics("../analysis_and_temp_files/02_genome_annotation/checking_for_misassemblies/ptg000019l.png")
 ```
 
 * We can exclude that the same problem happened to other contigs, since they have very similar coverage to each other (192-210x), none had hits to chloroplast ,and none had more than one hit to mitochondrion
 * While we are at it, let's look at ptg000002l:2972181-3246738, which is the border of the parts of the contig aligned to OZ234917.1 and OZ234913.1. Could this also be a misassembly?
 * To simplify searching, let's calculate the depth in non-overlapping 1000bp windows for a larger region 2,750,000-3,500,000
 ```{r,eval=F}
-for i in {2750..3500}; do s=$(($i*1000)); e=$(($i*1000+1000)); samtools coverage -r ptg000002l:$s-$e analysis_and_temp_files/05_genome_annotation/GTX0536.bam; done > analysis_and_temp_files/05_genome_annotation/ptg000002l.cov
-grep "ptg000002l" analysis_and_temp_files/05_genome_annotation/ptg000002l.cov > analysis_and_temp_files/05_genome_annotation/ptg000002l.filtered.cov
+for i in {2750..3500}; do s=$(($i*1000)); e=$(($i*1000+1000)); samtools coverage -r ptg000002l:$s-$e analysis_and_temp_files/02_genome_annotation/GTX0536.bam; done > analysis_and_temp_files/02_genome_annotation/ptg000002l.cov
+grep "ptg000002l" analysis_and_temp_files/02_genome_annotation/ptg000002l.cov > analysis_and_temp_files/02_genome_annotation/ptg000002l.filtered.cov
 ```
 * Coverage is uneven here, but there are no clear changes in GC%. The window with the lowest coverage still shows to ha
 ```{r}
-depth<-read.delim2("../analysis_and_temp_files/05_genome_annotation/ptg000002l.filtered.cov",header=F)[,c(2,7)]
+depth<-read.delim2("../analysis_and_temp_files/02_genome_annotation/ptg000002l.filtered.cov",header=F)[,c(2,7)]
 colnames(depth)<-c("window","depth")
 depth$depth <- as.numeric(depth$depth)
 gc$window<-as.numeric(gc$window_start-1)
@@ -317,20 +317,20 @@ ggplot(x,aes(x=window,y=n))+ geom_col()+
 
 * Looked in IGV at the portion with the most drastic coverage jump (417x in the window 3,024,000 to 100x in 3,025,000), but it still has reasonable coverage and no obvious breaks, as well as the flanking regions
 ```{r, out.width = '80%'}
-knitr::include_graphics("../analysis_and_temp_files/05_genome_annotation/checking_for_misassemblies/ptg000002.png")
+knitr::include_graphics("../analysis_and_temp_files/02_genome_annotation/checking_for_misassemblies/ptg000002.png")
 ```
 
 * Can we find telomeres in this region?
   * Nope! got a few hits, but those are not clustered and are likely by chance
 ```{r,eval=F}
-samtools faidx analysis_and_temp_files/05_genome_annotation/GTX0536_nuclear.fasta ptg000002l:2750000-3500000 > analysis_and_temp_files/05_genome_annotation/ptg000002l_suspect.fa
+samtools faidx analysis_and_temp_files/02_genome_annotation/GTX0536_nuclear.fasta ptg000002l:2750000-3500000 > analysis_and_temp_files/02_genome_annotation/ptg000002l_suspect.fa
 
-grep "CCCTAAACCCTAAA" -n analysis_and_temp_files/05_genome_annotation/ptg000002l_suspect.fa
-grep "GGGTTTAGGGTTT" -n analysis_and_temp_files/05_genome_annotation/ptg000002l_suspect.fa
+grep "CCCTAAACCCTAAA" -n analysis_and_temp_files/02_genome_annotation/ptg000002l_suspect.fa
+grep "GGGTTTAGGGTTT" -n analysis_and_temp_files/02_genome_annotation/ptg000002l_suspect.fa
 ```
 * Can we find telomeric repeats in the middle of other contigs? Searched the entire assembly
 ```{r,eval=F}
-seqkit locate -i -p "CCCTAAACCCTAAACCCTAAACCCTAAACCCTAAA" analysis_and_temp_files/05_genome_annotation/GTX0536_nuclear.fasta >  analysis_and_temp_files/05_genome_annotation/GTX0536_telomeric_repeats_across.txt
+seqkit locate -i -p "CCCTAAACCCTAAACCCTAAACCCTAAACCCTAAA" analysis_and_temp_files/02_genome_annotation/GTX0536_nuclear.fasta >  analysis_and_temp_files/02_genome_annotation/GTX0536_telomeric_repeats_across.txt
 ```
 * Got one short match in the middle of ptg000002l
   * Back-to-back reverse and forward repeats in the middle of ptg000003l
@@ -339,7 +339,7 @@ seqkit locate -i -p "CCCTAAACCCTAAACCCTAAACCCTAAACCCTAAA" analysis_and_temp_file
 ```{r}
 library(ivs)
 
-repeats<-read.delim2("../analysis_and_temp_files/05_genome_annotation/GTX0536_telomeric_repeats_across.txt",header=T)
+repeats<-read.delim2("../analysis_and_temp_files/02_genome_annotation/GTX0536_telomeric_repeats_across.txt",header=T)
 colnames(repeats)[1]<-"contig"
 repeats<- repeats %>% left_join(df %>% select(contig,Length))
 
@@ -361,29 +361,29 @@ repeats3%>% kable(format = "html", col.names = colnames(repeats3)) %>%
 
 * Identified several irregularity, where at the end of a contig there is a break. To remedy this, will remove the 'tails'. From ptg000003l remove bases after 3706235 
 ```{r, out.width = '80%'}
-knitr::include_graphics("../analysis_and_temp_files/05_genome_annotation/checking_for_misassemblies/ptg000003l_3704286-3708286.png")
+knitr::include_graphics("../analysis_and_temp_files/02_genome_annotation/checking_for_misassemblies/ptg000003l_3704286-3708286.png")
 ```
 
 * From ptg000004l remove bases after 3027428
 ```{r, out.width = '80%'}
-knitr::include_graphics("../analysis_and_temp_files/05_genome_annotation/checking_for_misassemblies/ptg000004l_3026090-3030090.png")
+knitr::include_graphics("../analysis_and_temp_files/02_genome_annotation/checking_for_misassemblies/ptg000004l_3026090-3030090.png")
 ```
 
-* All other matches to telomeric repeats were not associated with assembly breaks  `analysis_and_temp_files/05_genome_annotation/checking_for_misassemblies/`
+* All other matches to telomeric repeats were not associated with assembly breaks  `analysis_and_temp_files/02_genome_annotation/checking_for_misassemblies/`
 * To be safe, examined other end of contigs that lack telomeres to exclude similar problems. Found that beginning of contig 8 suffers from the same problem. Will remove first 1035 bp
 ```{r, out.width = '80%'}
-knitr::include_graphics("../analysis_and_temp_files/05_genome_annotation/checking_for_misassemblies/ptg000008l_1-4000.png")
+knitr::include_graphics("../analysis_and_temp_files/02_genome_annotation/checking_for_misassemblies/ptg000008l_1-4000.png")
 ```
 
 * Will remove bases past 4,931,045 from ptg000016l
 ```{r, out.width = '80%'}
-knitr::include_graphics("../analysis_and_temp_files/05_genome_annotation/checking_for_misassemblies/ptg000016l_4929045-4931045.png")
+knitr::include_graphics("../analysis_and_temp_files/02_genome_annotation/checking_for_misassemblies/ptg000016l_4929045-4931045.png")
 ```
 
 * Will remove bases past 2,339,172 ptg000020l and before 1071
 ```{r, out.width = '80%'}
-knitr::include_graphics("../analysis_and_temp_files/05_genome_annotation/checking_for_misassemblies/ptg000020l_1-4000.png")
-knitr::include_graphics("../analysis_and_temp_files/05_genome_annotation/checking_for_misassemblies/ptg000020l_2335936-2339936.png")
+knitr::include_graphics("../analysis_and_temp_files/02_genome_annotation/checking_for_misassemblies/ptg000020l_1-4000.png")
+knitr::include_graphics("../analysis_and_temp_files/02_genome_annotation/checking_for_misassemblies/ptg000020l_2335936-2339936.png")
 ```
 
 #### Scafolding of the 'tail' of ptg000003l? Didn't work 
@@ -396,10 +396,10 @@ subset(paf, qname=="ptg000003l" & qend>3706236 & mapq > 40) %>%
 * Aligning just the tail against the SL0000003 genome, didn't get any hits with better quality
 * Aligning it against the GTX0536 assembly from which the tail is removed, it maps back on to the same contig but in reverse strand
 ```{r,eval=F}
-samtools faidx analysis_and_temp_files/05_genome_annotation/GTX0536.fasta ptg000003l:3706236-3719598 > analysis_and_temp_files/05_genome_annotation/ptg000003l_tail.fa 
-blastn -query analysis_and_temp_files/05_genome_annotation/ptg000003l_tail.fa  -subject data/SL0000003.fasta -outfmt 6
+samtools faidx analysis_and_temp_files/02_genome_annotation/GTX0536.fasta ptg000003l:3706236-3719598 > analysis_and_temp_files/02_genome_annotation/ptg000003l_tail.fa 
+blastn -query analysis_and_temp_files/02_genome_annotation/ptg000003l_tail.fa  -subject data/SL0000003.fasta -outfmt 6
 
-minimap2 -x asm20 -t 10 --secondary=no data/SL0000003.fasta analysis_and_temp_files/05_genome_annotation/ptg000003l_tail.fa > analysis_and_temp_files/05_genome_annotation/ptg000003l_tail_SL0000003.paf
+minimap2 -x asm20 -t 10 --secondary=no data/SL0000003.fasta analysis_and_temp_files/02_genome_annotation/ptg000003l_tail.fa > analysis_and_temp_files/02_genome_annotation/ptg000003l_tail_SL0000003.paf
 
 ptg000003l:3706236-3719598      13363   4020    5359    -       OZ234919.1      2842224 730997  732352  615     1378    60      tp:A:P  cm:i:69 s1:i:597      s2:i:280        dv:f:0.0078     rl:i:414
 ptg000003l:3706236-3719598      13363   1660    2765    -       OZ234917.1      2908467 564827  565829  283     1127    60      tp:A:P  cm:i:18 s1:i:252      s2:i:0  dv:f:0.0081     rl:i:414
@@ -408,7 +408,7 @@ ptg000003l:3706236-3719598      13363   672     1119    +       OZ234913.1      
 ptg000003l:3706236-3719598      13363   570     858     +       OZ234922.1      2422596 249762  250050  46      288     5       tp:A:P  cm:i:3  s1:i:46       s2:i:0  dv:f:0.0562     rl:i:414
 
 
-minimap2 -x asm20 -t 10 analysis_and_temp_files/05_genome_annotation/GTX0536_nuclear_final.fasta analysis_and_temp_files/05_genome_annotation/ptg000003l_tail.fa
+minimap2 -x asm20 -t 10 analysis_and_temp_files/02_genome_annotation/GTX0536_nuclear_final.fasta analysis_and_temp_files/02_genome_annotation/ptg000003l_tail.fa
 
 ptg000003l:3706236-3719598      13363   233     13353   -       ptg000003l:1-3706235    3706235 3692266 3705653 7673    13430   60      tp:A:P  cm:i:1169     s1:i:7578       s2:i:290        dv:f:0.0002     rl:i:945
 ```
@@ -416,57 +416,57 @@ ptg000003l:3706236-3719598      13363   233     13353   -       ptg000003l:1-370
 #### Finalized the genome
 * Made a new fasta file where portion of contigs outlined above are truncated
 ```{r,eval=F}
-seqkit grep -i -f analysis_and_temp_files/05_genome_annotation/GTX0536_nuclear_final.txt analysis_and_temp_files/05_genome_annotation/GTX0536.fasta  > analysis_and_temp_files/05_genome_annotation/GTX0536_nuclear_final.fasta 
+seqkit grep -i -f analysis_and_temp_files/02_genome_annotation/GTX0536_nuclear_final.txt analysis_and_temp_files/02_genome_annotation/GTX0536.fasta  > analysis_and_temp_files/02_genome_annotation/GTX0536_nuclear_final.fasta 
 
-samtools faidx analysis_and_temp_files/05_genome_annotation/GTX0536.fasta ptg000019l:1-2410725 >> analysis_and_temp_files/05_genome_annotation/GTX0536_nuclear_final.fasta 
+samtools faidx analysis_and_temp_files/02_genome_annotation/GTX0536.fasta ptg000019l:1-2410725 >> analysis_and_temp_files/02_genome_annotation/GTX0536_nuclear_final.fasta 
 
-samtools faidx analysis_and_temp_files/05_genome_annotation/GTX0536.fasta ptg000003l:1-3706235 >> analysis_and_temp_files/05_genome_annotation/GTX0536_nuclear_final.fasta 
+samtools faidx analysis_and_temp_files/02_genome_annotation/GTX0536.fasta ptg000003l:1-3706235 >> analysis_and_temp_files/02_genome_annotation/GTX0536_nuclear_final.fasta 
 
-samtools faidx analysis_and_temp_files/05_genome_annotation/GTX0536.fasta ptg000004l:1-3027428 >> analysis_and_temp_files/05_genome_annotation/GTX0536_nuclear_final.fasta 
+samtools faidx analysis_and_temp_files/02_genome_annotation/GTX0536.fasta ptg000004l:1-3027428 >> analysis_and_temp_files/02_genome_annotation/GTX0536_nuclear_final.fasta 
 
-samtools faidx analysis_and_temp_files/05_genome_annotation/GTX0536.fasta ptg000008l:1035-2212220 >> analysis_and_temp_files/05_genome_annotation/GTX0536_nuclear_final.fasta 
+samtools faidx analysis_and_temp_files/02_genome_annotation/GTX0536.fasta ptg000008l:1035-2212220 >> analysis_and_temp_files/02_genome_annotation/GTX0536_nuclear_final.fasta 
 
-samtools faidx analysis_and_temp_files/05_genome_annotation/GTX0536.fasta ptg000016l:1-4931045 >> analysis_and_temp_files/05_genome_annotation/GTX0536_nuclear_final.fasta 
+samtools faidx analysis_and_temp_files/02_genome_annotation/GTX0536.fasta ptg000016l:1-4931045 >> analysis_and_temp_files/02_genome_annotation/GTX0536_nuclear_final.fasta 
 
-samtools faidx analysis_and_temp_files/05_genome_annotation/GTX0536.fasta ptg000020l:1071-2339172 >> analysis_and_temp_files/05_genome_annotation/GTX0536_nuclear_final.fasta 
+samtools faidx analysis_and_temp_files/02_genome_annotation/GTX0536.fasta ptg000020l:1071-2339172 >> analysis_and_temp_files/02_genome_annotation/GTX0536_nuclear_final.fasta 
 
 ```
 
 * At a later stage, added another contig (ptg000023l), after it became clear that it contained GEX1 gene that wasn't found elsewhere in the genome, but was present in all other Trebouxia genomes (minus SL0003 genome)
 ```{r,eval=F}
-cp analysis_and_temp_files/05_genome_annotation/GTX0536_nuclear_final.fasta analysis_and_temp_files/05_genome_annotation/GTX0536_nuclear_final2.fasta 
+cp analysis_and_temp_files/02_genome_annotation/GTX0536_nuclear_final.fasta analysis_and_temp_files/02_genome_annotation/GTX0536_nuclear_final2.fasta 
 
 source package aeee87c4-1923-4732-aca2-f2aff23580cc
-samtools faidx analysis_and_temp_files/05_genome_annotation/GTX0536.fasta ptg000023l >> analysis_and_temp_files/05_genome_annotation/GTX0536_nuclear_final2.fasta 
+samtools faidx analysis_and_temp_files/02_genome_annotation/GTX0536.fasta ptg000023l >> analysis_and_temp_files/02_genome_annotation/GTX0536_nuclear_final2.fasta 
 
 ```
 * Cleaned and sorted the assembly using funannotate
 ```{r,eval=F}
-singularity run ../singularity/funannotate.sif funannotate sort -i analysis_and_temp_files/05_genome_annotation/GTX0536_nuclear_final2.fasta -o analysis_and_temp_files/05_genome_annotation/GTX0536_nuclear_final_sort2.fasta -b GTX0536
+singularity run ../singularity/funannotate.sif funannotate sort -i analysis_and_temp_files/02_genome_annotation/GTX0536_nuclear_final2.fasta -o analysis_and_temp_files/02_genome_annotation/GTX0536_nuclear_final_sort2.fasta -b GTX0536
 ```
 
 #### Check completeness scores
 * BUSCO score: C:96.5%[S:95.9%,D:0.6%],F:0.7%,M:2.8%,n:1519  
 (BUSCO v4.0.6, chlorophyta_odb10)
 ```{r,eval=F}
-mkdir analysis_and_temp_files/05_genome_annotation/GTX0536_busco2
+mkdir analysis_and_temp_files/02_genome_annotation/GTX0536_busco2
 source package ca890cd7-f81d-4c22-9f4a-5b40ab671c79
 source package 85f2de80-4bd0-48dc-9303-bba1a19206e4
 export AUGUSTUS_CONFIG_PATH=../02_long_read_assemblies/analysis_and_temp_files/02_binning/tmp_augustus/config
-busco -i analysis_and_temp_files/05_genome_annotation/GTX0536_nuclear_final2.fasta -o GTX0536 --out_path analysis_and_temp_files/05_genome_annotation/GTX0536_busco2  -m  genome -l /tsl/data/busco_lineages/chlorophyta_odb10 --offline -f -c 20
+busco -i analysis_and_temp_files/02_genome_annotation/GTX0536_nuclear_final2.fasta -o GTX0536 --out_path analysis_and_temp_files/02_genome_annotation/GTX0536_busco2  -m  genome -l /tsl/data/busco_lineages/chlorophyta_odb10 --offline -f -c 20
 ```
 
 * For comparison, analyzed the ASG genome, and got slightly worse results
   * C:92.3%[S:91.6%,D:0.7%],F:0.5%,M:7.2%,n:1519 
 ```{r,eval=F}
-busco -i data/SL0000003.fasta -o SL0000003 --out_path analysis_and_temp_files/05_genome_annotation/SL0000003_busco  -m  genome -l /tsl/data/busco_lineages/chlorophyta_odb10 --offline -f -c 20
+busco -i data/SL0000003.fasta -o SL0000003 --out_path analysis_and_temp_files/02_genome_annotation/SL0000003_busco  -m  genome -l /tsl/data/busco_lineages/chlorophyta_odb10 --offline -f -c 20
 ```
 
 * Visualize completeness scores
 ```{r}
 library(geomtextpath)
 
-busco1<-read.delim("../analysis_and_temp_files/05_genome_annotation/GTX0536_busco/GTX0536/short_summary.specific.chlorophyta_odb10.GTX0536.txt",header=F,skip = 9)
+busco1<-read.delim("../analysis_and_temp_files/02_genome_annotation/GTX0536_busco/GTX0536/short_summary.specific.chlorophyta_odb10.GTX0536.txt",header=F,skip = 9)
 busco1$type<-c("Complete (95.9%)","Duplicated (0.6%)","Fragmented (0.7%)","Missing (2.8%)","Total")
 busco1<-busco1[1:4,]
 hsize <- 1.5
@@ -479,7 +479,7 @@ b1<-ggplot(busco1,aes(y=V2,fill=type,x=hsize))+geom_col()+
                      legend.key=element_rect(colour="#969696"))+
   ggtitle("GTX0536")
 
-busco2<-read.delim("../analysis_and_temp_files/05_genome_annotation/SL0000003_busco/SL0000003/short_summary.specific.chlorophyta_odb10.SL0000003.txt",header=F,skip = 9)
+busco2<-read.delim("../analysis_and_temp_files/02_genome_annotation/SL0000003_busco/SL0000003/short_summary.specific.chlorophyta_odb10.SL0000003.txt",header=F,skip = 9)
 busco2$type<-c("Complete (91.6%)","Duplicated (0.7%)","Fragmented (0.5%)","Missing (7.2%)","Total")
 busco2<-busco2[1:4,]
 hsize <- 1.5
@@ -498,14 +498,14 @@ ggsave("../results/busco.pdf",plot=b1,width=3,height=3)
 
 #### Visualizing GC% and telomeres again
 ```{r,eval=F}
-python code/detect_telomers.py analysis_and_temp_files/05_genome_annotation/GTX0536_nuclear_final_sort2.fasta -m "CCCTAAA" > analysis_and_temp_files/05_genome_annotation/GTX0536_final_telomere_detection2.txt
+python code/detect_telomers.py analysis_and_temp_files/02_genome_annotation/GTX0536_nuclear_final_sort2.fasta -m "CCCTAAA" > analysis_and_temp_files/02_genome_annotation/GTX0536_final_telomere_detection2.txt
 
-seqkit sliding  analysis_and_temp_files/05_genome_annotation/GTX0536_nuclear_final_sort2.fasta -s 1000 -W 1000  | seqkit fx2tab -n -g > analysis_and_temp_files/05_genome_annotation/GTX0536_nuclear_final.fasta_GC_sliding2.txt
+seqkit sliding  analysis_and_temp_files/02_genome_annotation/GTX0536_nuclear_final_sort2.fasta -s 1000 -W 1000  | seqkit fx2tab -n -g > analysis_and_temp_files/02_genome_annotation/GTX0536_nuclear_final.fasta_GC_sliding2.txt
 ```
 
 * Now, got both telomeres on 16 contigs and singe telomere on the remaining 3
 ```{r,fig.height=8,fig.width=8}
-gc<-read.delim2("../analysis_and_temp_files/05_genome_annotation/GTX0536_nuclear_final.fasta_GC_sliding2.txt",header=F)[,c(1,4)]
+gc<-read.delim2("../analysis_and_temp_files/02_genome_annotation/GTX0536_nuclear_final.fasta_GC_sliding2.txt",header=F)[,c(1,4)]
 colnames(gc)<-c("window","gc_content")
 ##get contig name and start of the window
 gc$contig<-sub("_sliding.*", "", gc$window)  
@@ -514,7 +514,7 @@ gc$window_start<-sub("-.*", "", gc$window) %>% as.numeric()
 gc$gc_content<-gc$gc_content %>% as.numeric()
 
 ##add data for telomere annotation
-tel<-read.delim2("../analysis_and_temp_files/05_genome_annotation/GTX0536_final_telomere_detection2.txt",header=F)[,c(1,2)]
+tel<-read.delim2("../analysis_and_temp_files/02_genome_annotation/GTX0536_final_telomere_detection2.txt",header=F)[,c(1,2)]
 colnames(tel)<-c("contig","position")
 tel_start_contig_list<-tel[tel$position=="forward",1] #list all contigs that have telomer at the contig start (corresponds to 'forward')
 tel_end_contig_list<-tel[tel$position=="reverse",1] #list all contigs that have telomer at the contig start (corresponds to 'forward')
@@ -544,20 +544,20 @@ ggsave("../results/genome.pdf",width=5,height=4)
 #### Visualize syntheny between the finalized genome and ASG
 * Re-ran minimap alignment on the finalized genome
 ```{r,eval=F}
-minimap2 -x asm20 -t 10 analysis_and_temp_files/05_genome_annotation/GTX0536_nuclear_final_sort2.fasta data/SL0000003.fasta > analysis_and_temp_files/05_genome_annotation/GTX0536_nuclear_final2_SL0000003.paf
+minimap2 -x asm20 -t 10 analysis_and_temp_files/02_genome_annotation/GTX0536_nuclear_final_sort2.fasta data/SL0000003.fasta > analysis_and_temp_files/02_genome_annotation/GTX0536_nuclear_final2_SL0000003.paf
 ```
 * Get info on contig lengths for both files
 ```{r,eval=F}
-seqkit fx2tab --length --name --header-line  data/SL0000003.fasta > analysis_and_temp_files/05_genome_annotation/SL0000003.lengths.txt
+seqkit fx2tab --length --name --header-line  data/SL0000003.fasta > analysis_and_temp_files/02_genome_annotation/SL0000003.lengths.txt
 
-seqkit fx2tab --length --name --header-line  analysis_and_temp_files/05_genome_annotation/GTX0536_nuclear_final_sort2.fasta > analysis_and_temp_files/05_genome_annotation/GTX0536.2.lengths.txt
+seqkit fx2tab --length --name --header-line  analysis_and_temp_files/02_genome_annotation/GTX0536_nuclear_final_sort2.fasta > analysis_and_temp_files/02_genome_annotation/GTX0536.2.lengths.txt
 ```
 
 * Visualize
 ```{r}
 library(syntenyPlotteR.BETA)
 #prep inputs
-paf2<-read_paf("../analysis_and_temp_files/05_genome_annotation/GTX0536_nuclear_final2_SL0000003.paf")
+paf2<-read_paf("../analysis_and_temp_files/02_genome_annotation/GTX0536_nuclear_final2_SL0000003.paf")
 paf2_filtered <-subset(paf2, alen > 20000 & mapq > 40)
 paf2_filtered <-paf2_filtered  %>% distinct()
 paf2_filtered <- paf2_filtered[,c(6,8,9,1,3,4,5)]
@@ -567,10 +567,10 @@ paf2_filtered$qname <- str_replace(paf2_filtered$qname,"\\.1","")
 paf2_filtered$q <- "GTX0536"
 paf2_filtered$t<- "SL0000003"
 
-write.table(paf2_filtered,"../analysis_and_temp_files/05_genome_annotation/synteny_paf.txt",quote = F, col.names = F, row.names = F,sep="\t")
+write.table(paf2_filtered,"../analysis_and_temp_files/02_genome_annotation/synteny_paf.txt",quote = F, col.names = F, row.names = F,sep="\t")
 
-size1 <- read.delim("../analysis_and_temp_files/05_genome_annotation/GTX0536.2.lengths.txt")[,c(1,4)] %>% mutate(id="GTX0536")
-size2 <- read.delim("../analysis_and_temp_files/05_genome_annotation/SL0000003.lengths.txt") %>% mutate(id="SL0000003")
+size1 <- read.delim("../analysis_and_temp_files/02_genome_annotation/GTX0536.2.lengths.txt")[,c(1,4)] %>% mutate(id="GTX0536")
+size2 <- read.delim("../analysis_and_temp_files/02_genome_annotation/SL0000003.lengths.txt") %>% mutate(id="SL0000003")
 size2$X.name <- gsub( " .*$", "", size2$X.name)
 size<-rbind(size2,size1)
 #order contigs
@@ -584,17 +584,17 @@ size$X.name <- str_replace(size$X.name,"GTX0536_","")
 size$X.name <- str_replace(size$X.name,"OZ2349","")
 size$X.name <- str_replace(size$X.name,"\\.1","")
 
-write.table(size,"../analysis_and_temp_files/05_genome_annotation/synteny_size.txt",quote = F, col.names = F, row.names = F,sep="\t")
+write.table(size,"../analysis_and_temp_files/02_genome_annotation/synteny_size.txt",quote = F, col.names = F, row.names = F,sep="\t")
 
 draw.linear.2.0("synteny",
-            "../analysis_and_temp_files/05_genome_annotation/synteny_size.txt",
-            "../analysis_and_temp_files/05_genome_annotation/synteny_paf.txt",
+            "../analysis_and_temp_files/02_genome_annotation/synteny_size.txt",
+            "../analysis_and_temp_files/02_genome_annotation/synteny_paf.txt",
             h=1.5, w=6 , directory="../results",
             angle.chr.label = 0,chr.label.height = 0.2,insert.size = 600000,
             chr.label.size = 3,sps.label.size = 4)
 draw.linear.2.0("synteny",
-            "../analysis_and_temp_files/05_genome_annotation/synteny_size.txt",
-            "../analysis_and_temp_files/05_genome_annotation/synteny_paf.txt",
+            "../analysis_and_temp_files/02_genome_annotation/synteny_size.txt",
+            "../analysis_and_temp_files/02_genome_annotation/synteny_paf.txt",
             h=1.5, w=6 , directory="../results",fileformat = "pdf",
             angle.chr.label = 0,chr.label.height = 0.2,insert.size = 600000,
             chr.label.size = 3,sps.label.size = 4)
@@ -612,16 +612,16 @@ draw.linear.2.0("synteny",
 * First, make a repeat database
 ```{r,eval=F}
 source package 85eb6fb0-3eb7-43b2-9659-49e0142481fc
-BuildDatabase -name analysis_and_temp_files/05_genome_annotation/GTX0536_repeatdb analysis_and_temp_files/05_genome_annotation/GTX0536_nuclear_final_sort.fasta
+BuildDatabase -name analysis_and_temp_files/02_genome_annotation/GTX0536_repeatdb analysis_and_temp_files/02_genome_annotation/GTX0536_nuclear_final_sort.fasta
 
-RepeatModeler -database analysis_and_temp_files/05_genome_annotation/GTX0536_repeatdb -pa 20 -LTRStruct >& analysis_and_temp_files/05_genome_annotation/GTX0536_repeatmodeler.out
+RepeatModeler -database analysis_and_temp_files/02_genome_annotation/GTX0536_repeatdb -pa 20 -LTRStruct >& analysis_and_temp_files/02_genome_annotation/GTX0536_repeatmodeler.out
 
-sbatch --mem=100G -c 32 --partition="tsl-long" --wrap="RepeatModeler -database analysis_and_temp_files/05_genome_annotation/GTX0536_repeatdb -pa 20 -LTRStruct >& analysis_and_temp_files/05_genome_annotation/GTX0536_repeatmodeler2.out"
+sbatch --mem=100G -c 32 --partition="tsl-long" --wrap="RepeatModeler -database analysis_and_temp_files/02_genome_annotation/GTX0536_repeatdb -pa 20 -LTRStruct >& analysis_and_temp_files/02_genome_annotation/GTX0536_repeatmodeler2.out"
 ```
 * Repeat mask
 ```{r,eval=F}
 source package /tsl/software/testing/bin/repeatmasker-4.0.9 
-RepeatMasker -pa 5 -a -s -gff -xsmall -lib analysis_and_temp_files/05_genome_annotation/GTX0536_repeatdb-families.fa analysis_and_temp_files/05_genome_annotation/GTX0536_nuclear_final_sort2.fasta &> analysis_and_temp_files/05_genome_annotation/repeatmasker_GTX0536.2.run.out
+RepeatMasker -pa 5 -a -s -gff -xsmall -lib analysis_and_temp_files/02_genome_annotation/GTX0536_repeatdb-families.fa analysis_and_temp_files/02_genome_annotation/GTX0536_nuclear_final_sort2.fasta &> analysis_and_temp_files/02_genome_annotation/repeatmasker_GTX0536.2.run.out
 ```
 ```
 file name: GTX0536_nuclear_final_sort2.fasta
@@ -669,20 +669,20 @@ Low complexity:    1979       100221 bp    0.15 %
 ```{r,eval=F}
 source genemark_ES_ET_EP-4.62_CBG 
 
-mkdir -p analysis_and_temp_files/05_genome_annotation/GTX0536_genemark2
-cd analysis_and_temp_files/05_genome_annotation/GTX0536_genemark2
+mkdir -p analysis_and_temp_files/02_genome_annotation/GTX0536_genemark2
+cd analysis_and_temp_files/02_genome_annotation/GTX0536_genemark2
 gmes_petap.pl --ES --max_intron 3000 --soft_mask 2000 --cores 20 --sequence ../GTX0536_nuclear_final_sort2.fasta.masked
 cd ../../../
 ```
 
 * Funannotate train
 ```{r,eval =F}
-sbatch --mem=120G -c 28 --partition="nbi-long" --wrap="singularity run ../singularity/funannotate.sif funannotate train -i analysis_and_temp_files/05_genome_annotation/GTX0536_nuclear_final_sort2.fasta.masked -o analysis_and_temp_files/05_genome_annotation/GTX0536_pred2 --left data/RNA_seq/X204SC25014007-Z01-F001/01.RawData/GTX0532/GTX0532_EKRN250006470-1A_22MTC7LT4_L8_1.fq.gz --right data/RNA_seq/X204SC25014007-Z01-F001/01.RawData/GTX0532/GTX0532_EKRN250006470-1A_22MTC7LT4_L8_2.fq.gz --jaccard_clip --cpus 28 --memory 120G --species 'Trebouxia sp. A48'"
+sbatch --mem=120G -c 28 --partition="nbi-long" --wrap="singularity run ../singularity/funannotate.sif funannotate train -i analysis_and_temp_files/02_genome_annotation/GTX0536_nuclear_final_sort2.fasta.masked -o analysis_and_temp_files/02_genome_annotation/GTX0536_pred2 --left data/RNA_seq/X204SC25014007-Z01-F001/01.RawData/GTX0532/GTX0532_EKRN250006470-1A_22MTC7LT4_L8_1.fq.gz --right data/RNA_seq/X204SC25014007-Z01-F001/01.RawData/GTX0532/GTX0532_EKRN250006470-1A_22MTC7LT4_L8_2.fq.gz --jaccard_clip --cpus 28 --memory 120G --species 'Trebouxia sp. A48'"
 ```
 
 * Funannotate predict
 ```{r,eval =F}
-sbatch --mem=120G -c 28 --partition="nbi-long" --wrap="singularity run ../singularity/funannotate.sif funannotate predict -i analysis_and_temp_files/05_genome_annotation/GTX0536_nuclear_final_sort2.fasta.masked  -o analysis_and_temp_files/05_genome_annotation/GTX0536_pred2 -s 'Trebouxia sp. A48' --cpus 28 --optimize_augustus --genemark_gtf analysis_and_temp_files/05_genome_annotation/GTX0536_genemark2/genemark.gtf --organism other --busco_db chlorophyta_odb10 -d /tsl/scratch/gol22pin/singularity/funannotate2/opt/databases --busco_seed_species chlamydomonas --weights genemark:1"
+sbatch --mem=120G -c 28 --partition="nbi-long" --wrap="singularity run ../singularity/funannotate.sif funannotate predict -i analysis_and_temp_files/02_genome_annotation/GTX0536_nuclear_final_sort2.fasta.masked  -o analysis_and_temp_files/02_genome_annotation/GTX0536_pred2 -s 'Trebouxia sp. A48' --cpus 28 --optimize_augustus --genemark_gtf analysis_and_temp_files/02_genome_annotation/GTX0536_genemark2/genemark.gtf --organism other --busco_db chlorophyta_odb10 -d /tsl/scratch/gol22pin/singularity/funannotate2/opt/databases --busco_seed_species chlamydomonas --weights genemark:1"
 ```
 ```
   Augustus       1        3816
@@ -705,24 +705,24 @@ sbatch --mem=120G -c 28 --partition="nbi-long" --wrap="singularity run ../singul
 
 * Funannotate update
 ```{r,eval =F}
-sbatch --mem=120G -c 28 --partition="nbi-long" --wrap="singularity run ../singularity/funannotate.sif funannotate update -i analysis_and_temp_files/05_genome_annotation/GTX0536_pred2 --cpus 28"
+sbatch --mem=120G -c 28 --partition="nbi-long" --wrap="singularity run ../singularity/funannotate.sif funannotate update -i analysis_and_temp_files/02_genome_annotation/GTX0536_pred2 --cpus 28"
 ```
 
 ### 2.3. Functional annotations
 * InterPro
 ```{r,eval =F}
-mkdir -p analysis_and_temp_files/05_genome_annotation/GTX0536_pred2/interpro
+mkdir -p analysis_and_temp_files/02_genome_annotation/GTX0536_pred2/interpro
 rm -rf temp
 
 #tried newer version InterProScan-5.52-86.0
 #CDD-3.18,Coils-2.2.1,Gene3D-4.3.0,Hamap-2020_05,MobiDBLite-2.0,PANTHER-15.0,Pfam-33.1,PIRSF-3.10,PIRSR-2021_02,PRINTS-42.0,ProSitePatterns-2021_01,ProSiteProfiles-2021_01,SFLD-4,SMART-7.1,SUPERFAMILY-1.75,TIGRFAM-15.0
 
-sbatch --mem=60G -c 20 --partition="tsl-medium" --wrap="source package 0dd71e29-8eb1-4512-b37c-42f7158718f4; source package /tsl/software/testing/bin/gcc-5.2.0; source package 999eb878-6c39-444e-a291-e2e0a86660e6; source package /tsl/software/testing/bin/java-11.0.7; source package 0f2514dd-8288-47ed-96cd-80905f9b0644; source package /tsl/software/production/bin/perl-5.16.2; source package 0dd71e29-8eb1-4512-b37c-42f7158718f4; interproscan.sh -i analysis_and_temp_files/05_genome_annotation/GTX0536_pred2/update_results/Trebouxia_sp._A48.proteins.fa  -d analysis_and_temp_files/05_genome_annotation/GTX0536_pred2/interpro -dp -f XML -goterms -dra -cpu 20"
+sbatch --mem=60G -c 20 --partition="tsl-medium" --wrap="source package 0dd71e29-8eb1-4512-b37c-42f7158718f4; source package /tsl/software/testing/bin/gcc-5.2.0; source package 999eb878-6c39-444e-a291-e2e0a86660e6; source package /tsl/software/testing/bin/java-11.0.7; source package 0f2514dd-8288-47ed-96cd-80905f9b0644; source package /tsl/software/production/bin/perl-5.16.2; source package 0dd71e29-8eb1-4512-b37c-42f7158718f4; interproscan.sh -i analysis_and_temp_files/02_genome_annotation/GTX0536_pred2/update_results/Trebouxia_sp._A48.proteins.fa  -d analysis_and_temp_files/02_genome_annotation/GTX0536_pred2/interpro -dp -f XML -goterms -dra -cpu 20"
 ```
 
 * Funannotate annotate
 ```{r,eval =F}
-sbatch --mem=50G -c 20 --partition="tsl-medium" --wrap="singularity run ../singularity/funannotate.sif funannotate annotate -i analysis_and_temp_files/05_genome_annotation/GTX0536_pred2/ --iprscan analysis_and_temp_files/05_genome_annotation/GTX0536_pred2/interpro/Trebouxia_sp._A48.proteins.fa.xml --cpus 20  --sbt analysis_and_temp_files/05_genome_annotation/template.sbt --busco_db /tsl/data/busco_lineages/chlorophyta_odb10  --rename GTX0536PRED"
+sbatch --mem=50G -c 20 --partition="tsl-medium" --wrap="singularity run ../singularity/funannotate.sif funannotate annotate -i analysis_and_temp_files/02_genome_annotation/GTX0536_pred2/ --iprscan analysis_and_temp_files/02_genome_annotation/GTX0536_pred2/interpro/Trebouxia_sp._A48.proteins.fa.xml --cpus 20  --sbt analysis_and_temp_files/02_genome_annotation/template.sbt --busco_db /tsl/data/busco_lineages/chlorophyta_odb10  --rename GTX0536PRED"
 ```
 ```
 [Apr 13 09:29 PM]: Annotation consists of: 12,820 gene models
@@ -759,34 +759,34 @@ sbatch --mem=50G -c 20 --partition="tsl-medium" --wrap="singularity run ../singu
 #### SignalP
 ```{r,eval=F}
 source package /tsl/software/testing/bin/signalp-5.0b
-signalp -fasta analysis_and_temp_files/05_genome_annotation/GTX0536_pred2/annotate_results/Trebouxia_sp._A48.proteins.fa -org euk -format short -batch 50000 
-mv Trebouxia_sp._A48.proteins_summary.signalp5 analysis_and_temp_files/05_genome_annotation/GTX0536_pred2/
+signalp -fasta analysis_and_temp_files/02_genome_annotation/GTX0536_pred2/annotate_results/Trebouxia_sp._A48.proteins.fa -org euk -format short -batch 50000 
+mv Trebouxia_sp._A48.proteins_summary.signalp5 analysis_and_temp_files/02_genome_annotation/GTX0536_pred2/
 ```
 * Extracted the list of all 745 proteins with predicted SP and save them as a separate fasta. had to split in two chunks
 ```{r,eval=F}
 library(Biostrings)
-signal<-read.delim2("../analysis_and_temp_files/05_genome_annotation/GTX0536_pred2/Trebouxia_sp._A48.proteins_summary.signalp5",skip=1)
+signal<-read.delim2("../analysis_and_temp_files/02_genome_annotation/GTX0536_pred2/Trebouxia_sp._A48.proteins_summary.signalp5",skip=1)
 signal_list<-signal$X..ID[signal$Prediction!="OTHER"]
 
-fa <- readAAStringSet("../analysis_and_temp_files/05_genome_annotation/GTX0536_pred2/secretome/Trebouxia_sp._A48.proteins.fa")
+fa <- readAAStringSet("../analysis_and_temp_files/02_genome_annotation/GTX0536_pred2/secretome/Trebouxia_sp._A48.proteins.fa")
 names(fa) <- sub("\\s.*", "",names(fa))
 fa_signal <- fa[names(fa) %in% signal_list]
-writeXStringSet(fa_signal[1:372],"../analysis_and_temp_files/05_genome_annotation/GTX0536_pred2/secretome/Trebouxia_sp._A48.signalp1.fa")
-writeXStringSet(fa_signal[373:745],"../analysis_and_temp_files/05_genome_annotation/GTX0536_pred2/secretome/Trebouxia_sp._A48.signalp2.fa")
+writeXStringSet(fa_signal[1:372],"../analysis_and_temp_files/02_genome_annotation/GTX0536_pred2/secretome/Trebouxia_sp._A48.signalp1.fa")
+writeXStringSet(fa_signal[373:745],"../analysis_and_temp_files/02_genome_annotation/GTX0536_pred2/secretome/Trebouxia_sp._A48.signalp2.fa")
 ```
 * Fed the new fasta into DeepTMHMM
 * Prepped files to get proteins with/without transmembrane domain and with a signal
 ```{r,eval=F}
-grep "Number of predicted TMRs" analysis_and_temp_files/05_genome_annotation/GTX0536_pred2/secretome/TMRs*.gff3 -h > analysis_and_temp_files/05_genome_annotation/GTX0536_pred2/secretome/TMR_summary.txt
+grep "Number of predicted TMRs" analysis_and_temp_files/02_genome_annotation/GTX0536_pred2/secretome/TMRs*.gff3 -h > analysis_and_temp_files/02_genome_annotation/GTX0536_pred2/secretome/TMR_summary.txt
 
-grep "signal" analysis_and_temp_files/05_genome_annotation/GTX0536_pred2/secretome/TMRs*.gff3 -h > analysis_and_temp_files/05_genome_annotation/GTX0536_pred2/secretome/deepTMHMM_signal.txt
+grep "signal" analysis_and_temp_files/02_genome_annotation/GTX0536_pred2/secretome/TMRs*.gff3 -h > analysis_and_temp_files/02_genome_annotation/GTX0536_pred2/secretome/deepTMHMM_signal.txt
 ```
 * Made the list of 446 proteins. This included all proteins without trans-membrane domains and with a signal (as identified by deepTMHMM) AND proteins predicted by SignalP
 ```{r}
-tm<-read.delim2("../analysis_and_temp_files/05_genome_annotation/GTX0536_pred2/secretome/TMR_summary.txt",header=F,sep=" ") %>% select(V2,V7)
+tm<-read.delim2("../analysis_and_temp_files/02_genome_annotation/GTX0536_pred2/secretome/TMR_summary.txt",header=F,sep=" ") %>% select(V2,V7)
 colnames(tm)<-c("prot","TM_domains")
 
-tm_signal<-read.delim2("../analysis_and_temp_files/05_genome_annotation/GTX0536_pred2/secretome/deepTMHMM_signal.txt",header=F,sep="\t") %>% select(V1,V2)
+tm_signal<-read.delim2("../analysis_and_temp_files/02_genome_annotation/GTX0536_pred2/secretome/deepTMHMM_signal.txt",header=F,sep="\t") %>% select(V1,V2)
 colnames(tm_signal)<-c("prot","signal")
 
 tm<-tm %>% left_join(tm_signal)
@@ -794,29 +794,29 @@ tm<-tm %>% left_join(tm_signal)
 tm_list<-tm$prot[!is.na(tm$signal)&tm$TM_domains==0]
 ```
 * Saved the fasta with SingalP+deppTMHMM predictions
-```{r}
+```{r,eval=F}
 fa_deep <- fa_signal[names(fa_signal) %in% tm_list]
-writeXStringSet(fa_deep,"../analysis_and_temp_files/05_genome_annotation/GTX0536_pred2/secretome/Trebouxia_sp._A48.signalp_deepTMHMM.fa")
+writeXStringSet(fa_deep,"../analysis_and_temp_files/02_genome_annotation/GTX0536_pred2/secretome/Trebouxia_sp._A48.signalp_deepTMHMM.fa")
 ```
 
 * Ran WolfPSORT 
 ```{r,eval=F}
 source package 666e3cc4-643e-4667-9235-fe054b436bfd
-runWolfPsortSummary plant < analysis_and_temp_files/05_genome_annotation/GTX0536_pred2/secretome/Trebouxia_sp._A48.signalp_deepTMHMM.fa > analysis_and_temp_files/05_genome_annotation/GTX0536_pred2/secretome/wolfpsort.out
+runWolfPsortSummary plant < analysis_and_temp_files/02_genome_annotation/GTX0536_pred2/secretome/Trebouxia_sp._A48.signalp_deepTMHMM.fa > analysis_and_temp_files/02_genome_annotation/GTX0536_pred2/secretome/wolfpsort.out
 ```
 * Got 103 proteins with extracellular as the main prediction
 ```{r}
-wolf<-read.delim2("../analysis_and_temp_files/05_genome_annotation/GTX0536_pred2/secretome/wolfpsort.out",skip = 1,header=F)
+wolf<-read.delim2("../analysis_and_temp_files/02_genome_annotation/GTX0536_pred2/secretome/wolfpsort.out",skip = 1,header=F)
 colnames(wolf)<-'V1'
 wolf2<-separate(wolf,'V1',into=c('ID','pred'),extra='merge',sep=" ")
 wolf2<- wolf2 %>% filter(grepl("^extr",pred))
 ```
 * Saved the fasta and the table
-```{r}
+```{r,eval=F}
 fa_secreted <- fa_signal[names(fa_signal) %in% wolf2$ID]
-writeXStringSet(fa_secreted,"../analysis_and_temp_files/05_genome_annotation/GTX0536_pred2/secretome/Trebouxia_sp._A48.secretome.fa")
+writeXStringSet(fa_secreted,"../analysis_and_temp_files/02_genome_annotation/GTX0536_pred2/secretome/Trebouxia_sp._A48.secretome.fa")
 
-ann <- read.delim2("../analysis_and_temp_files/05_genome_annotation/GTX0536_pred2/Trebouxia_sp._A48.annotations.reduced.txt") 
+ann <- read.delim2("../analysis_and_temp_files/02_genome_annotation/GTX0536_pred2/Trebouxia_sp._A48.annotations.reduced.txt") 
 ann_secretome <- ann %>% filter(TranscriptID %in% wolf2$ID)
 
 write.table(ann_secretome,"../results/secretome.txt",quote = F, col.names = T, row.names = F,sep="\t")
@@ -829,7 +829,9 @@ ann_secretome %>%
 ```
 
 * Which functional domains are overrepresented in the secretome?
-```{r,eval=F}
+```{r,fig.width=8,fig.height=10}
+ann <- read.delim2("../analysis_and_temp_files/02_genome_annotation/GTX0536_pred2/Trebouxia_sp._A48.annotations.reduced.txt") 
+ann_secretome <- ann %>% filter(TranscriptID %in% wolf2$ID)
 ###make table with GO annotations
 go_df <- ann %>% select(TranscriptID,GO.Terms) %>% 
   mutate(GO.Terms = strsplit(GO.Terms, ";")) %>%
@@ -869,7 +871,7 @@ enrichplot::dotplot(enrich1,showCategory=40,label_format=40)
 ```
 
 * Same for InterPro
-```{r,fig.width=5,fig.height=5}
+```{r,fig.width=8,fig.height=10}
 ips_df <-ann %>% select(TranscriptID,InterPro) %>% 
   mutate(InterPro = strsplit(InterPro, ";")) %>%
         unnest(InterPro)  %>%
@@ -951,8 +953,8 @@ ggsave("../results/secretome_composition.pdf",width=3.5,height=5)
 
 * What genes are in the OGs that are unique to our genome and to our genome + SL000003 compared to other genomes
 ```{r}
-ortho_genes<-read.delim2("../analysis_and_temp_files/06_phylogeny/orthofinder_input/Orthogroups.tsv")
-ann <- read.delim2("../analysis_and_temp_files/05_genome_annotation/GTX0536_pred2/Trebouxia_sp._A48.annotations.reduced.txt")
+ortho_genes<-read.delim2("../analysis_and_temp_files/03_phylogeny/orthofinder_input/Orthogroups.tsv")
+ann <- read.delim2("../analysis_and_temp_files/02_genome_annotation/GTX0536_pred2/Trebouxia_sp._A48.annotations.reduced.txt")
 
 only_our <- ortho_genes %>% select(Orthogroup,TrebA12_1_GeneCatalog_proteins_20200804.aa,Trebouxia_C0004,
    Trebouxia_C0005,Trebouxia_C0006,Trebouxia_C0009,Trebouxia_C0010,
@@ -1011,39 +1013,39 @@ ann_secretome %>% filter(TranscriptID %in% all$Trebouxia_sp._A48.proteins) %>% n
 
 
 ## 3. Plastid genome annotation
-* Extracted the contig and saved as `analysis_and_temp_files/05_genome_annotation/GTX0536_plastid.fa`
+* Extracted the contig and saved as `analysis_and_temp_files/02_genome_annotation/GTX0536_plastid.fa`
 ```{r,eval=F}
 source package aeee87c4-1923-4732-aca2-f2aff23580cc
-samtools faidx analysis_and_temp_files/05_genome_annotation/GTX0536.fasta ptg000005c > analysis_and_temp_files/05_genome_annotation/GTX0536_plastid.fa
+samtools faidx analysis_and_temp_files/02_genome_annotation/GTX0536.fasta ptg000005c > analysis_and_temp_files/02_genome_annotation/GTX0536_plastid.fa
 ```
 * Aligned RNA data onto it
 ```{r,eval=F}
 source package /tgac/software/testing/bin/STAR-2.5.4b 
 source package /tgac/software/testing/bin/gcc-4.9.1 
 source package aeee87c4-1923-4732-aca2-f2aff23580cc
-mkdir analysis_and_temp_files/05_genome_annotation/GTX0536_plastid_STAR_index -p
+mkdir analysis_and_temp_files/02_genome_annotation/GTX0536_plastid_STAR_index -p
 STAR --runThreadN 10  --genomeSAindexNbases 6 \
 --runMode genomeGenerate \
---genomeDir analysis_and_temp_files/05_genome_annotation/GTX0536_plastid_STAR_index \
---genomeFastaFiles analysis_and_temp_files/05_genome_annotation/GTX0536_plastid.fa
+--genomeDir analysis_and_temp_files/02_genome_annotation/GTX0536_plastid_STAR_index \
+--genomeFastaFiles analysis_and_temp_files/02_genome_annotation/GTX0536_plastid.fa
 
 sbatch --mem=100G -c 20 --wrap="code/star_align.sh  \
 data/RNA_seq/X204SC25014007-Z01-F001/01.RawData/GTX0532/GTX0532_EKRN250006470-1A_22MTC7LT4_L8_1.fq.gz \
 data/RNA_seq/X204SC25014007-Z01-F001/01.RawData/GTX0532/GTX0532_EKRN250006470-1A_22MTC7LT4_L8_2.fq.gz \
-analysis_and_temp_files/05_genome_annotation/GTX0536_plastid_STAR_index/touch 20 analysis_and_temp_files/05_genome_annotation/GTX0536_plastid_GTX0532.bam"
+analysis_and_temp_files/02_genome_annotation/GTX0536_plastid_STAR_index/touch 20 analysis_and_temp_files/02_genome_annotation/GTX0536_plastid_GTX0532.bam"
 
-samtools index analysis_and_temp_files/05_genome_annotation/GTX0536_plastid_GTX0532Aligned.sortedByCoord.out.bam
-samtools faidx analysis_and_temp_files/05_genome_annotation/GTX0536_plastid.fa
+samtools index analysis_and_temp_files/02_genome_annotation/GTX0536_plastid_GTX0532Aligned.sortedByCoord.out.bam
+samtools faidx analysis_and_temp_files/02_genome_annotation/GTX0536_plastid.fa
 ```
 * Used MFannot for annotation; used a script within AGAT to transform the sqn output file into gff
 ```{r,eval=F}
 source package d6c33ed3-e5cf-4826-b683-023f6b592f0b
 source package 4c883633-af2d-4fac-ab67-a1574f7fe079
-mfannot analysis_and_temp_files/05_genome_annotation/GTX0536_plastid.fa 
-mkdir analysis_and_temp_files/05_genome_annotation/GTX0536_plastid_tmp
-mv GTX0536_plastid.fa* analysis_and_temp_files/05_genome_annotation/GTX0536_plastid_tmp
+mfannot analysis_and_temp_files/02_genome_annotation/GTX0536_plastid.fa 
+mkdir analysis_and_temp_files/02_genome_annotation/GTX0536_plastid_tmp
+mv GTX0536_plastid.fa* analysis_and_temp_files/02_genome_annotation/GTX0536_plastid_tmp
 
-agat_convert_mfannot2gff.pl -i analysis_and_temp_files/05_genome_annotation/GTX0536_plastid_tmp/GTX0536_plastid.fa.new -o analysis_and_temp_files/05_genome_annotation/GTX0536_plastid_tmp/GTX0536_plastid_mfannot.gff
+agat_convert_mfannot2gff.pl -i analysis_and_temp_files/02_genome_annotation/GTX0536_plastid_tmp/GTX0536_plastid.fa.new -o analysis_and_temp_files/02_genome_annotation/GTX0536_plastid_tmp/GTX0536_plastid_mfannot.gff
 ```
 
 * GeSeq server annotations
@@ -1051,10 +1053,10 @@ agat_convert_mfannot2gff.pl -i analysis_and_temp_files/05_genome_annotation/GTX0
   * Used four plastid genomes from Trebouxiophycea: Lobosphaera incisa (NC_025533.1), Myrmecia israeliensis (NC_025525.1), Parietochloris pseudoalveolaris (NC_025532.1), Symbiochloris handae (NC_025524.1) as references
 * Compared the annotations side by side with RNA alignments. The annotations are very different (except that MFannot has some additional ORFs). Decided to go with the GeSeq annotation, since it has more reasonable gff tags
 * Manually de-duplicated the gff file, since it has same gene annotated multiple times by multiple tools
-  * Saved the file as `analysis_and_temp_files/05_genome_annotation/GTX0536_plastid.gff`
+  * Saved the file as `analysis_and_temp_files/02_genome_annotation/GTX0536_plastid.gff`
 * Visualized using OGDRAW and saved on the `results`
 ```{r, out.width = '80%'}
-knitr::include_graphics("../analysis_and_temp_files/05_genome_annotation/GTX0536_plastid_tmp/job-results-2025328201839/GeSeqJob-20250305-191553_ptg000005c_OGDRAW.jpg")
+knitr::include_graphics("../analysis_and_temp_files/02_genome_annotation/GTX0536_plastid_tmp/job-results-2025328201839/GeSeqJob-20250305-191553_ptg000005c_OGDRAW.jpg")
 ```
 
 ## 4. Mitochondrial genome assembly and annotation
@@ -1065,31 +1067,31 @@ knitr::include_graphics("../analysis_and_temp_files/05_genome_annotation/GTX0536
 ```{r}
 mitocontigs<-df %>% filter(label=="Chlorophyta mitochondrial") %>% 
   mutate(start=1) %>% select(contig,start,Length) 
-write.table(mitocontigs,"../analysis_and_temp_files/05_genome_annotation/GTX0536_mitocontigs.bed",quote = F, col.names = F, row.names = F,sep="\t")
+write.table(mitocontigs,"../analysis_and_temp_files/02_genome_annotation/GTX0536_mitocontigs.bed",quote = F, col.names = F, row.names = F,sep="\t")
 ```
 * Extracted reads that mapped to these contigs
 ```{r,eval=F}
-samtools view -b -L analysis_and_temp_files/05_genome_annotation/GTX0536_mitocontigs.bed analysis_and_temp_files/05_genome_annotation/GTX0536.bam > analysis_and_temp_files/05_genome_annotation/GTX0536_mitocontigs.bam
+samtools view -b -L analysis_and_temp_files/02_genome_annotation/GTX0536_mitocontigs.bed analysis_and_temp_files/02_genome_annotation/GTX0536.bam > analysis_and_temp_files/02_genome_annotation/GTX0536_mitocontigs.bam
 
-samtools fastq analysis_and_temp_files/05_genome_annotation/GTX0536_mitocontigs.bam > analysis_and_temp_files/05_genome_annotation/GTX0536_mitocontigs.fastq
+samtools fastq analysis_and_temp_files/02_genome_annotation/GTX0536_mitocontigs.bam > analysis_and_temp_files/02_genome_annotation/GTX0536_mitocontigs.fastq
 ```
 
 * Since high read coverage might be a problem for assembly, selected first 30,000 out of 295241 reads. Since average read length is 4K and expected genome size is 120K, that should correspond to 1000X coverage
 ```{r,eval=F}
-head analysis_and_temp_files/05_genome_annotation/GTX0536_mitocontigs.fastq -n 120000 > analysis_and_temp_files/05_genome_annotation/GTX0536_mitocontigs_subset.fastq
-gzip analysis_and_temp_files/05_genome_annotation/GTX0536_mitocontigs_subset.fastq
+head analysis_and_temp_files/02_genome_annotation/GTX0536_mitocontigs.fastq -n 120000 > analysis_and_temp_files/02_genome_annotation/GTX0536_mitocontigs_subset.fastq
+gzip analysis_and_temp_files/02_genome_annotation/GTX0536_mitocontigs_subset.fastq
 
-rm analysis_and_temp_files/05_genome_annotation/GTX0536_mitocontigs.bam
-rm analysis_and_temp_files/05_genome_annotation/GTX0536_mitocontigs.fastq
+rm analysis_and_temp_files/02_genome_annotation/GTX0536_mitocontigs.bam
+rm analysis_and_temp_files/02_genome_annotation/GTX0536_mitocontigs.fastq
 ```
 * Assembled the reads with Hifiasm v0.18.5
 ```{r,eval=F}
-sbatch --mem=100G -c 20 --wrap="source package 3c087633-18b1-4e77-9b08-7e68657fce66; hifiasm -o analysis_and_temp_files/05_genome_annotation/GTX0536_mito_reassembly -t 20 analysis_and_temp_files/05_genome_annotation/GTX0536_mitocontigs_subset.fastq.gz"
+sbatch --mem=100G -c 20 --wrap="source package 3c087633-18b1-4e77-9b08-7e68657fce66; hifiasm -o analysis_and_temp_files/02_genome_annotation/GTX0536_mito_reassembly -t 20 analysis_and_temp_files/02_genome_annotation/GTX0536_mitocontigs_subset.fastq.gz"
 ```
 * Get the assembly in fasta from the assembly graph generated by hifiasm
   * This generates one circular and 5 linear contigs
 ```{r,eval=F}
-awk '/^S/{print ">"$2;print $3}' analysis_and_temp_files/05_genome_annotation/GTX0536_mito_reassembly.bp.p_ctg.gfa > analysis_and_temp_files/05_genome_annotation/GTX0536_mito_reassembly.fa 
+awk '/^S/{print ">"$2;print $3}' analysis_and_temp_files/02_genome_annotation/GTX0536_mito_reassembly.bp.p_ctg.gfa > analysis_and_temp_files/02_genome_annotation/GTX0536_mito_reassembly.fa 
 ```
 * Calculate lengths:
   * ptg000001c      109484
@@ -1099,39 +1101,39 @@ awk '/^S/{print ">"$2;print $3}' analysis_and_temp_files/05_genome_annotation/GT
   * ptg000005l      22568
   * ptg000006l      52202
 ```{r,eval=F}
-seqkit fx2tab --length --name --header-line  analysis_and_temp_files/05_genome_annotation/GTX0536_mito_reassembly.fa 
+seqkit fx2tab --length --name --header-line  analysis_and_temp_files/02_genome_annotation/GTX0536_mito_reassembly.fa 
 ```
-* **Got our mitochondria!** Save the contig ptg000001c as `analysis_and_temp_files/05_genome_annotation/GTX0536_mito.fa`
+* **Got our mitochondria!** Save the contig ptg000001c as `analysis_and_temp_files/02_genome_annotation/GTX0536_mito.fa`
 ```{r,eval=F}
-samtools faidx analysis_and_temp_files/05_genome_annotation/GTX0536_mito_reassembly.fa ptg000001c > analysis_and_temp_files/05_genome_annotation/GTX0536_mito.fa
+samtools faidx analysis_and_temp_files/02_genome_annotation/GTX0536_mito_reassembly.fa ptg000001c > analysis_and_temp_files/02_genome_annotation/GTX0536_mito.fa
 ```
 
 ## 4.2. Annotate
 * Aligned RNA data onto it
 ```{r,eval=F}
-mkdir analysis_and_temp_files/05_genome_annotation/GTX0536_mito_STAR_index -p
+mkdir analysis_and_temp_files/02_genome_annotation/GTX0536_mito_STAR_index -p
 STAR --runThreadN 10  --genomeSAindexNbases 6 \
 --runMode genomeGenerate \
---genomeDir analysis_and_temp_files/05_genome_annotation/GTX0536_mito_STAR_index \
---genomeFastaFiles analysis_and_temp_files/05_genome_annotation/GTX0536_mito.fa
+--genomeDir analysis_and_temp_files/02_genome_annotation/GTX0536_mito_STAR_index \
+--genomeFastaFiles analysis_and_temp_files/02_genome_annotation/GTX0536_mito.fa
 
 sbatch --mem=100G -c 20 --wrap="code/star_align.sh  \
 data/RNA_seq/X204SC25014007-Z01-F001/01.RawData/GTX0532/GTX0532_EKRN250006470-1A_22MTC7LT4_L8_1.fq.gz \
 data/RNA_seq/X204SC25014007-Z01-F001/01.RawData/GTX0532/GTX0532_EKRN250006470-1A_22MTC7LT4_L8_2.fq.gz \
-analysis_and_temp_files/05_genome_annotation/GTX0536_mito_STAR_index/touch 20 analysis_and_temp_files/05_genome_annotation/GTX0536_mito_GTX0532.bam"
+analysis_and_temp_files/02_genome_annotation/GTX0536_mito_STAR_index/touch 20 analysis_and_temp_files/02_genome_annotation/GTX0536_mito_GTX0532.bam"
 
-samtools index analysis_and_temp_files/05_genome_annotation/GTX0536_mito_GTX0532Aligned.sortedByCoord.out.bam
-samtools faidx analysis_and_temp_files/05_genome_annotation/GTX0536_mito.fa
+samtools index analysis_and_temp_files/02_genome_annotation/GTX0536_mito_GTX0532Aligned.sortedByCoord.out.bam
+samtools faidx analysis_and_temp_files/02_genome_annotation/GTX0536_mito.fa
 ```
 * Used MFannot for annotation; used a script within AGAT to tranform the sqn output file into gff
 ```{r,eval=F}
 source package d6c33ed3-e5cf-4826-b683-023f6b592f0b
 source package 4c883633-af2d-4fac-ab67-a1574f7fe079
-mfannot analysis_and_temp_files/05_genome_annotation/GTX0536_mito.fa 
-mkdir analysis_and_temp_files/05_genome_annotation/GTX0536_mito_tmp/
-mv GTX0536_mito.fa* analysis_and_temp_files/05_genome_annotation/GTX0536_mito_tmp
+mfannot analysis_and_temp_files/02_genome_annotation/GTX0536_mito.fa 
+mkdir analysis_and_temp_files/02_genome_annotation/GTX0536_mito_tmp/
+mv GTX0536_mito.fa* analysis_and_temp_files/02_genome_annotation/GTX0536_mito_tmp
 
-agat_convert_mfannot2gff.pl -i analysis_and_temp_files/05_genome_annotation/GTX0536_mito_tmp/GTX0536_mito.fa.new -o analysis_and_temp_files/05_genome_annotation/GTX0536_mito_tmp/GTX0536_mito_mfannot.gff
+agat_convert_mfannot2gff.pl -i analysis_and_temp_files/02_genome_annotation/GTX0536_mito_tmp/GTX0536_mito.fa.new -o analysis_and_temp_files/02_genome_annotation/GTX0536_mito_tmp/GTX0536_mito_mfannot.gff
 ```
 
 * GeSeq server annotations
@@ -1139,10 +1141,10 @@ agat_convert_mfannot2gff.pl -i analysis_and_temp_files/05_genome_annotation/GTX0
   * Used one mitogenome from Trebouxiophycea: Lobosphaera incisa NC_027060.1 as reference
 * Compared the annotations side by side with RNA alignments. The annotations are very similar. This time, MFannot seem to be much better in annotation rRNA. Manually made a combined annotation using GeSeq gff as the base, and added relevant lines from Mfannot there
   * Manually de-duplicated the gff file, since it has same gene annotated multiple times by multiple tools
-  * Saved the file as `analysis_and_temp_files/05_genome_annotation/GTX0536_mito.gff`
+  * Saved the file as `analysis_and_temp_files/02_genome_annotation/GTX0536_mito.gff`
 * Visualized using OGDRAW and saved on the `results`
 ```{r, out.width = '80%'}
-knitr::include_graphics("../analysis_and_temp_files/05_genome_annotation/GTX0536_mito_tmp/GTX0536_mito.png")
+knitr::include_graphics("../analysis_and_temp_files/02_genome_annotation/GTX0536_mito_tmp/GTX0536_mito.png")
 ```
 
 
@@ -1152,14 +1154,14 @@ knitr::include_graphics("../analysis_and_temp_files/05_genome_annotation/GTX0536
 ### 5.1 Visualize
 * First visualize telomeres and GC% in the same way as above
 ```{r,eval=F}
-python code/detect_telomers.py data/SL0000003.fasta -m "CCCTAAA" > analysis_and_temp_files/05_genome_annotation/SL0000003_telomere_detection.txt
+python code/detect_telomers.py data/SL0000003.fasta -m "CCCTAAA" > analysis_and_temp_files/02_genome_annotation/SL0000003_telomere_detection.txt
 
-seqkit sliding  data/SL0000003.fasta -s 1000 -W 1000  | seqkit fx2tab -n -g > analysis_and_temp_files/05_genome_annotation/SL0000003.fasta_GC_sliding.txt
+seqkit sliding  data/SL0000003.fasta -s 1000 -W 1000  | seqkit fx2tab -n -g > analysis_and_temp_files/02_genome_annotation/SL0000003.fasta_GC_sliding.txt
 ```
 
 * Here, out of 20 contigs: 3 got both telomeres, 10 got a singe telomere, and 7 got no telomeres
 ```{r}
-gc<-read.delim2("../analysis_and_temp_files/05_genome_annotation/SL0000003.fasta_GC_sliding.txt",header=F)[,c(1,2)]
+gc<-read.delim2("../analysis_and_temp_files/02_genome_annotation/SL0000003.fasta_GC_sliding.txt",header=F)[,c(1,2)]
 colnames(gc)<-c("window","gc_content")
 ##get contig name and start of the window
 gc$contig<-sub("_sliding.*", "", gc$window)  
@@ -1168,7 +1170,7 @@ gc$window_start<-sub("-.*", "", gc$window) %>% as.numeric()
 gc$gc_content<-gc$gc_content %>% as.numeric()
 
 ##add data for telomere annotation
-tel<-read.delim2("../analysis_and_temp_files/05_genome_annotation/SL0000003_telomere_detection.txt",header=F)[,c(1,2)]
+tel<-read.delim2("../analysis_and_temp_files/02_genome_annotation/SL0000003_telomere_detection.txt",header=F)[,c(1,2)]
 colnames(tel)<-c("contig","position")
 tel$contig <- gsub( " .*$", "", tel$contig)
 tel_start_contig_list<-tel[tel$position=="forward",1] #list all contigs that have telomer at the contig start (corresponds to 'forward')
@@ -1199,14 +1201,14 @@ ggplot(gc)+
 * First, make a repeat database
 ```{r,eval=F}
 source package 85eb6fb0-3eb7-43b2-9659-49e0142481fc
-BuildDatabase -name analysis_and_temp_files/05_genome_annotation/SL0000003_repeatdb data/SL0000003.fasta
+BuildDatabase -name analysis_and_temp_files/02_genome_annotation/SL0000003_repeatdb data/SL0000003.fasta
 
-sbatch --mem=40G -c 20 --partition="tsl-long" --wrap="source package 85eb6fb0-3eb7-43b2-9659-49e0142481fc; RepeatModeler -database analysis_and_temp_files/05_genome_annotation/SL0000003_repeatdb -pa 20 -LTRStruct >& analysis_and_temp_files/05_genome_annotation/SL0000003_repeatmodeler.out"
+sbatch --mem=40G -c 20 --partition="tsl-long" --wrap="source package 85eb6fb0-3eb7-43b2-9659-49e0142481fc; RepeatModeler -database analysis_and_temp_files/02_genome_annotation/SL0000003_repeatdb -pa 20 -LTRStruct >& analysis_and_temp_files/02_genome_annotation/SL0000003_repeatmodeler.out"
 ```
 * Repeat mask
 ```{r,eval=F}
 source package /tsl/software/testing/bin/repeatmasker-4.0.9 
-RepeatMasker -pa 5 -a -s -gff -xsmall -lib analysis_and_temp_files/05_genome_annotation/SL0000003_repeatdb-families.fa data/SL0000003.fasta &> analysis_and_temp_files/05_genome_annotation/repeatmasker_SL0000003.run.out
+RepeatMasker -pa 5 -a -s -gff -xsmall -lib analysis_and_temp_files/02_genome_annotation/SL0000003_repeatdb-families.fa data/SL0000003.fasta &> analysis_and_temp_files/02_genome_annotation/repeatmasker_SL0000003.run.out
 ```
 ```
 ==================================================
@@ -1260,15 +1262,15 @@ singularity run ../singularity/funannotate.sif funannotate sort -i data/SL000000
 ```{r,eval=F}
 source genemark_ES_ET_EP-4.62_CBG 
 
-mkdir -p analysis_and_temp_files/05_genome_annotation/SL0000003_genemark
-cd analysis_and_temp_files/05_genome_annotation/SL0000003_genemark
+mkdir -p analysis_and_temp_files/02_genome_annotation/SL0000003_genemark
+cd analysis_and_temp_files/02_genome_annotation/SL0000003_genemark
 gmes_petap.pl --ES --max_intron 3000 --soft_mask 2000 --cores 20 --sequence ../../../data/SL0000003.fasta.masked.renamed
 cd ../../../
 ```
 
 * Funannotate predict. Since for this genome,we don't have RNA data, I supplied proteins from GTX0536 as additional protein evidence on top of uniprot
 ```{r,eval =F}
-sbatch --mem=50G -c 20 --partition="tsl-long" --wrap="singularity run ../singularity/funannotate.sif funannotate predict -i data/SL0000003.fasta.masked.renamed -o analysis_and_temp_files/05_genome_annotation/SL0000003_pred --species 'Trebouxia SL0000003' --cpus 20 --strain SL0000003 --optimize_augustus --genemark_gtf analysis_and_temp_files/05_genome_annotation/SL0000003_genemark/genemark.gtf --organism other --busco_db chlorophyta_odb10 -d /tsl/scratch/gol22pin/singularity/funannotate2/opt/databases --busco_seed_species chlamydomonas --weights genemark:1 --protein_evidence ../singularity/funannotate2/opt/databases/uniprot_sprot.fasta analysis_and_temp_files/05_genome_annotation/GTX0536_pred/predict_results/Trebouxia_sp._A48.proteins.fa"
+sbatch --mem=50G -c 20 --partition="tsl-long" --wrap="singularity run ../singularity/funannotate.sif funannotate predict -i data/SL0000003.fasta.masked.renamed -o analysis_and_temp_files/02_genome_annotation/SL0000003_pred --species 'Trebouxia SL0000003' --cpus 20 --strain SL0000003 --optimize_augustus --genemark_gtf analysis_and_temp_files/02_genome_annotation/SL0000003_genemark/genemark.gtf --organism other --busco_db chlorophyta_odb10 -d /tsl/scratch/gol22pin/singularity/funannotate2/opt/databases --busco_seed_species chlamydomonas --weights genemark:1 --protein_evidence ../singularity/funannotate2/opt/databases/uniprot_sprot.fasta analysis_and_temp_files/02_genome_annotation/GTX0536_pred/predict_results/Trebouxia_sp._A48.proteins.fa"
 
 [Apr 07 12:08 PM]: 10,278 total gene models from EVM
 [Apr 07 12:08 PM]: Generating protein fasta files from 10,278 EVM models
@@ -1292,18 +1294,18 @@ source package /tsl/software/testing/bin/java-11.0.7
 source package 0f2514dd-8288-47ed-96cd-80905f9b0644
 source package /tsl/software/production/bin/perl-5.16.2 
 
-mkdir -p analysis_and_temp_files/05_genome_annotation/SL0000003_pred/interpro
+mkdir -p analysis_and_temp_files/02_genome_annotation/SL0000003_pred/interpro
 rm -rf temp
 
 #tried newer version InterProScan-5.52-86.0
 #CDD-3.18,Coils-2.2.1,Gene3D-4.3.0,Hamap-2020_05,MobiDBLite-2.0,PANTHER-15.0,Pfam-33.1,PIRSF-3.10,PIRSR-2021_02,PRINTS-42.0,ProSitePatterns-2021_01,ProSiteProfiles-2021_01,SFLD-4,SMART-7.1,SUPERFAMILY-1.75,TIGRFAM-15.0
 source package 0dd71e29-8eb1-4512-b37c-42f7158718f4 
-interproscan.sh -i analysis_and_temp_files/05_genome_annotation/SL0000003_pred/predict_results/Trebouxia_SL0000003_SL0000003.proteins.fa -d analysis_and_temp_files/05_genome_annotation/SL0000003_pred/interpro -dp -f XML -goterms -dra -cpu 20
+interproscan.sh -i analysis_and_temp_files/02_genome_annotation/SL0000003_pred/predict_results/Trebouxia_SL0000003_SL0000003.proteins.fa -d analysis_and_temp_files/02_genome_annotation/SL0000003_pred/interpro -dp -f XML -goterms -dra -cpu 20
 ```
 
 * Funannotate annotate
 ```{r,eval =F}
-singularity run ../singularity/funannotate.sif funannotate annotate -i analysis_and_temp_files/05_genome_annotation/SL0000003_pred/ --iprscan analysis_and_temp_files/05_genome_annotation/SL0000003_pred/interpro/Trebouxia_SL0000003_SL0000003.proteins.fa.xml --cpus 20  --sbt analysis_and_temp_files/05_genome_annotation/template.sbt --busco_db /tsl/data/busco_lineages/chlorophyta_odb10  --rename SL003
+singularity run ../singularity/funannotate.sif funannotate annotate -i analysis_and_temp_files/02_genome_annotation/SL0000003_pred/ --iprscan analysis_and_temp_files/02_genome_annotation/SL0000003_pred/interpro/Trebouxia_SL0000003_SL0000003.proteins.fa.xml --cpus 20  --sbt analysis_and_temp_files/02_genome_annotation/template.sbt --busco_db /tsl/data/busco_lineages/chlorophyta_odb10  --rename SL003
 ```
 ```
 [Apr 08 09:36 AM]: Annotation consists of: 10,061 gene models
@@ -1331,27 +1333,27 @@ singularity run ../singularity/funannotate.sif funannotate annotate -i analysis_
 
 ## 6. Funannotate compare
 ```{r,eval =F}
-singularity run ../singularity/funannotate.sif funannotate compare -i analysis_and_temp_files/05_genome_annotation/GTX0536_pred2/ analysis_and_temp_files/05_genome_annotation/SL0000003_pred/ -o funannotate_compare --cpus 20 -d /opt/databases
+singularity run ../singularity/funannotate.sif funannotate compare -i analysis_and_temp_files/02_genome_annotation/GTX0536_pred2/ analysis_and_temp_files/02_genome_annotation/SL0000003_pred/ -o funannotate_compare --cpus 20 -d /opt/databases
 
-mv funannotate_compare analysis_and_temp_files/05_genome_annotation/
+mv funannotate_compare analysis_and_temp_files/02_genome_annotation/
 ```
 
 ## 7. Identifying missing meiosis gene
 * Blasted HOP1 from Coccomyxa (XP_005651810 )
 ```{r,eval =F}
-blastp -query analysis_and_temp_files/05_genome_annotation/hop1_genbank.fa -subject analysis_and_temp_files/05_genome_annotation/GTX0536_pred2/annotate_results/Trebouxia_sp._A48.proteins.fa -evalue 1e-5 -outfmt 6
+blastp -query analysis_and_temp_files/02_genome_annotation/hop1_genbank.fa -subject analysis_and_temp_files/02_genome_annotation/GTX0536_pred2/annotate_results/Trebouxia_sp._A48.proteins.fa -evalue 1e-5 -outfmt 6
 XP_005651810.1  GTX0536PRED_002087-T1   41.667  180     103     2       24      201     1       180     2.65e-46        165
 ```
 
 * HOP2 (XP_005643862.1)
 ```{r,eval =F}
-blastp -query analysis_and_temp_files/05_genome_annotation/hop2_genbank.fa -subject analysis_and_temp_files/05_genome_annotation/GTX0536_pred2/annotate_results/Trebouxia_sp._A48.proteins.fa -evalue 1e-5 -outfmt 6
+blastp -query analysis_and_temp_files/02_genome_annotation/hop2_genbank.fa -subject analysis_and_temp_files/02_genome_annotation/GTX0536_pred2/annotate_results/Trebouxia_sp._A48.proteins.fa -evalue 1e-5 -outfmt 6
 XP_005643862.1  GTX0536PRED_004154-T1   43.458  214     92      2       4       188     2       215     5.86e-53        167
 ```
 
 * MER3 (XP_005651102)
 ```{r,eval =F}
-blastp -query analysis_and_temp_files/05_genome_annotation/mer3_genbank.fa -subject analysis_and_temp_files/05_genome_annotation/GTX0536_pred2/annotate_results/Trebouxia_sp._A48.proteins.fa -evalue 1e-5 -outfmt 6
+blastp -query analysis_and_temp_files/02_genome_annotation/mer3_genbank.fa -subject analysis_and_temp_files/02_genome_annotation/GTX0536_pred2/annotate_results/Trebouxia_sp._A48.proteins.fa -evalue 1e-5 -outfmt 6
 
 XP_005651102.1  GTX0536PRED_001571-T1   55.401  574     239     3       171     731     1       570     0.0     641
 
@@ -1363,7 +1365,7 @@ XP_005651102.1  GTX0536PRED_001571-T1   55.401  574     239     3       171     
   * got hits, all low quality, all have IPR003035 RWP-RK domain
   * probably, not the right thing, as all hits cover only a small part of the protein (40-51 aa aout of 163)
 ```{r,eval =F}
-blastp -query analysis_and_temp_files/05_genome_annotation/mid1_genbank.fa -subject analysis_and_temp_files/05_genome_annotation/GTX0536_pred2/annotate_results/Trebouxia_sp._A48.proteins.fa -evalue 1e-5 -outfmt 6
+blastp -query analysis_and_temp_files/02_genome_annotation/mid1_genbank.fa -subject analysis_and_temp_files/02_genome_annotation/GTX0536_pred2/annotate_results/Trebouxia_sp._A48.proteins.fa -evalue 1e-5 -outfmt 6
 GLI62876.1      GTX0536PRED_009992-T1   48.889  45      23      0       114     158     389     433     8.35e-08        49.7
 GLI62876.1      GTX0536PRED_003745-T1   51.220  41      20      0       119     159     145     185     1.19e-07        48.9
 GLI62876.1      GTX0536PRED_000062-T1   45.000  40      22      0       119     158     322     361     1.86e-06        45.8
@@ -1374,7 +1376,7 @@ GLI62876.1      GTX0536PRED_001901-T1   42.500  40      23      0       119     
 * For MT+ specific FUS1, used Chlamydomonas reinhardtii (AAC49416.1)
   * no hits
 ```{r,eval =F}
-blastp -query analysis_and_temp_files/05_genome_annotation/fus1_genbank.fa -subject analysis_and_temp_files/05_genome_annotation/GTX0536_pred2/annotate_results/Trebouxia_sp._A48.proteins.fa -evalue 1e-5 -outfmt 6
+blastp -query analysis_and_temp_files/02_genome_annotation/fus1_genbank.fa -subject analysis_and_temp_files/02_genome_annotation/GTX0536_pred2/annotate_results/Trebouxia_sp._A48.proteins.fa -evalue 1e-5 -outfmt 6
 ```
 
 
