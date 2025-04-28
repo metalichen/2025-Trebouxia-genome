@@ -474,7 +474,7 @@ busco1$x<-hsize
 
 b1<-ggplot(busco1,aes(y=V2,fill=type,x=hsize))+geom_col()+
   coord_curvedpolar(theta = "y")+  xlim(c(0.2, hsize + 0.5))+
-  scale_fill_manual(values=c("Complete (95.3%)"="#60ba30","Duplicated (0.5%)"="#1f5900","Fragmented (0.7%)"="#ccf2b8","Missing (3.5%)"="white"))+
+  scale_fill_manual(values=c("Complete (95.9%)"="#60ba30","Duplicated (0.6%)"="#1f5900","Fragmented (0.7%)"="#ccf2b8","Missing (2.8%)"="white"))+
   theme_void()+theme(legend.title = element_blank(),legend.text = element_text(size=9),
                      legend.key=element_rect(colour="#969696"))+
   ggtitle("GTX0536")
@@ -1379,5 +1379,24 @@ GLI62876.1      GTX0536PRED_001901-T1   42.500  40      23      0       119     
 blastp -query analysis_and_temp_files/02_genome_annotation/fus1_genbank.fa -subject analysis_and_temp_files/02_genome_annotation/GTX0536_pred2/annotate_results/Trebouxia_sp._A48.proteins.fa -evalue 1e-5 -outfmt 6
 ```
 
+## 8. Identifying CCM genes
+* Through InterPro annotation found bestrophin-like channels and carbonic anhydrases, but other transporters are missing
+* Used genes from [this paper](https://watermark.silverchair.com/koad157.pdf?token=AQECAHi208BE49Ooan9kkhW_Ercy7Dm3ZL_9Cf3qfKAc485ysgAAA1MwggNPBgkqhkiG9w0BBwagggNAMIIDPAIBADCCAzUGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMMGBuZTgwPjb2kznYAgEQgIIDBrsdaG9mWOCmkO2gGxPVJr7MdbTB8JwpRYK6Nbd30GtnGBvtMGlcID-jmcVjcltUkkrwwfYvkmSI4V8M9mw1kVCyP1C01-I8IVk1xRse9XdUuyMx-utDceGBWjHuuBz4juQnykFDFfjtqLvBowLeDPi-AiX7pGdfaASOCUoctyyKWk9kounX-w9ISdNXWS7cF_3Fd149fVhVX9Z5TO082H1qJDAVjNBJsW_n1WgLQPGHAtwqTqlZaDPPddLVdhQXY-NxAf8DLEREsVkylFTz2C789OwHfZYOKnJzQNpmh6DL-Zjw_wk4g1lLGzByE3e1sDMrDBZyeBuv69EmFvNlMktnjTisdgUGroBNdQIDvIFcpU-4wznxD2-FhfMsv1PxGVnXfWlHZQ8oE9wP_5RXTVEeR0f2tdThDU1HRpQlYSRRvulEyo9vWYormxW6lT1sNsbfH0etdJz7HNrggOtg9cF5Us95J0jOkGVbALCy6_s89NOdBCHPswwsHkDse03oMCZ9a-gx5B4ipFxjqjKt0clXzHr5SH9jTD_kL7DLce8bA349Pdq6YTjIGPh_fPI3j4-2xxBpFCMUKT7Kd77o6NEnZ0VJi_d9f3PcsyDF_t3hagZDE4xbG__VYEmQSMJJm_v6cuN7lHHkhxx_B8ucOvcXVBUD1oUFsd8who_1rlw_zqxQrp46QhouSlZm3TLTRqhrPCRvT-6-bcQVfsFkMOMAmPwlOk3kQ5GD8JNPl2r9Nt_zEnXDfy9_bUSXw2PvYiOp8Spg4qU7M7o58BXYT4HXNc_U5rF7m6lFjit0oVgZO16GkUzYbnegS5TIMhUZBYYATdGv829IqFxJd6HnJUIr5DoYBBXz7dwp6Us114PxLU-BP5sPBi55eiX95k0cBvsg0q2CQZRdvvJmJm7PGL8myUFJON9DGTcMR8kjOYDuz6iobw0WqFwCvDBi-KfumFOkTGzyAW0uKgWdP4-iWzfiN7CQ0-KLHq2HlCwgA-5lj8Q8iadm3-knlPitug-u8fntN75pGw) and blasted them against the proteome
+```
+ ~/Documents/software/ncbi-blast-2.16.0+/bin/blastp -query analysis_and_temp_files/02_genome_annotation/pyrenoid.fa -subject  analysis_and_temp_files/02_genome_annotation/GTX0536_pred2/Trebouxia_sp._A48.proteins.fa -evalue 1e-50 -outfmt 6
+Cre02.g097800.t1.1	GTX0536PRED_010863-T1	28.602	1381	831	33	1	1311	226	1521	3.14e-153	505
+Cre02.g097800.t1.1	GTX0536PRED_010863-T2	30.828	918	541	20	441	1311	38	908	8.87e-128	423
+Cre02.g097800.t1.1	GTX0536PRED_001686-T1	33.115	610	367	11	699	1300	1101	1677	5.46e-88	315
+Cre02.g097800.t1.1	GTX0536PRED_010233-T1	30.146	617	405	9	15	625	85	681	5.14e-84	301
+Cre02.g097800.t1.1	GTX0536PRED_010233-T1	31.631	607	357	13	703	1296	918	1479	2.66e-82	296
+Cre02.g097800.t1.1	GTX0536PRED_009003-T1	32.131	582	358	8	725	1300	980	1530	3.93e-83	299
+Cre02.g097800.t1.1	GTX0536PRED_009003-T1	32.532	541	347	7	166	689	191	730	1.16e-75	276
+Cre06.g309000.t1.2	GTX0536PRED_004603-T1	47.080	274	142	2	59	329	159	432	1.18e-77	243
+Cre06.g309000.t1.2	GTX0536PRED_009997-T1	41.543	337	187	5	2	336	19	347	2.27e-73	229
+Cre06.g309000.t1.2	GTX0536PRED_004970-T1	34.859	284	177	3	57	332	9	292	3.68e-53	177
 
+```
+* Cre02.g097800 is transporter high light activated 3 (HLA3). All 4 hits are ABC transporters, which makes sense. GTX0536PRED_010863 is the best hit
+* Cre06.g309000 is LCIA, .The proteins shown here as hits have  Formate/nitrite transporter / Aquaporin-like annotations, which makes sense. GTX0536PRED_004603-T1 is best hit
+* No other hits were found!
 
