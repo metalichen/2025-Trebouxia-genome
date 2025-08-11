@@ -1,0 +1,13 @@
+{
+	"n_targets": 14561,
+	"n_bootstraps": 100,
+	"n_processed": 19927523,
+	"n_pseudoaligned": 16449205,
+	"n_unique": 14811852,
+	"p_pseudoaligned": 82.5,
+	"p_unique": 74.3,
+	"kallisto_version": "0.44.0",
+	"index_version": 10,
+	"start_time": "Mon Aug  4 12:42:43 2025",
+	"call": "/opt/software/conda_env/bin/kallisto quant --pseudobam -i analysis_and_temp_files/09_transcriptomics/Trebouxia_sp._A48.idx -t 20 -b 100 -o analysis_and_temp_files/09_transcriptomics/GTX0547_kallisto analysis_and_temp_files/09_transcriptomics/sortmerna/GTX0547_trimmed.bbmapmerged.non_rRNA.1.fq.gz analysis_and_temp_files/09_transcriptomics/sortmerna/GTX0547_trimmed.bbmapmerged.non_rRNA.2.fq.gz"
+}

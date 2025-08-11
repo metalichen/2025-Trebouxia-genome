@@ -1,0 +1,12 @@
+sample	path	type
+GTX0547	../analysis_and_temp_files/09_transcriptomics/GTX0547_kallisto	culture
+GTX0548	../analysis_and_temp_files/09_transcriptomics/GTX0548_kallisto	culture
+GTX0549	../analysis_and_temp_files/09_transcriptomics/GTX0549_kallisto	culture
+XBC2	../analysis_and_temp_files/09_transcriptomics/XBC2_kallisto	thallus
+XSE2	../analysis_and_temp_files/09_transcriptomics/XSE2_kallisto	thallus
+XBE1	../analysis_and_temp_files/09_transcriptomics/XBE1_kallisto	thallus
+XSC2	../analysis_and_temp_files/09_transcriptomics/XSC2_kallisto	thallus
+XBC1	../analysis_and_temp_files/09_transcriptomics/XBC1_kallisto	thallus
+XTC2	../analysis_and_temp_files/09_transcriptomics/XTC2_kallisto	thallus
+XTE2	../analysis_and_temp_files/09_transcriptomics/XTE2_kallisto	thallus
+XBE2	../analysis_and_temp_files/09_transcriptomics/XBE2_kallisto	thallus

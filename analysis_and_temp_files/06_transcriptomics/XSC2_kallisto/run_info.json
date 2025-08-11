@@ -1,0 +1,13 @@
+{
+	"n_targets": 14561,
+	"n_bootstraps": 100,
+	"n_processed": 242407,
+	"n_pseudoaligned": 146599,
+	"n_unique": 135288,
+	"p_pseudoaligned": 60.5,
+	"p_unique": 55.8,
+	"kallisto_version": "0.44.0",
+	"index_version": 10,
+	"start_time": "Fri Jul  4 17:48:10 2025",
+	"call": "/opt/software/conda_env/bin/kallisto quant --pseudobam -i analysis_and_temp_files/09_transcriptomics/Trebouxia_sp._A48.idx -t 20 -b 100 -o analysis_and_temp_files/09_transcriptomics/XSC2_kallisto analysis_and_temp_files/09_transcriptomics/XSC2_algal.1.fastq.gz analysis_and_temp_files/09_transcriptomics/XSC2_algal.2.fastq.gz"
+}

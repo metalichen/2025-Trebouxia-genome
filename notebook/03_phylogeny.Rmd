@@ -25,7 +25,7 @@ library(tidyverse)
 ```{r,eval=F}
 source package /tsl/software/testing/bin/blast+-2.9.0  
 blastn \
- -subject analysis_and_temp_files/02_genome_annotation/GTX0536_nuclear_final_sort.fasta \
+ -subject analysis_and_temp_files/05_genome_annotation/GTX0536_nuclear_final_sort.fasta \
  -query analysis_and_temp_files/03_phylogeny/its_query.fasta \
  -outfmt 6 \
  -evalue 1e-25 \
@@ -42,7 +42,7 @@ blastn \
 ```{r,eval=F}
 source package aeee87c4-1923-4732-aca2-f2aff23580cc
 
-samtools faidx analysis_and_temp_files/02_genome_annotation/GTX0536_nuclear_final_sort.fasta GTX0536_15:2399373-2400063 > analysis_and_temp_files/03_phylogeny/GTX0536_its.fa
+samtools faidx analysis_and_temp_files/05_genome_annotation/GTX0536_nuclear_final_sort.fasta GTX0536_15:2399373-2400063 > analysis_and_temp_files/03_phylogeny/GTX0536_its.fa
 
 samtools faidx data/SL0000003.fasta OZ234921.1:1387378-1387879 -i > analysis_and_temp_files/03_phylogeny/SL0000003_its.fa
 ```
@@ -106,12 +106,12 @@ cp ../01_Xanthoria_metagenomics/data/ref_genomes/* analysis_and_temp_files/03_ph
 
 * Added the proteome from our two Trebouxia genomes
 ```{r,eval=F}
-cp analysis_and_temp_files/02_genome_annotation/SL0000003_pred/annotate_results/Trebouxia_SL0000003_SL0000003.proteins.fa analysis_and_temp_files/03_phylogeny/orthofinder_input/
+cp analysis_and_temp_files/05_genome_annotation/SL0000003_pred/annotate_results/Trebouxia_SL0000003_SL0000003.proteins.fa analysis_and_temp_files/03_phylogeny/orthofinder_input/
 
-cp analysis_and_temp_files/02_genome_annotation/GTX0536_pred2/update_results/Trebouxia_sp._A48.proteins.fa analysis_and_temp_files/03_phylogeny/orthofinder_input/
+cp analysis_and_temp_files/05_genome_annotation/GTX0536_pred2/update_results/Trebouxia_sp._A48.proteins.fa analysis_and_temp_files/03_phylogeny/orthofinder_input/
 ```
 
-#### Orthofinder
+#### Orthofinder: inital run
 ```{r,eval=F}
 source package fc91613f-1095-4f67-b5aa-b86d702b36da
 /software/fc91613f-1095-4f67-b5aa-b86d702b36da/bin/orthofinder  -f analysis_and_temp_files/03_phylogeny/orthofinder_input/
@@ -121,6 +121,34 @@ OrthoFinder assigned 288049 genes (90.3% of total) to 19612 orthogroups. Fifty p
 
 333 trees had all species present and will be used by STAG to infer the species tree
 ```
+
+#### Re-ranning Orthofinder with the addition of T. lynnae
+* Will add to our phylogenomic additional genome of Trebouxia lynnae 
+* NCBI contains 3 assemblies, but no genome annotation is available
+* Ran BUSCO on the genome JAVLRR01, which is the only one published
+```{r,eval=F}
+mkdir analysis_and_temp_files/03_phylogeny/Treblynn_busco
+source package ca890cd7-f81d-4c22-9f4a-5b40ab671c79
+source package 85f2de80-4bd0-48dc-9303-bba1a19206e4
+export AUGUSTUS_CONFIG_PATH=../02_long_read_assemblies/analysis_and_temp_files/02_binning/tmp_augustus/config
+busco -i data/ref_genomes/GCA_042018865.1_Tlynv2_genomic.fna  -o Treblynn --out_path analysis_and_temp_files/03_phylogeny/Treblynn_busco  -m  genome -l /tsl/data/busco_lineages/chlorophyta_odb10 --offline -f -c 20
+```
+* Saved all fastas into a single file
+```{r,eval=F}
+cat analysis_and_temp_files/03_phylogeny/Treblynn_busco/Treblynn/run_chlorophyta_odb10/busco_sequences/*/*.faa > analysis_and_temp_files/03_phylogeny/Treblynn_busco/Treblynn_busco.faa
+```
+
+* Re-ran Orthofinder with the new genome
+```{r,eval=F}
+source package fc91613f-1095-4f67-b5aa-b86d702b36da
+/software/fc91613f-1095-4f67-b5aa-b86d702b36da/bin/orthofinder -f analysis_and_temp_files/03_phylogeny/Treblynn_busco -b analysis_and_temp_files/03_phylogeny/orthofinder_input/OrthoFinder/Results_Apr13/WorkingDirectory
+```
+```
+OrthoFinder assigned 289558 genes (90.4% of total) to 19599 orthogroups. Fifty percent of all genes were in orthogroups with 25 or more genes (G50 was 25) and were contained in the largest 4068 orthogroups (O50 was 4068). There were 328 orthogroups with all species present and 36 of these consisted entirely of single-copy genes.
+
+328 trees had all species present and will be used by STAG to infer the species tree
+```
+
 #### Visualize
 ```{r,fig.height=5,fig.width=8,message=FALSE,warning=FALSE}
 library(ape)
@@ -143,6 +171,7 @@ colnames(ortho)[colnames(ortho)=="Trebouxia_C0005" ] <- "Trebouxia sp. C0005"
 colnames(ortho)[colnames(ortho)=="Trebouxia_C0006" ] <- "Trebouxia sp. C0006"
 colnames(ortho)[colnames(ortho)=="Trebouxia_C0009" ] <- "Trebouxia sp. C0009"
 colnames(ortho)[colnames(ortho)=="TrebA12_1_GeneCatalog_proteins_20200804.aa" ] <- "Trebouxia sp. A1-2"
+colnames(ortho)[colnames(ortho)=="Treblynn_busco" ] <- "Trebouxia lynnae"
 
 ##plot
 selected_species <- colnames(ortho)[c(21,20,18,19,17,16,15,14)] 
@@ -209,8 +238,6 @@ only_two <- ortho_genes %>% select(Orthogroup,TrebA12_1_GeneCatalog_proteins_202
 write.table(only_two, "../results/OG_only_two_genomes.txt",col.names = T, row.names = F, quote = F,sep="\t")
 write.table(only_our, "../results/OG_only_our_genome.txt",col.names = T, row.names = F, quote = F,sep="\t")
 ```
-
-
 
 
 

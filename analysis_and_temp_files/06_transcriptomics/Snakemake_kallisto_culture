@@ -1,0 +1,81 @@
+#Snakefile for mapping transcriptomic data to the combine set of transcripts
+
+import pandas as pd
+import re
+
+
+SAMPLES=["GTX0547","GTX0548","GTX0549"]
+
+rule all:
+    input:
+    	"analysis_and_temp_files/09_transcriptomics/kallisto_palign_report_culture.txt",
+    	"analysis_and_temp_files/09_transcriptomics/kallisto_report_culture.txt"
+
+        
+rule kallisto:
+    input: 
+    	fq1="analysis_and_temp_files/09_transcriptomics/sortmerna/{sample}_trimmed.bbmapmerged.non_rRNA.1.fq.gz",
+    	fq2="analysis_and_temp_files/09_transcriptomics/sortmerna/{sample}_trimmed.bbmapmerged.non_rRNA.2.fq.gz"
+    output: 
+        abund="analysis_and_temp_files/09_transcriptomics/{sample}_kallisto/abundance.tsv",
+        report="analysis_and_temp_files/09_transcriptomics/{sample}_kallisto/run_info.json"
+    params:
+        mem = "30G",
+        queue="tsl-short"
+    threads: 20
+    shell: "bash code/kallisto.sh analysis_and_temp_files/09_transcriptomics/Trebouxia_sp._A48.idx 20 100 {input.fq1} {input.fq2} {output.abund}"    
+        
+        
+rule kallisto_palign_extract:
+    '''creates a file listing p_unique stat from each kallisto report'''
+    input:
+        i="analysis_and_temp_files/09_transcriptomics/{sample}_kallisto/run_info.json"
+    output: o=temp("analysis_and_temp_files/09_transcriptomics/{sample}_kallisto/p_unique.txt")
+    params:
+        mem = "1G",
+        queue="tsl-short"   
+    threads: 1
+    run:
+        with open (input.i,'r') as r:
+            data = json.loads(r.read())
+            count=str(data['p_unique'])
+            result=str(wildcards.sample+'\t'+count+'\n')
+        with open (output.o,'w') as out: out.write(result)
+    
+rule kallisto_palign_report:
+    '''creates a single report file of p_unique stat from each kallisto report'''
+    input: 
+        expand("analysis_and_temp_files/09_transcriptomics/{sample}_kallisto/p_unique.txt",sample=SAMPLES)
+    output:	"analysis_and_temp_files/09_transcriptomics/kallisto_palign_report_culture.txt"
+    params:
+        mem = "1G",
+        queue="tsl-short"   
+    threads: 1
+    shell:
+        "cat {input} > {output}"
+
+
+rule add_sample_id:
+    '''adds a column to the kallisto report with a sample id'''
+    input: "analysis_and_temp_files/09_transcriptomics/{sample}_kallisto/abundance.tsv"
+    output: "analysis_and_temp_files/09_transcriptomics/{sample}_kallisto/abundance_add_id.tsv"
+    params:
+        mem = "1G",
+        queue="tsl-short"   
+    threads: 1
+    shell:
+        """awk 'BEGIN {{ FS = OFS = "\t" }} {{ $(NF+1) = "{wildcards.sample}"; print $0 }}' {input} | awk 'NR!=1 {{print}}' > {output}"""
+
+rule combine_reports:
+    input: 
+        expand("analysis_and_temp_files/09_transcriptomics/{sample}_kallisto/abundance_add_id.tsv",sample=SAMPLES)
+    output:	"analysis_and_temp_files/09_transcriptomics/kallisto_report_culture.txt"
+    params:
+        mem = "1G",
+        queue="tsl-short"   
+    threads: 1
+    shell:
+        "cat {input} > {output}"
+       
+
+        
